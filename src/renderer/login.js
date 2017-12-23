@@ -68,18 +68,18 @@ export default {
       let Electron = require('electron')
       let BrowserWindow = Electron.remote.BrowserWindow
       let loginWindow = new BrowserWindow({ width: 800, height: 600 })
+      let self = this
 
       Electron.remote.session.defaultSession.clearStorageData(function () { // ストレージデータを削除
         loginWindow.loadURL(url)
         loginWindow.show()
 
-        loginWindow.webContents.on('will-navigate', (event, url) => {
-          loginWindow.close()
+        loginWindow.webContents.on('did-navigate', (event, url) => {
           console.log(url)
           let matched = url.match(/\/authorize\/(.*)/)
           console.log(matched)
           if (matched) {
-            let self = this
+            loginWindow.close()
             Mastodon.getAccessToken(clientId, clientSecret, matched[1], baseUrl)
               .catch(err => console.error(err))
               .then(accessToken => {
@@ -92,39 +92,42 @@ export default {
                 Vue.prototype.$client = MstdnClient
                 MstdnClient.get('accounts/verify_credentials', function (err, data, res) {
                   if (!err) {
-                    console.log(data)
-                    console.log(res)
-                    var id = data.id
-                    let db = self.$db
-                    db.find({ url: baseUrl, id: id }, (err, data)).exec(function (err, data) {
-                      console.log('register')
-                      if (err) {
-                        console.log(err)
-                        return
-                      }
-                      if (data.length === 0) {
-                        const doc = {
-                          url: baseUrl,
-                          account_id: id,
-                          type: 'account',
-                          is_active: true
-                        }
-
-                        db.insert(doc, function (err) {
-                          if (err) {
-                            console.log(err.stack)
-                          }
-                          db.find({type: 'account'}, (_, docs) => {
-                            console.dir(docs)
-                          })
-                        })
-                      }
-                    })
+                    self.saveUserInfo(baseUrl, data)
                   }
                 })
               })
           }
         })
+      })
+    },
+    saveUserInfo (baseUrl, data) {
+      console.log(data)
+      var id = data.id
+      let db = this.$db
+
+      db.find({ url: baseUrl, account_id: id, type: 'account' }).exec(function (err, data) {
+        console.log('register')
+        if (err) {
+          console.log(err)
+          return
+        }
+        if (data.length === 0) {
+          const doc = {
+            url: baseUrl,
+            account_id: id,
+            type: 'account',
+            is_active: true
+          }
+
+          db.insert(doc, function (err) {
+            if (err) {
+              console.log(err.stack)
+            }
+            db.find({type: 'account'}, (_, docs) => {
+              console.dir(docs)
+            })
+          })
+        }
       })
     }
   }
