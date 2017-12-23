@@ -2,7 +2,7 @@ import Mastodon from '../../node_modules/mastodon-api/lib/mastodon'
 
 export default {
   methods: {
-    createApp (baseUrl) {
+    login (baseUrl) {
       if (this.$db.find({ baseUrl: baseUrl })) {
         console.log('exist!')
         return Mastodon.getAuthorizationUrl(this.$db['clientId'], this.$db['clientSecret'], this.$db['baseUrl'])
