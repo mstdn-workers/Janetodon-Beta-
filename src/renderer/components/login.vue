@@ -2,7 +2,8 @@
   <div>
     <div class="main">
       <h1>ログインしたいインスタンスを入力してください</h1>
-      <input id="instance" type="text" placeholder="https://mstdn-workers.com"> </input>
+      <input id="instance" type="text" placeholder="https://mstdn-workers.com" v-model="baseUrl"> </input>
+      <button @click="createAppAndNext">次へ</button>
     </div>
   </div>
 </template>
@@ -11,9 +12,15 @@
 import login from '@/login'
 
 export default {
+  mixins: [login],
   data () {
     return {
-      name: 'login'
+      baseUrl: ''
+    }
+  },
+  methods: {
+    createAppAndNext () {
+      this.createApp(this.baseUrl)
     }
   },
   name: 'login'
