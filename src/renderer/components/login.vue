@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import login from '@/login'
+
 export default {
   data () {
     return {
