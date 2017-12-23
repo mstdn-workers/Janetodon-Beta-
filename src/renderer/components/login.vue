@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="main">
-      <h1>Hello electron-vue. My name is {{ name }}</h1>
-      <router-link to="login">ログイン</router-link>
+      <h1>ログインしたいインスタンスを入力してください</h1>
+      <input id="instance" type="text" placeholder="https://mstdn-workers.com"> </input>
     </div>
   </div>
 </template>
@@ -11,10 +11,10 @@
 export default {
   data () {
     return {
-      name: 'sa2taka'
+      name: 'login'
     }
   },
-  name: 'index'
+  name: 'login'
 }
 </script>
 
