@@ -12,7 +12,6 @@ export default {
     login (baseUrl) {
       let self = this
       this.$db.find({ url: baseUrl, type: 'instance' }).exec(function (err, data) {
-        console.log(data)
         if (err) {
           console.log(err)
           return
@@ -22,9 +21,7 @@ export default {
           self.createApp(baseUrl)
         } else {
           console.log('exist!')
-          console.log(data[0].clientId)
-          console.log(data[0].clientSecret)
-          console.log(data[0].url)
+
           Mastodon.getAuthorizationUrl(data[0].clientId, data[0].clientSecret, data[0].url, 'read write follow', 'urn:ietf:wg:oauth:2.0:oob')
             .then(url => {
               self.showLogin(url, data[0]['clientId'], data[0]['clientSecret'], baseUrl)
@@ -33,12 +30,9 @@ export default {
       })
     },
     createApp (baseUrl) {
-      console.log(baseUrl)
       Mastodon.createOAuthApp(baseUrl + '/api/v1/apps', 'Janetodon', 'read write follow')
         .catch(err => console.error(err))
         .then((res) => {
-          console.log(res)
-
           this.clientId = res.client_id
           this.clientSecret = res.client_secret
           const doc = {
@@ -64,7 +58,6 @@ export default {
         })
     },
     showLogin (url, clientId, clientSecret, baseUrl) {
-      console.log(url)
       let Electron = require('electron')
       let BrowserWindow = Electron.remote.BrowserWindow
       let loginWindow = new BrowserWindow({ width: 800, height: 600 })
@@ -75,9 +68,7 @@ export default {
         loginWindow.show()
 
         loginWindow.webContents.on('did-navigate', (event, url) => {
-          console.log(url)
           let matched = url.match(/\/authorize\/(.*)/)
-          console.log(matched)
           if (matched) {
             loginWindow.close()
             Mastodon.getAccessToken(clientId, clientSecret, matched[1], baseUrl)
@@ -101,7 +92,6 @@ export default {
       })
     },
     saveUserInfo (baseUrl, data) {
-      console.log(data)
       var id = data.id
       let db = this.$db
 
