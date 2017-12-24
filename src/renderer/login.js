@@ -81,6 +81,7 @@ export default {
       })
     },
     getAccessToken (clientId, clientSecret, code, baseUrl) {
+      let self = this
       Mastodon.getAccessToken(clientId, clientSecret, code, baseUrl)
         .catch(err => console.error(err))
         .then(accessToken => {
@@ -111,6 +112,8 @@ export default {
           return
         }
         if (data.length === 0) {
+          self.killActiveAccount()
+
           const doc = {
             url: baseUrl,
             account_id: id,
@@ -130,6 +133,14 @@ export default {
         }
 
         self.$router.push({ name: 'main-content' })
+      })
+    },
+    killActiveAccount () {
+      this.$db.update({ type: 'account', is_active: true }, { $set: { is_active: false } }, { multi: true }, function (err, numReplaced) {
+        if (err) {
+          console.log(err)
+        }
+        console.log(numReplaced)
       })
     }
   }
