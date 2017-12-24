@@ -12,7 +12,9 @@ import OneStatus from '@/components/one_status'
 export default {
   data () {
     return {
-      statuses: []
+      statuses: [],
+      since_id: 0,
+      listener: null
     }
   },
   components: {
@@ -20,17 +22,26 @@ export default {
   },
   mounted () {
     this._getTimeline()
+    this.listener = this.$client.stream('streaming/public/local')
+
+    let self = this
+    this.listener.on('message', msg => {
+      console.log(msg)
+      if (msg.event === 'update') {
+        self.statuses.unshift(msg.data)
+        self.$forceUpdate()
+      }
+    })
   },
   methods: {
     _getTimeline () {
       let self = this
-      // this.$client.get('timelines/public?local=true', function (err, data, res) {
-      this.$client.get('accounts/424/statuses?limit=80', function (err, data, res) {
+      this.$client.get('timelines/public?local=true', function (err, data, res) {
         if (err) {
           console.log(err)
           return
         }
-        self.statuses = data
+        self.statuses = self.statuses.concat(data)
       })
     }
   },
