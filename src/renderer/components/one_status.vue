@@ -12,16 +12,16 @@
     </div>
     <div class="status-content">
       <div v-if="!status.spoiler_text">
-        <span> {{ status.content.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
+        <span v-html="content"></span>
       </div>
       <div v-else>
-        <span> {{ status.spoiler_text.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
+        <span v-html="spoilerText"></span>
         <b-collapse :open="false">
           <button class="button is-small" slot="trigger" @click="isVisible = ~isVisible">
-            {{ isVisible ? "隠す" : " 続きを見る"}}
+            {{ isVisible ? "隠す" : " 続きを見る" }}
           </button>
           <div>
-            <span> {{ status.content.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
+            <span v-html="content"></span>
           </div>
         </b-collapse>
       </div>
@@ -43,8 +43,15 @@ export default {
   computed: {
     avatarStyle: function () {
       return "width): 48px; height: 48px;background-size: 48px 48px; background-image: url('" + this.status.account.avatar + "');"
+    },
+    spoilerText: function () {
+      return this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '')
+    },
+    content: function () {
+      return this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
     }
   },
+
   name: 'one-status'
 }
 </script>
