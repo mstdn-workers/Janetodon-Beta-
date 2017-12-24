@@ -2,18 +2,25 @@
   <div class="media" style="direction: ltr;">
     <div class="image-gallery" style="height: 110px;">
       <div v-for="one_media in formatedMedia" class="media-gallery-item" :style="one_media.style">
-        <a :href="one_media.media.url">
+        <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
           <img class="media-gallery-thumbnail" :src="one_media.media.preview_url" />
         </a>
       </div>
     </div>
+    <b-modal :active.sync="isImageModalActive">
+      <p class="image">
+        <img :src="imgSrc">
+      </p>
+    </b-modal>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    media: {}
+    media: {},
+    isImageModalActive: false,
+    imgSrc: ''
   },
   data () {
     return {
