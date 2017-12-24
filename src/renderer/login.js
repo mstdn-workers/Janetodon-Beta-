@@ -99,6 +99,8 @@ export default {
       var id = data.id
       let db = this.$db
 
+      let self = this
+
       db.find({ url: baseUrl, account_id: id, type: 'account' }).exec(function (err, data) {
         console.log('register')
         if (err) {
@@ -122,6 +124,8 @@ export default {
             })
           })
         }
+
+        self.$router.push({ name: 'main-content' })
       })
     }
   }
