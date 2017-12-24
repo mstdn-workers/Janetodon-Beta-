@@ -1,11 +1,21 @@
 <template>
   <div class="media" style="direction: ltr;">
-    <div class="image-gallery" style="height: 110px;">
+    <a v-if="!sensitive" class="button media-secret-button overlay" @click="sensitive=true">
+      <span class="icon is-small">
+        <b-icon icon="eye"></b-icon>
+      </span>
+    </a>
+    <div v-if="!sensitive" class="image-gallery" style="height: 110px;">
+
       <div v-for="one_media in formatedMedia" class="media-gallery-item" :style="one_media.style">
         <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
           <img class="media-gallery-thumbnail" :src="one_media.media.preview_url" />
         </a>
       </div>
+    </div>
+    <div class="media-secret" v-else @click="sensitive=false" style="height: 110px">
+      閲覧注意
+      クリックして表示
     </div>
     <b-modal :active.sync="isImageModalActive">
       <p class="image">
@@ -19,12 +29,13 @@
 export default {
   props: {
     media: {},
-    isImageModalActive: false,
-    imgSrc: ''
+    sensitive: {}
   },
   data () {
     return {
-      counter: 0
+      counter: 0,
+      isImageModalActive: false,
+      imgSrc: ''
     }
   },
   methods: {
@@ -92,6 +103,7 @@ html, body, main {
   font-weight: 400;
   overflow: hidden;
   white-space: pre-wrap;
+  position: relative;
 }
 .meida-gallery {
   -webkit-box-sizing: border-box;
@@ -108,5 +120,37 @@ html, body, main {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+}
+.media-secret {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+.media-secret-button {
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  line-height: 18px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.media-secret-button:hover {
+  color:  rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.overlay {
+  box-sizing: content-box;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  padding: 2px;
 }
 </style>
