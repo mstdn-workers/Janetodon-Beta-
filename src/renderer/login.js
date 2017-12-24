@@ -4,6 +4,7 @@ import Vue from 'vue'
 export default {
   data () {
     return {
+      error: '',
       clientId: '',
       clientSecret: ''
     }
@@ -31,7 +32,10 @@ export default {
     },
     createApp (baseUrl) {
       Mastodon.createOAuthApp(baseUrl + '/api/v1/apps', 'Janetodon', 'read write follow')
-        .catch(err => console.error(err))
+        .catch(err => {
+          console.error(err)
+          this.error = err.message
+        })
         .then((res) => {
           this.clientId = res.client_id
           this.clientSecret = res.client_secret

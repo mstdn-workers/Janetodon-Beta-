@@ -2,6 +2,7 @@
   <div>
     <div class="main">
       <h1>ログインしたいインスタンスを入力してください</h1>
+      <div class="error" v-if="error !== ''"> {{ error }} </div>
       <input id="instance" type="text" placeholder="https://mstdn-workers.com" v-model="baseUrl"> </input>
       <button @click="loginAndNext">次へ</button>
     </div>
