@@ -28,7 +28,7 @@ export default {
     this.listener.on('message', msg => {
       console.log(msg)
       if (msg.event === 'update') {
-        // self.statuses.unshift(msg.data)
+        self.statuses.unshift(msg.data)
         self.$forceUpdate()
       }
     })
