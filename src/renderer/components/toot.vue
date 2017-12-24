@@ -38,7 +38,7 @@ export default {
     toot () {
       let element = {
         status: this.mainText,
-        spoilerText: this.spoilerText,
+        spoiler_text: this.spoilerText,
         visibility: this.visibility
       }
       this.mainText = ''
