@@ -2,6 +2,11 @@
   <div>
     <div class="main">
       <b-field>
+        <b-switch v-model="isSpoilerActive">
+          警告文を表示する
+        </b-switch>
+      </b-field>
+      <b-field>
         <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
       </b-field>
       <b-field>
@@ -16,7 +21,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -25,7 +30,7 @@ export default {
     return {
       mainText: '',
       spoilerText: '',
-      isSpoilerActive: true,
+      isSpoilerActive: false,
       visibility: 'public'
     }
   },
