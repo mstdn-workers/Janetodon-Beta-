@@ -1,7 +1,8 @@
 <template>
   <div class="timeline">
-    <one-status :username="username" :displayName="displayName" :status="status"></one-status>
-    <one-status :username="username" :displayName="displayName" :spoilerText="spoilerText" :status="status"></one-status>
+    <div  v-for="status in statuses">
+      <one-status :status="status"></one-status>
+    </div>
   </div>
 </template>
 
@@ -11,14 +12,26 @@ import OneStatus from '@/components/one_status'
 export default {
   data () {
     return {
-      username: 'user',
-      displayName: 'と',
-      spoilerText: '警告',
-      status: 'This is a status'
+      statuses: []
     }
   },
   components: {
     OneStatus
+  },
+  mounted () {
+    this._getTimeline()
+  },
+  methods: {
+    _getTimeline () {
+      let self = this
+      this.$client.get('timelines/public?local=true', function (err, data, res) {
+        if (err) {
+          console.log(err)
+          return
+        }
+        self.statuses = data
+      })
+    }
   },
   name: 'timeline'
 }

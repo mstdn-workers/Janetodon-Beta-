@@ -2,26 +2,26 @@
   <div class="status">
     <div class="status-info">
       <div class="status-avatar">
-        <div class="account-avatar" style="width: 48px; height: 48px;background-size: 48px 48px; background-image: url('https://mstdn-workers.s3-ap-northeast-1.amazonaws.com/accounts/avatars/000/000/424/original/64e8750285871421301a27f070462c45.gif');">
+        <div class="account-avatar" :style="avatarStyle">
         </div>
       </div>
       <span class="display-name">
-        {{ displayName }}
-        <span class="display-username">{{ '@' + username }}</span>
+        {{ status.account.display_name }}
+        <span class="display-username">{{ '@' + status.account.acct }}</span>
       </span>
     </div>
     <div class="status-content">
-      <div v-if="!spoilerText">
-        <span> {{ status }}</span>
+      <div v-if="!status.spoiler_text">
+        <span> {{ status.content.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
       </div>
       <div v-else>
-        <span> {{ spoilerText }}</span>
+        <span> {{ status.spoiler_text.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
         <b-collapse :open="false">
           <button class="button is-small" slot="trigger" @click="isVisible = ~isVisible">
             {{ isVisible ? "隠す" : " 続きを見る"}}
           </button>
           <div>
-            <span> {{ status }}</span>
+            <span> {{ status.content.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '') }}</span>
           </div>
         </b-collapse>
       </div>
@@ -33,14 +33,16 @@
 
 export default {
   props: {
-    username: {required: true},
-    displayName: {required: true},
-    status: {required: true},
-    spoilerText: {type: String}
+    status: {}
   },
   data () {
     return {
       isVisible: false
+    }
+  },
+  computed: {
+    avatarStyle: function () {
+      return "width): 48px; height: 48px;background-size: 48px 48px; background-image: url('" + this.status.account.avatar + "');"
     }
   },
   name: 'one-status'
