@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="main">
-      hoge
+      <toot></toot>
     </div>
   </div>
 </template>
 
 <script>
+import Toot from '@/components/Toot'
+
 export default {
   data () {
     return {
@@ -17,6 +19,9 @@ export default {
     if (!this.$client) {
       this.$router.push({ name: 'index' })
     }
+  },
+  components: {
+    Toot
   },
   name: 'main-content'
 }
