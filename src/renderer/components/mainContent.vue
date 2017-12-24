@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div class="main">
-      <toot></toot>
-      <timeline></timeline>
-    </div>
+  <div class="main">
+    <toot></toot>
+    <timeline></timeline>
   </div>
 </template>
 

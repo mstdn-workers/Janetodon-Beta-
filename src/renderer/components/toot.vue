@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <div class="main">
-      <b-field>
-        <b-switch v-model="isSpoilerActive">
-          警告文を表示する
-        </b-switch>
-      </b-field>
-      <b-field>
-        <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
-      </b-field>
-      <b-field>
-        <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
-      </b-field>
-      <div class="right">
-        <div class="red" v-if="tootLength > 500">
-          {{ 500 - tootLength }} / 500
-        </div>
-        <div v-else>
-          {{ 500 - tootLength }} / 500
-        </div>
+  <div class="toot">
+    <b-field>
+      <b-switch v-model="isSpoilerActive">
+        警告文を表示する
+      </b-switch>
+    </b-field>
+    <b-field>
+      <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
+    </b-field>
+    <b-field>
+      <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
+    </b-field>
+    <div class="right">
+      <div class="red" v-if="tootLength > 500">
+        {{ 500 - tootLength }} / 500
+      </div>
+      <div v-else>
+        {{ 500 - tootLength }} / 500
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>

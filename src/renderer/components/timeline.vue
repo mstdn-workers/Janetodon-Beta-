@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <div class="main">
-    </div>
+  <div class="timeline">
+    <one-status></one-status>
   </div>
 </template>
 
