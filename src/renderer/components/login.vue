@@ -3,8 +3,10 @@
     <div class="main">
       <h1>ログインしたいインスタンスを入力してください</h1>
       <div class="error" v-if="error !== ''"> URLが間違っています </div>
-      <input id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
-      <button @click="loginAndNext">次へ</button>
+      <form>
+        <input id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
+        <button @click="loginAndNext">次へ</button>
+      </form>
     </div>
   </div>
 </template>
