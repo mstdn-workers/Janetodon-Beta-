@@ -1,9 +1,8 @@
 <template>
   <div class="toot">
     <b-field>
-    </b-field>
-    <b-field>
-      <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
+      <b-input class="spoiler-text" placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
+      <b-input class="spoiler-text-deleted" placeholder="警告文" v-model="spoilerText" v-else></b-input>
     </b-field>
     <b-field>
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
@@ -123,6 +122,18 @@ html, body, main {
 .red {
   color: red;
 }
+.spoiler-text {
+  animation-name: verticalFadeIn;
+  animation-duration: 300ms;
+  height: 4ex;
+  opacity: 1;
+}
+.spoiler-text-deleted {
+  animation-name: verticalFadeOut;
+  animation-duration: 300ms;
+  height: 0ex;
+  opacity: 0;
+}
 .spoiler-button-text{
   font-weight: bold;
   font-size: 0.8em;
@@ -133,5 +144,26 @@ html, body, main {
 }
 .spoiler-active:hover {
   color: rgb(41, 208, 183);
+}
+@keyframes verticalFadeIn {
+  0% {
+    height: 0ex;
+    opacity: 0;
+  }
+  100% {
+    height: 4ex;
+    opacity: 1;
+  }
+}
+
+@keyframes verticalFadeOut {
+  0% {
+    height: 4ex;
+    opacity: 1;
+  }
+  100% {
+    height: 0ex;
+    opacity: 0;
+  }
 }
 </style>
