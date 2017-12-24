@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import ImageGallery from '@/components/image_gallery'
 
 export default {
   props: {
@@ -51,7 +52,9 @@ export default {
       return this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
     }
   },
-
+  components: {
+    ImageGallery
+  },
   name: 'one-status'
 }
 </script>
