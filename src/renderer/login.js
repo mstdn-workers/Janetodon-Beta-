@@ -130,8 +130,16 @@ export default {
               console.dir(docs)
             })
           })
+        } else {
+          console.log('account exist')
+          self.killActiveAccount()
+          db.update({ type: 'account', account_id: data[0].account_id }, { $set: { is_active: true } }, { multi: true }, function (err, numReplaced) {
+            if (err) {
+              console.log(err)
+            }
+            console.log(numReplaced)
+          })
         }
-
         self.$router.push({ name: 'main-content' })
       })
     },
