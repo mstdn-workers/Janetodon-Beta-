@@ -12,6 +12,12 @@ export default {
     return {
     }
   },
+  beforeCreate () {
+    // undefinedに!をつけるとtrueになる
+    if (!this.$client) {
+      this.$router.push({ name: 'index' })
+    }
+  },
   name: 'main-content'
 }
 </script>
