@@ -75,25 +75,28 @@ export default {
           let matched = url.match(/\/authorize\/(.*)/)
           if (matched) {
             loginWindow.close()
-            Mastodon.getAccessToken(clientId, clientSecret, matched[1], baseUrl)
-              .catch(err => console.error(err))
-              .then(accessToken => {
-                console.log(accessToken)
-                const MstdnClient = new Mastodon({
-                  access_token: accessToken,
-                  api_url: baseUrl + '/api/v1/'
-                })
-
-                Vue.prototype.$client = MstdnClient
-                MstdnClient.get('accounts/verify_credentials', function (err, data, res) {
-                  if (!err) {
-                    self.saveUserInfo(baseUrl, data, accessToken)
-                  }
-                })
-              })
+            self.getAccessToken(clientId, clientSecret, matched[1], baseUrl)
           }
         })
       })
+    },
+    getAccessToken (clientId, clientSecret, code, baseUrl) {
+      Mastodon.getAccessToken(clientId, clientSecret, code, baseUrl)
+        .catch(err => console.error(err))
+        .then(accessToken => {
+          console.log(accessToken)
+          const MstdnClient = new Mastodon({
+            access_token: accessToken,
+            api_url: baseUrl + '/api/v1/'
+          })
+
+          Vue.prototype.$client = MstdnClient
+          MstdnClient.get('accounts/verify_credentials', function (err, data, res) {
+            if (!err) {
+              self.saveUserInfo(baseUrl, data, accessToken)
+            }
+          })
+        })
     },
     saveUserInfo (baseUrl, data, accessToken) {
       var id = data.id
