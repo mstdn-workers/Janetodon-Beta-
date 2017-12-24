@@ -2,12 +2,14 @@
   <div>
     <div class="main">
       <toot></toot>
+      <timeline></timeline>
     </div>
   </div>
 </template>
 
 <script>
-import Toot from '@/components/Toot'
+import Toot from '@/components/toot'
+import Timeline from '@/components/timeline'
 
 export default {
   data () {
@@ -21,7 +23,8 @@ export default {
     }
   },
   components: {
-    Toot
+    Toot,
+    Timeline
   },
   name: 'main-content'
 }
