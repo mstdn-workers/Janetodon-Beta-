@@ -24,7 +24,8 @@ export default {
   methods: {
     _getTimeline () {
       let self = this
-      this.$client.get('timelines/public?local=true', function (err, data, res) {
+      // this.$client.get('timelines/public?local=true', function (err, data, res) {
+      this.$client.get('accounts/424/statuses?limit=80', function (err, data, res) {
         if (err) {
           console.log(err)
           return

@@ -26,6 +26,7 @@
         </b-collapse>
       </div>
     </div>
+    <image-gallery v-if="status.media_attachments.length !== 0":media="status.media_attachments"></image-gallery>
   </div>
 </template>
 
