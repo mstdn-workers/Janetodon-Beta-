@@ -2,7 +2,7 @@
   <div>
     <div class="main">
       <b-field>
-        <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive"></b-input>
+        <b-input placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
       </b-field>
       <b-field>
         <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
