@@ -6,17 +6,13 @@
 </template>
 
 <script>
-import OneStatus from '@/components/one_status'
 
 export default {
   data () {
     return {
     }
   },
-  components: {
-    OneStatus
-  },
-  name: 'timeline'
+  name: 'one-status'
 }
 </script>
 
