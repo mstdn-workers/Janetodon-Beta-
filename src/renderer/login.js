@@ -55,7 +55,7 @@ export default {
             })
           })
 
-          return Mastodon.getAuthorizationUrl(this.clientId, this.clientSecret, baseUrl, 'read write follow', 'https://google.com/')
+          return Mastodon.getAuthorizationUrl(this.clientId, this.clientSecret, baseUrl, 'read write follow', 'urn:ietf:wg:oauth:2.0:oob')
         })
         .then(url => {
           this.showLogin(url, this.clientId, this.clientSecret, baseUrl)
@@ -87,7 +87,7 @@ export default {
                 Vue.prototype.$client = MstdnClient
                 MstdnClient.get('accounts/verify_credentials', function (err, data, res) {
                   if (!err) {
-                    self.saveUserInfo(baseUrl, data)
+                    self.saveUserInfo(baseUrl, data, accessToken)
                   }
                 })
               })
@@ -95,7 +95,7 @@ export default {
         })
       })
     },
-    saveUserInfo (baseUrl, data) {
+    saveUserInfo (baseUrl, data, accessToken) {
       var id = data.id
       let db = this.$db
 
@@ -111,6 +111,7 @@ export default {
           const doc = {
             url: baseUrl,
             account_id: id,
+            access_token: accessToken,
             type: 'account',
             is_active: true
           }
