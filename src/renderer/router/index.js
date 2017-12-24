@@ -18,7 +18,7 @@ export default new Router({
     {
       path: '/main-content',
       name: 'main-content',
-      component: require('@/components/main_content').default
+      component: require('@/components/mainContent').default
     },
     {
       path: '*',
