@@ -5,6 +5,7 @@
       <b-input class="spoiler-text-deleted" placeholder="警告文" v-model="spoilerText" v-else></b-input>
     </b-field>
 
+    <image-upload-area :isFileEnter="isFileEnter" :dropMedia="dropMedia"></image-upload-area>
 
     <b-field>
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
@@ -154,8 +155,8 @@ html, body, main {
 }
 
 .upload-media-content {
-  width: 100%;
-  height: 100%;
+  width: 128px;
+  height: 128px;
   -o-object-fit: cover;
   object-fit: cover;
 }
