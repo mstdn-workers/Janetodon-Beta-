@@ -2,7 +2,7 @@
   <div class="toot">
     <b-field>
       <b-input class="spoiler-text" placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
-      <b-input class="spoiler-text-deleted" placeholder="警告文" v-else></b-input>
+      <b-input class="spoiler-text-deleted" v-model="spoilerText" placeholder="警告文" v-else></b-input>
     </b-field>
 
     <image-upload-area :isFileEnter="isFileEnter" :dropMedia="dropMedia"></image-upload-area>
@@ -40,7 +40,7 @@
     <div class="upload-media-gallery" v-if="dropMedia.length !== 0">
       <div class="upload-media">
         <div class="upload-media-one" v-for="(one_media, index) in dropMedia">
-          <a class="button upload-delete-button overlay" @click="dropMedia.splice(index, 1)">
+          <a class="button upload-delete-button overlay" @click="deleteMedia(index)">
             <span class="icon is-small">
               <b-icon icon="times"></b-icon>
             </span>
@@ -69,7 +69,10 @@ export default {
       spoilerText: '',
       isSpoilerActive: false,
       visibility: 'public',
-      dropMedia: []
+      dropMedia: [],
+      uploadedMedia: [],
+      isUploading: false,
+      preMediaNum: 0
     }
   },
   methods: {
@@ -79,13 +82,15 @@ export default {
       let element = {
         status: this.mainText,
         spoiler_text: this.spoilerText,
-        visibility: this.visibility
+        visibility: this.visibility,
+        media_ids: this.mediaIds
       }
 
       console.log(element)
 
       this.mainText = ''
       this.spoilerText = ''
+
       this.$client.post('statuses', element, function (err, data, res) {
         if (err) {
           console.log(err)
@@ -98,11 +103,51 @@ export default {
     },
     changeVisibility (newVisibility) {
       this.visibility = newVisibility
+    },
+    deleteMedia (index) {
+      this.mainText = this.mainText.replace(this.uploadedMedia[index].text_url + ' ', '')
+      this.mainText = this.mainText.replace(this.uploadedMedia[index].text_url, '')
+
+      this.dropMedia.splice(index, 1)
+      this.uploadedMedia.splice(index, 1)
+      this.preMediaNum = this.dropMedia.length
+    },
+    uploadMedia (index) {
+      const fs = require('fs')
+
+      let self = this
+
+      this.$client.post('media', { file: fs.createReadStream(this.dropMedia[index].path) }).then(resp => {
+        self.uploadedMedia.push(resp.data)
+        self.mainText = resp.data.text_url + ' ' + self.mainText
+        console.log(resp.data)
+        if (self.dropMedia.length >= index + 1) {
+          self.isUploading = false
+        } else {
+          self.updateMedia(index + 1)
+        }
+      })
     }
   },
   computed: {
     tootLength: function () {
       return this.mainText.length + this.spoilerText.length
+    },
+    mediaIds: function () {
+      let mediaIds = []
+      for (var i in this.uploadedMedia) {
+        mediaIds.push(this.uploadedMedia[i].id)
+      }
+      return mediaIds
+    }
+  },
+  watch: {
+    dropMedia: function () {
+      if (this.dropMedia.length !== 0) {
+        this.isUploading = true
+        this.uploadMedia(this.preMediaNum)
+        this.preMediaNum = this.dropMedia.length
+      }
     }
   },
   components: {
