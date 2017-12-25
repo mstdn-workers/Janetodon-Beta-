@@ -32,9 +32,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
 .view-box {
   width: 100vw;
   height: 100vh;

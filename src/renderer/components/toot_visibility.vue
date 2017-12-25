@@ -61,9 +61,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
 main {
   display: flex;
   justify-content: center;

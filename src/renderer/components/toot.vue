@@ -176,10 +176,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
-
 .right {
   margin-left: auto;
 }

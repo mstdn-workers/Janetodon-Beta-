@@ -95,9 +95,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
 .media {
   font-size: 15px;
   line-height: 20px;
