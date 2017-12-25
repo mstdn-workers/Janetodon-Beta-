@@ -26,10 +26,17 @@ export default {
 
     let self = this
     this.listener.on('message', msg => {
-      console.log(msg)
       if (msg.event === 'update') {
         self.statuses.unshift(msg.data)
         self.$forceUpdate()
+      }
+      if (msg.event === 'delete') {
+        self.statuses.some(function (value, i) {
+          if (value.id === msg.data) {
+            self.statuses.splice(i, 1)
+            self.$forceUpdate()
+          }
+        })
       }
     })
   },
