@@ -116,35 +116,88 @@ export default {
 html, body, main {
   height: 100%;
 }
+
 .right {
   text-align: right;
 }
+
 .red {
   color: red;
 }
+
 .spoiler-text {
   animation-name: verticalFadeIn;
   animation-duration: 300ms;
+  animation-timing-function: ease;
   height: 4ex;
   opacity: 1;
 }
+
 .spoiler-text-deleted {
   animation-name: verticalFadeOut;
   animation-duration: 300ms;
+  animation-timing-function: ease;
   height: 0ex;
   opacity: 0;
 }
+
 .spoiler-button-text{
   font-weight: bold;
   font-size: 0.8em;
   letter-spacing: -0.1em;
 }
+
 .spoiler-active {
   color: rgb(41, 208, 183);
 }
+
 .spoiler-active:hover {
   color: rgb(41, 208, 183);
 }
+
+.view-box {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.67);
+  opacity: 0%;
+
+  display: none;
+}
+
+.view-box-active {
+  animation-name: fadeIn;
+  animation-duration: 300ms;
+  animation-timing-function: ease;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.67);
+  opacity: 100%;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  /* 左右中央 */
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  /* 上下中央 */
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@@keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 @keyframes verticalFadeIn {
   0% {
     height: 0ex;
