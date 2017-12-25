@@ -17,11 +17,13 @@
       閲覧注意
       クリックして表示
     </div>
-    <b-modal :active.sync="isImageModalActive">
-      <p class="image">
-        <img :src="imgSrc">
-      </p>
-    </b-modal>
+    <div style="z-index: 1000">
+      <b-modal :active.sync="isImageModalActive">
+        <p class="image">
+          <img :src="imgSrc">
+        </p>
+      </b-modal>
+    </div>
   </div>
 </template>
 

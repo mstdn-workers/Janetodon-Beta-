@@ -75,7 +75,6 @@ html, body, main {
   -webkit-animation: fade .15s linear;
   animation: fade .15s linear;
   font-size: 15px;
-  z-index: 5;
 }
 .status-avatar {
   width: 48px;
