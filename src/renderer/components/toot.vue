@@ -140,8 +140,7 @@ export default {
       this.$client.post('media', { file: fs.createReadStream(this.dropMedia[index].path) }).then(resp => {
         self.uploadedMedia.push(resp.data)
         self.mainText = resp.data.text_url + ' ' + self.mainText
-        console.log(resp.data)
-        console.log(self.dropMedia.length + ' ' + index)
+
         if (self.dropMedia.length <= index + 1) {
           self.isUploading = false
         } else {
@@ -172,6 +171,8 @@ export default {
         this.uploadMedia(this.preMediaNum)
         this.preMediaNum = this.dropMedia.length
       }
+
+      this.$emit('media-change', this.dropMedia.length !== 0)
     }
   },
   components: {
