@@ -27,6 +27,13 @@
           CW
         </div>
       </a>
+      <a v-if="dropMedia.length !== 0" class="button" @click="sensitive=!sensitive">
+        <b-icon v-if="!sensitive" icon="eye"></b-icon>
+        <b-icon v-else icon="eye-slash"></b-icon>
+      </a>
+      <div v-if="isUploading">
+        <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> Uploading
+      </div>
       <div class="right">
         <div class="red" v-if="tootLength > 500">
           {{ 500 - tootLength }} / 500
@@ -39,7 +46,7 @@
 
     <div class="upload-media-gallery" v-if="dropMedia.length !== 0">
       <div class="upload-media">
-        <div class="upload-media-one" v-for="(one_media, index) in dropMedia">
+        <div class="upload-media-one animated bounceIn" v-for="(one_media, index) in dropMedia">
           <a class="button upload-delete-button overlay" @click="deleteMedia(index)">
             <span class="icon is-small">
               <b-icon icon="times"></b-icon>
@@ -72,24 +79,33 @@ export default {
       dropMedia: [],
       uploadedMedia: [],
       isUploading: false,
-      preMediaNum: 0
+      preMediaNum: 0,
+      sensitive: false
     }
   },
   methods: {
     toot () {
       // let self = this
-
+      if (this.isUploading) {
+        return
+      }
       let element = {
         status: this.mainText,
         spoiler_text: this.spoilerText,
         visibility: this.visibility,
-        media_ids: this.mediaIds
+        media_ids: this.mediaIds,
+        sensitive: this.sensitive
       }
 
       console.log(element)
 
       this.mainText = ''
       this.spoilerText = ''
+      this.dropMedia = []
+      this.uploadedMedia = []
+      this.preMedianum = 0
+      this.visibility = 'public'
+      this.isSpoilerActive = false
 
       this.$client.post('statuses', element, function (err, data, res) {
         if (err) {
@@ -121,10 +137,11 @@ export default {
         self.uploadedMedia.push(resp.data)
         self.mainText = resp.data.text_url + ' ' + self.mainText
         console.log(resp.data)
-        if (self.dropMedia.length >= index + 1) {
+        console.log(self.dropMedia.length + ' ' + index)
+        if (self.dropMedia.length <= index + 1) {
           self.isUploading = false
         } else {
-          self.updateMedia(index + 1)
+          self.uploadMedia(index + 1)
         }
       })
     }
@@ -143,7 +160,7 @@ export default {
   },
   watch: {
     dropMedia: function () {
-      if (this.dropMedia.length !== 0) {
+      if (this.preMediaNum < this.dropMedia.length) {
         this.isUploading = true
         this.uploadMedia(this.preMediaNum)
         this.preMediaNum = this.dropMedia.length
@@ -164,8 +181,8 @@ html, body, main {
 }
 
 .right {
-   margin-left: auto;
- }
+  margin-left: auto;
+}
 
 .red {
   color: red;
@@ -202,14 +219,15 @@ html, body, main {
 }
 
 .upload-media-gallery{
-    height: 128px;
-    width: 512px;
+  height: 128px;
+  width: 512px;
+  margin-left: 4px;
 }
 
 .upload-media{
-    border: none;
-    display: flex;
-    float: left;
+  border: none;
+  display: flex;
+  float: left;
 }
 
 .upload-media-content {
