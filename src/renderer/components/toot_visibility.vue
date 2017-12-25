@@ -1,6 +1,6 @@
 <template>
   <div class="toot_visibility">
-    <b-dropdown v-model="visibility">
+    <b-dropdown v-model="visibility"  @change="changeVisibility()">
       <button class="button" type="button" slot="trigger">
         <template v-if="visibility === 'public'">
           <b-icon icon="globe"></b-icon>
@@ -46,11 +46,14 @@
 
 <script>
 export default {
-  props: {
-    visibility: {require: true}
-  },
   data () {
     return {
+      visibility: 'public'
+    }
+  },
+  methods: {
+    changeVisibility () {
+      this.$emit('change', this.visibility)
     }
   },
   name: 'toot_visibility'

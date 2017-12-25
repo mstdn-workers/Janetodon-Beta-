@@ -2,7 +2,7 @@
   <div class="toot">
     <b-field>
       <b-input class="spoiler-text" placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
-      <b-input class="spoiler-text-deleted" placeholder="警告文" v-model="spoilerText" v-else></b-input>
+      <b-input class="spoiler-text-deleted" placeholder="警告文" v-else></b-input>
     </b-field>
 
     <image-upload-area :isFileEnter="isFileEnter" :dropMedia="dropMedia"></image-upload-area>
@@ -15,7 +15,7 @@
         <b-icon icon="upload"></b-icon>
       </b-upload>
 
-      <toot-visibility :visibility="visibility"></toot-visibility>
+      <toot-visibility @change="changeVisibility"></toot-visibility>
 
       <a v-if="isSpoilerActive" class="button spoiler-active" @click="isSpoilerActive=false">
         <div class="spoiler-button-text">
@@ -74,11 +74,16 @@ export default {
   },
   methods: {
     toot () {
+      // let self = this
+
       let element = {
         status: this.mainText,
         spoiler_text: this.spoilerText,
         visibility: this.visibility
       }
+
+      console.log(element)
+
       this.mainText = ''
       this.spoilerText = ''
       this.$client.post('statuses', element, function (err, data, res) {
@@ -90,6 +95,9 @@ export default {
     },
     encodePath (file) {
       return window.URL.createObjectURL(file)
+    },
+    changeVisibility (newVisibility) {
+      this.visibility = newVisibility
     }
   },
   computed: {
