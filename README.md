@@ -2,6 +2,14 @@
 
 > An electron-vue project
 
+## 備忘録
+目先にやることリスト
+- tootをクリックすると、詳細に飛ぶ
+- mentionが続いてたら詳細の下に並べる
+- 詳細画面から戻れる
+- ファボとboostが出来る
+- OGP使って表示したい
+
 #### Build Setup
 
 ``` bash
