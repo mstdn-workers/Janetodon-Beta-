@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-    <toot></toot>
+  <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
+    <toot :isFileEnter="isFileEnter"></toot>
     <timeline></timeline>
   </div>
 </template>
@@ -12,6 +12,7 @@ import Timeline from '@/components/timeline'
 export default {
   data () {
     return {
+      isFileEnter: false
     }
   },
   beforeCreate () {
