@@ -43,15 +43,15 @@
           CW
         </div>
       </a>
+      <div class="right">
+        <div class="red" v-if="tootLength > 500">
+          {{ 500 - tootLength }} / 500
+        </div>
+        <div v-else>
+          {{ 500 - tootLength }} / 500
+        </div>
+      </div>
     </b-field>
-    <div class="right">
-      <div class="red" v-if="tootLength > 500">
-        {{ 500 - tootLength }} / 500
-      </div>
-      <div v-else>
-        {{ 500 - tootLength }} / 500
-      </div>
-    </div>
   </div>
 </template>
 
@@ -110,8 +110,8 @@ html, body, main {
 }
 
 .right {
-  text-align: right;
-}
+   margin-left: auto;
+ }
 
 .red {
   color: red;
