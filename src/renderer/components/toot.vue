@@ -39,7 +39,12 @@
 
     <div class="upload-media-gallery" v-if="dropMedia.length !== 0">
       <div class="upload-media">
-        <div v-for="one_media in dropMedia">
+        <div class="upload-media-one" v-for="(one_media, index) in dropMedia">
+          <a class="button upload-delete-button overlay" @click="dropMedia.splice(index, 1)">
+            <span class="icon is-small">
+              <b-icon icon="times"></b-icon>
+            </span>
+          </a>
           <figure class="media-left">
             <img :src="encodePath(one_media)" class="upload-media-content"/>
           </figure>
@@ -159,6 +164,36 @@ html, body, main {
   height: 128px;
   -o-object-fit: cover;
   object-fit: cover;
+}
+
+.upload-delete-button {
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  line-height: 18px;
+  position: absolute;
+  top: 8px;
+  left: 4px;
+}
+
+.upload-media-one {
+  width: 128px;
+  height: 128px;
+  font-size: 15px;
+  line-height: 20px;
+  word-wrap: break-word;
+  font-weight: 400;
+  overflow: hidden;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.overlay {
+  box-sizing: content-box;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  padding: 2px;
 }
 
 @keyframes verticalFadeIn {
