@@ -52,6 +52,17 @@
         </div>
       </div>
     </b-field>
+
+    <div class="upload-media-gallery" v-if="dropMedia.length !== 0">
+      <div class="upload-media">
+        <div v-for="one_media in dropMedia">
+          <figure class="media-left">
+            <img :src="encodePath(one_media)" class="upload-media-content"/>
+          </figure>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -88,8 +99,8 @@ export default {
         console.log(res)
       })
     },
-    dragLeave () {
-      console.log('leave')
+    encodePath (file) {
+      return window.URL.createObjectURL(file)
     }
   },
   computed: {
@@ -210,7 +221,6 @@ html, body, main {
   pointer-events: none;
 }
 
-
 .upload-area {
   border-radius: 8px;
 
@@ -269,6 +279,25 @@ html, body, main {
   -ms-flex-align: center;
   align-items: center;
 }
+
+.upload-media-gallery{
+    height: 128px;
+    width: 512px;
+}
+
+.upload-media{
+    border: none;
+    display: flex;
+    float: left;
+}
+
+.upload-media-content {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
 @@keyframes fadeIn {
   0% {
     opacity: 0%;

@@ -5,7 +5,7 @@
         <b-icon icon="eye"></b-icon>
       </span>
     </a>
-    <div v-if="!sensitive" class="image-gallery" style="height: 110px;">
+    <div v-if="!sensitive" class="media-gallery" style="height: 110px;">
 
       <div v-for="one_media in formatedMedia" class="media-gallery-item" :style="one_media.style">
         <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
@@ -113,9 +113,9 @@ html, body, main {
   position: relative;
 }
 .media-gallery-item {
-    border: none;
-    display: block;
-    float: left;
+  border: none;
+  display: block;
+  float: left;
 }
 .media-gallery-thumbnail {
   width: 100%;
