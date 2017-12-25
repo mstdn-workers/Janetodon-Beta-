@@ -58,6 +58,9 @@
         </div>
       </div>
     </div>
+    <div v-else-if="!isStart" class="upload-media-gallery-delete">
+
+    </div>
 
   </div>
 </template>
@@ -80,7 +83,8 @@ export default {
       uploadedMedia: [],
       isUploading: false,
       preMediaNum: 0,
-      sensitive: false
+      sensitive: false,
+      isStart: true
     }
   },
   methods: {
@@ -146,6 +150,9 @@ export default {
       })
     }
   },
+  mounted () {
+    this.isStart = false
+  },
   computed: {
     tootLength: function () {
       return this.mainText.length + this.spoilerText.length
@@ -176,6 +183,15 @@ export default {
 </script>
 
 <style>
+.toot {
+  width: 100%;
+  top: 60px;
+  position: fixed;
+  z-index: 300;
+  flex: 1;
+  background-color: white;
+  padding-bottom: 20px;
+}
 .right {
   margin-left: auto;
 }
@@ -215,7 +231,20 @@ export default {
 }
 
 .upload-media-gallery{
+  animation-name: imageGarallyFadeIn;
+  animation-duration: 200ms;
+  animation-timing-function: ease;
   height: 128px;
+  width: 512px;
+  margin-left: 4px;
+}
+
+
+.upload-media-gallery-delete{
+  animation-name: imageGarallyFadeOut;
+  animation-duration: 200ms;
+  animation-timing-function: ease;
+  height: 0px;
   width: 512px;
   margin-left: 4px;
 }
@@ -281,6 +310,28 @@ export default {
   }
   100% {
     height: 0ex;
+    opacity: 0;
+  }
+}
+
+@keyframes imageGarallyFadeIn {
+  0% {
+    height: 0px;
+    opacity: 1;
+  }
+  100% {
+    height: 128px;
+    opacity: 0;
+  }
+}
+
+@keyframes imageGarallyFadeOut {
+  0% {
+    height: 128px;
+    opacity: 1;
+  }
+  100% {
+    height: 0px;
     opacity: 0;
   }
 }
