@@ -5,7 +5,7 @@
         <b-icon icon="eye"></b-icon>
       </span>
     </a>
-    <div v-if="!sensitive" class="image-gallery" style="height: 110px;">
+    <div v-if="!sensitive" class="media-gallery" style="height: 110px;">
 
       <div v-for="one_media in formatedMedia" class="media-gallery-item" :style="one_media.style">
         <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
@@ -17,11 +17,13 @@
       閲覧注意
       クリックして表示
     </div>
-    <b-modal :active.sync="isImageModalActive">
-      <p class="image">
-        <img :src="imgSrc">
-      </p>
-    </b-modal>
+    <div style="z-index: 1000">
+      <b-modal :active.sync="isImageModalActive">
+        <p class="image">
+          <img :src="imgSrc">
+        </p>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -93,9 +95,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
 .media {
   font-size: 15px;
   line-height: 20px;
@@ -111,9 +110,9 @@ html, body, main {
   position: relative;
 }
 .media-gallery-item {
-    border: none;
-    display: block;
-    float: left;
+  border: none;
+  display: block;
+  float: left;
 }
 .media-gallery-thumbnail {
   width: 100%;

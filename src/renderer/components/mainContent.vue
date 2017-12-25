@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
-    <toot></toot>
-    <timeline></timeline>
+  <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
+    <toot :isFileEnter="isFileEnter" @media-change="onMediaChange"></toot>
+    <timeline :isExist="isExist"></timeline>
   </div>
 </template>
 
@@ -12,6 +12,8 @@ import Timeline from '@/components/timeline'
 export default {
   data () {
     return {
+      isFileEnter: false,
+      isExist: false
     }
   },
   beforeCreate () {
@@ -24,12 +26,17 @@ export default {
     Toot,
     Timeline
   },
+  methods: {
+    onMediaChange (isExist) {
+      this.isExist = isExist
+    }
+  },
   name: 'main-content'
 }
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
+.main {
+  display: flex;
 }
 </style>

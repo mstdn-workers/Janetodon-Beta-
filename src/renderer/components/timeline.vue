@@ -1,5 +1,5 @@
 <template>
-  <div class="timeline">
+  <div :class="['timeline', isExist ? 'appear' : '']">
     <div  v-for="status in statuses">
       <one-status :status="status"></one-status>
     </div>
@@ -10,6 +10,9 @@
 import OneStatus from '@/components/one_status'
 
 export default {
+  props: {
+    isExist: {}
+  },
   data () {
     return {
       statuses: [],
@@ -26,10 +29,17 @@ export default {
 
     let self = this
     this.listener.on('message', msg => {
-      console.log(msg)
       if (msg.event === 'update') {
         self.statuses.unshift(msg.data)
         self.$forceUpdate()
+      }
+      if (msg.event === 'delete') {
+        self.statuses.some(function (value, i) {
+          if (value.id === msg.data) {
+            self.statuses.splice(i, 1)
+            self.$forceUpdate()
+          }
+        })
       }
     })
   },
@@ -50,7 +60,14 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
+.timeline {
+  position: relative;
+  top: 282px;
+  transition: all 300ms 0s ease;
 }
+
+.appear {
+  transform: translateY(148px);
+}
+
 </style>

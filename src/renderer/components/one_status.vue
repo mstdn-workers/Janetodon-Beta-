@@ -61,9 +61,6 @@ export default {
 </script>
 
 <style>
-html, body, main {
-  height: 100%;
-}
 .status {
   padding: 8px 10px;
   padding-left: 68px;
