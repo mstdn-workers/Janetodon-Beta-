@@ -5,7 +5,7 @@
       <b-input class="spoiler-text-deleted" v-model="spoilerText" placeholder="警告文" v-else></b-input>
     </b-field>
 
-    <image-upload-area :isFileEnter="isFileEnter" :dropMedia="dropMedia"></image-upload-area>
+    <image-upload-area :isFileEnter="isFileEnter" :isUploading="isUploading" :dropMedia="dropMedia"></image-upload-area>
 
     <b-field>
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
@@ -41,31 +41,7 @@
       </div>
     </b-field>
 
-    <div class="upload-media-gallery-active" v-if="dropMedia.length !== 0">
-      <div class="upload-media">
-        <div class="upload-media_one animated bounceIn" v-for="(one_media, index) in dropMedia">
-          <a class="button upload-media_delete-button overlay" @click="deleteMedia(index)">
-            <span class="icon is-small">
-              <b-icon icon="times"></b-icon>
-            </span>
-          </a>
-          <figure class="media-left">
-            <img :src="encodePath(one_media)" class="upload-media_content"/>
-          </figure>
-        </div>
-      </div>
-    </div>
-    <div v-else-if="!isStart" class="upload-media-gallery-delete">
-
-    </div>
-
-    <b-modal :active.sync="isUploading" style="z-index:1000;">
-      <div class="card uploading-modal">
-        <div class="media-content uploading-modal_content">
-          <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> &nbsp; Uploading
-        </div>
-      </div>
-    </b-modal>
+    <upload-media :dropMedia="dropMedia" :isStart="isStart" @delete="deleteMedia"></upload-media>
 
   </div>
 </template>
@@ -73,6 +49,7 @@
 <script>
 import TootVisibility from '@/components/Toot/toot_visibility'
 import ImageUploadArea from '@/components/Toot/image_upload_area'
+import UploadMedia from '@/components/Toot/upload_media'
 
 export default {
   props: {
@@ -106,8 +83,6 @@ export default {
         sensitive: this.sensitive
       }
 
-      console.log(element)
-
       this.mainText = ''
       this.spoilerText = ''
       this.dropMedia = []
@@ -122,9 +97,6 @@ export default {
         }
         console.log(data)
       })
-    },
-    encodePath (file) {
-      return window.URL.createObjectURL(file)
     },
     changeVisibility (newVisibility) {
       this.visibility = newVisibility
@@ -182,7 +154,8 @@ export default {
   },
   components: {
     TootVisibility,
-    ImageUploadArea
+    ImageUploadArea,
+    UploadMedia
   },
   name: 'toot'
 }
@@ -230,71 +203,6 @@ export default {
   &:hover
     color: rgb(41, 208, 183)
 
-.upload-media-gallery-active
-  animation-name: imageGarallyFadeIn
-  animation-duration: 200ms
-  animation-timing-function: ease
-  height: 128px
-  width: 512px
-  margin-left: 4px
-
-.upload-media-gallery-delete
-  animation-name: imageGarallyFadeOut
-  animation-duration: 200ms
-  animation-timing-function: ease
-  height: 0px
-  width: 512px
-  margin-left: 4px
-
-.upload-media
-  border: none
-  display: flex
-  float: left
-
-  &_content
-    width: 128px
-    height: 128px
-    -o-object-fit: cover
-    object-fit: cover
-
-  &_delete-button
-    font-size: 18px
-    width: 24px
-    height: 24px
-    line-height: 18px
-    position: absolute
-    top: 8px
-    left: 4px
-
-  &_one
-    width: 128px
-    height: 128px
-    font-size: 15px
-    line-height: 20px
-    word-wrap: break-word
-    font-weight: 400
-    overflow: hidden
-    white-space: pre-wrap
-    position: relative
-
-.overlay
-  box-sizing: content-box
-  background: rgba(0, 0, 0, 0.5)
-  color: rgba(255, 255, 255, 0.7)
-  border-radius: 4px
-  padding: 2px
-
-.uploading-modal
-  display: flex
-  height: 240px
-  background-color: $modal-back
-
-  &_content
-    +flex-center
-    color: rgb(215, 215, 215)
-    font-size: 24px
-    font-weight: 600
-    display: flex
 
 @keyframes verticalFadeIn
   0%

@@ -14,6 +14,14 @@
     </div>
     <div v-else class="view-box-deleted">
     </div>
+
+    <b-modal :active.sync="isUploading" style="z-index:1000;">
+      <div class="card uploading-modal">
+        <div class="media-content uploading-modal_content">
+          <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> &nbsp; Uploading
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -21,7 +29,8 @@
 export default {
   props: {
     isFileEnter: {},
-    dropMedia: {}
+    dropMedia: {},
+    isUploading: {}
   },
   data () {
     return {
@@ -104,6 +113,19 @@ export default {
 
   height: 100%
   display: flex
+
+
+.uploading-modal
+  display: flex
+  height: 240px
+  background-color: $modal-back
+
+  &_content
+    +flex-center
+    color: rgb(215, 215, 215)
+    font-size: 24px
+    font-weight: 600
+    display: flex
 
 @keyframes fadeIn
   0%
