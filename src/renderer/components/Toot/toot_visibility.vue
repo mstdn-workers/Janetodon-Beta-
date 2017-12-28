@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../../globals.sass'
+
 
 main
   +flex-center

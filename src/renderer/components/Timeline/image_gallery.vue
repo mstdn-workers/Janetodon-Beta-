@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../../globals.sass'
+
 .media
   font-size: 15px
   line-height: 20px

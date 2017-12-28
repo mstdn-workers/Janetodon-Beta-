@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../../globals.sass'
+
 
 .toot
   width: 100%

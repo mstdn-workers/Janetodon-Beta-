@@ -41,8 +41,6 @@ export default {
 </script>
 
 <style lang="sass">
-  /* :FIXME I hope to reject follow import sentence
-@import '../../globals.sass'
 .view-box
   width: 100vw
   height: 100vh
