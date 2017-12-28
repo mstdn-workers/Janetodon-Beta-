@@ -31,9 +31,6 @@
         <b-icon v-if="!sensitive" icon="eye"></b-icon>
         <b-icon v-else icon="eye-slash"></b-icon>
       </a>
-      <div v-if="isUploading">
-        <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> Uploading
-      </div>
       <div class="right">
         <div class="red" v-if="tootLength > 500">
           {{ 500 - tootLength }} / 500
@@ -61,6 +58,14 @@
     <div v-else-if="!isStart" class="upload-media-gallery-delete">
 
     </div>
+
+    <b-modal :active.sync="isUploading" style="z-index:1000;">
+      <div class="card uploading-modal">
+        <div class="media-content uploading-modal-content">
+          <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> &nbsp; Uploading
+        </div>
+      </div>
+    </b-modal>
 
   </div>
 </template>
@@ -291,6 +296,30 @@ export default {
   color: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   padding: 2px;
+}
+
+.uploading-modal {
+  display: flex;
+  height: 240px;
+  background-color: rgb(72, 68, 87);
+}
+
+.uploading-modal-content {
+  /* 左右中央 */
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  /* 上下中央 */
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  color: rgb(215, 215, 215);
+  font-size: 24px;
+  font-weight: 600;
+
+  display: flex;
 }
 
 @keyframes verticalFadeIn {
