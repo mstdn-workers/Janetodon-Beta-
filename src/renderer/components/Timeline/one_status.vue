@@ -66,7 +66,7 @@ export default {
   padding-left: 68px
   position: relative
   min-height: 48px
-  border-bottom: 1px solid #99b0d2
+  border-bottom: 1px solid rgb(44, 71, 112)
   cursor: default
   opacity: 1
   -webkit-animation: fade .15s linear

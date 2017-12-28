@@ -61,9 +61,10 @@ export default {
 </script>
 
 <style lang="sass">
+@import '../../globals.sass'
+
 main
+  +flex-center
   display: flex
-  justify-content: center
-  align-items: center
 
 </style>

@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="sass">
+  /* :FIXME I hope to reject follow import sentence
+@import '../../globals.sass'
 .view-box
   width: 100vw
   height: 100vh
@@ -45,6 +47,8 @@ export default {
   display: flex
 
 .view-box-active
+  +flex-center
+
   animation-name: fadeIn
   animation-duration: 300ms
   animation-timing-function: ease
@@ -58,15 +62,6 @@ export default {
   top: 0px
   left: 0px
   z-index: 500
-  /* 左右中央
-  -webkit-box-pack: center
-  -ms-flex-pack: center
-  justify-content: center
-  /* 上下中央
-  -webkit-box-align: center
-  -ms-flex-align: center
-  align-items: center
-  display: flex
 
 .view-box-deleted
   animation-name: fadeOut
@@ -83,6 +78,8 @@ export default {
   pointer-events: none
 
 .upload-area
+  +flex-center
+
   border-radius: 8px
   width: 320px
   height: 160px
@@ -90,23 +87,10 @@ export default {
   box-sizing: border-box
   position: relative
   background-color: rgb(72, 68, 87)
-  -webkit-box-pack: center
-  -ms-flex-pack: center
-  justify-content: center
-  /* 上下中央
-  -webkit-box-align: center
-  -ms-flex-align: center
-  align-items: center
 
 .upload-area-content
-  /* 左右中央
-  -webkit-box-pack: center
-  -ms-flex-pack: center
-  justify-content: center
-  /* 上下中央
-  -webkit-box-align: center
-  -ms-flex-align: center
-  align-items: center
+  +flex-center
+
   flex: 1
   color: rgb(215, 215, 215)
   font-size: 20px
@@ -116,16 +100,10 @@ export default {
   border-radius: 8px
 
 .center
+  +flex-center
+
   height: 100%
   display: flex
-  /* 左右中央
-  -webkit-box-pack: center
-  -ms-flex-pack: center
-  justify-content: center
-  /* 上下中央
-  -webkit-box-align: center
-  -ms-flex-align: center
-  align-items: center
 
 @keyframes fadeIn
   0%

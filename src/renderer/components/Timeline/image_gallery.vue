@@ -95,6 +95,7 @@ export default {
 </script>
 
 <style lang="sass">
+  @import '../../globals.sass'
   .media
     font-size: 15px
     line-height: 20px
@@ -121,12 +122,11 @@ export default {
     object-fit: cover
 
   .media-secret
+    +flex-center
     width: 100%
-    align-items: center
     text-align: center
     display: flex
     flex-direction: column
-    justify-content: center
     cursor: pointer
     background-color: black
     color: white

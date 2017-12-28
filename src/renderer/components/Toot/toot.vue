@@ -189,6 +189,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import '../../globals.sass'
+
 .toot
   width: 100%
   top: 60px
@@ -288,14 +290,7 @@ export default {
   background-color: rgb(72, 68, 87)
 
 .uploading-modal-content
-  /* 左右中央
-  -webkit-box-pack: center
-  -ms-flex-pack: center
-  justify-content: center
-  /* 上下中央
-  -webkit-box-align: center
-  -ms-flex-align: center
-  align-items: center
+  +flex-center
   color: rgb(215, 215, 215)
   font-size: 24px
   font-weight: 600
