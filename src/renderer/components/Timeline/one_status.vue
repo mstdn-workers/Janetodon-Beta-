@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     convertUrlToLink (str) {
-      return str.replace(/(https?:\/\/.+)/g, function () {
+      return str.replace(/https?:\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?/g, function () {
         return '<a href="' + arguments[0] + '" target="_blank">' + arguments[0].slice(0, 30) + '...' + '</a>'
       })
     }
