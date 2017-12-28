@@ -1,6 +1,6 @@
 <template>
   <div :class="['timeline', isExist ? 'appear' : '']">
-    <div  v-for="status in statuses">
+    <div  v-for="status in reverseStatuses">
       <one-status :status="status"></one-status>
     </div>
   </div>
@@ -22,6 +22,12 @@ export default {
   },
   components: {
     OneStatus
+  },
+  computed: {
+    reverseStatuses: function () {
+      let reverseStatuses = this.statuses.slice() // 引数無しで配列の値渡しができる
+      return reverseStatuses.reverse()
+    }
   },
   mounted () {
     this._getTimeline()
@@ -64,6 +70,8 @@ export default {
   position: relative
   top: 282px
   transition: all 300ms 0s ease
+  display: flex
+  flex-flow: column-reverse
 
 .appear
   transform: translateY(148px)
