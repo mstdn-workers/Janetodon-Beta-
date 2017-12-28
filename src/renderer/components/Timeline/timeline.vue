@@ -59,15 +59,12 @@ export default {
 }
 </script>
 
-<style>
-.timeline {
-  position: relative;
-  top: 282px;
-  transition: all 300ms 0s ease;
-}
+<style lang="sass">
+.timeline
+  position: relative
+  top: 282px
+  transition: all 300ms 0s ease
 
-.appear {
-  transform: translateY(148px);
-}
-
+.appear
+  transform: translateY(148px)
 </style>

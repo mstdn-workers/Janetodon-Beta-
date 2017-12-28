@@ -60,51 +60,47 @@ export default {
 }
 </script>
 
-<style>
-.status {
-  padding: 8px 10px;
-  padding-left: 68px;
-  position: relative;
-  min-height: 48px;
-  border-bottom: 1px solid #99b0d2;
-  cursor: default;
-  opacity: 1;
-  -webkit-animation: fade .15s linear;
-  animation: fade .15s linear;
-  font-size: 15px;
-}
-.status-avatar {
-  width: 48px;
-  height: 48px;
-  left: 10px;
-  position: absolute;
-  top: 10px;
-}
-.account-avatar {
-  border-radius: 4px;
-  background: transparent no-repeat;
-  background-position: 50%;
-  background-clip: padding-box;
-  position: relative;
-  cursor: pointer;
-}
-.display-name {
-    display: block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.display-username {
-  font-size: 14px;
-  color: gray;
-}
-.status-content {
-    font-size: 15px;
-    line-height: 20px;
-    word-wrap: break-word;
-    font-weight: 400;
-    overflow: hidden;
-    white-space: pre-wrap;
-}
+<style lang="sass">
+.status
+  padding: 8px 10px
+  padding-left: 68px
+  position: relative
+  min-height: 48px
+  border-bottom: 1px solid rgb(44, 71, 112)
+  cursor: default
+  font-size: 15px
+
+.status-avatar
+  width: 48px
+  height: 48px
+  left: 10px
+  position: absolute
+  top: 10px
+
+.account-avatar
+  border-radius: 4px
+  background: transparent no-repeat
+  background-position: 50%
+  background-clip: padding-box
+  position: relative
+  cursor: pointer
+
+.display-name
+  display: block
+  max-width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.display-username
+  font-size: 14px
+  color: gray
+
+.status-content
+  font-size: 15px
+  line-height: 20px
+  word-wrap: break-word
+  font-weight: 400
+  overflow: hidden
+  white-space: pre-wrap
 </style>

@@ -41,16 +41,16 @@
       </div>
     </b-field>
 
-    <div class="upload-media-gallery" v-if="dropMedia.length !== 0">
+    <div class="upload-media-gallery-active" v-if="dropMedia.length !== 0">
       <div class="upload-media">
-        <div class="upload-media-one animated bounceIn" v-for="(one_media, index) in dropMedia">
-          <a class="button upload-delete-button overlay" @click="deleteMedia(index)">
+        <div class="upload-media_one animated bounceIn" v-for="(one_media, index) in dropMedia">
+          <a class="button upload-media_delete-button overlay" @click="deleteMedia(index)">
             <span class="icon is-small">
               <b-icon icon="times"></b-icon>
             </span>
           </a>
           <figure class="media-left">
-            <img :src="encodePath(one_media)" class="upload-media-content"/>
+            <img :src="encodePath(one_media)" class="upload-media_content"/>
           </figure>
         </div>
       </div>
@@ -61,7 +61,7 @@
 
     <b-modal :active.sync="isUploading" style="z-index:1000;">
       <div class="card uploading-modal">
-        <div class="media-content uploading-modal-content">
+        <div class="media-content uploading-modal_content">
           <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> &nbsp; Uploading
         </div>
       </div>
@@ -188,181 +188,150 @@ export default {
 }
 </script>
 
-<style>
-.toot {
-  width: 100%;
-  top: 60px;
-  position: fixed;
-  z-index: 300;
-  flex: 1;
-  background-color: white;
-  padding-bottom: 20px;
-}
-.right {
-  margin-left: auto;
-}
+<style lang="sass">
+@import '../../globals.sass'
 
-.red {
-  color: red;
-}
+.toot
+  width: 100%
+  top: 60px
+  position: fixed
+  z-index: 300
+  flex: 1
+  background-color: white
+  padding-bottom: 20px
 
-.spoiler-text {
-  animation-name: verticalFadeIn;
-  animation-duration: 300ms;
-  animation-timing-function: ease;
-  height: 4ex;
-  opacity: 1;
-}
+.right
+  margin-left: auto
 
-.spoiler-text-deleted {
-  animation-name: verticalFadeOut;
-  animation-duration: 300ms;
-  animation-timing-function: ease;
-  height: 0ex;
-  opacity: 0;
-}
+.red
+  color: red
 
-.spoiler-button-text{
-  font-weight: bold;
-  font-size: 0.8em;
-  letter-spacing: -0.1em;
-}
+.spoiler-text
+  animation-name: verticalFadeIn
+  animation-duration: 300ms
+  animation-timing-function: ease
+  height: 4ex
+  opacity: 1
 
-.spoiler-active {
-  color: rgb(41, 208, 183);
-}
+.spoiler-text-deleted
+  animation-name: verticalFadeOut
+  animation-duration: 300ms
+  animation-timing-function: ease
+  height: 0ex
+  opacity: 0
 
-.spoiler-active:hover {
-  color: rgb(41, 208, 183);
-}
+.spoiler-button-text
+  font-weight: bold
+  font-size: 0.8em
+  letter-spacing: -0.1em
 
-.upload-media-gallery{
-  animation-name: imageGarallyFadeIn;
-  animation-duration: 200ms;
-  animation-timing-function: ease;
-  height: 128px;
-  width: 512px;
-  margin-left: 4px;
-}
+.spoiler-active
+  color: rgb(41, 208, 183)
+  &:hover
+    color: rgb(41, 208, 183)
+
+.upload-media-gallery-active
+  animation-name: imageGarallyFadeIn
+  animation-duration: 200ms
+  animation-timing-function: ease
+  height: 128px
+  width: 512px
+  margin-left: 4px
+
+.upload-media-gallery-delete
+  animation-name: imageGarallyFadeOut
+  animation-duration: 200ms
+  animation-timing-function: ease
+  height: 0px
+  width: 512px
+  margin-left: 4px
+
+.upload-media
+  border: none
+  display: flex
+  float: left
+
+  &_content
+    width: 128px
+    height: 128px
+    -o-object-fit: cover
+    object-fit: cover
+
+  &_delete-button
+    font-size: 18px
+    width: 24px
+    height: 24px
+    line-height: 18px
+    position: absolute
+    top: 8px
+    left: 4px
+
+  &_one
+    width: 128px
+    height: 128px
+    font-size: 15px
+    line-height: 20px
+    word-wrap: break-word
+    font-weight: 400
+    overflow: hidden
+    white-space: pre-wrap
+    position: relative
+
+.overlay
+  box-sizing: content-box
+  background: rgba(0, 0, 0, 0.5)
+  color: rgba(255, 255, 255, 0.7)
+  border-radius: 4px
+  padding: 2px
+
+.uploading-modal
+  display: flex
+  height: 240px
+  background-color: $modal-back
+
+  &_content
+    +flex-center
+    color: rgb(215, 215, 215)
+    font-size: 24px
+    font-weight: 600
+    display: flex
+
+@keyframes verticalFadeIn
+  0%
+    height: 0ex
+    opacity: 0
+
+  100%
+    height: 4ex
+    opacity: 1
 
 
-.upload-media-gallery-delete{
-  animation-name: imageGarallyFadeOut;
-  animation-duration: 200ms;
-  animation-timing-function: ease;
-  height: 0px;
-  width: 512px;
-  margin-left: 4px;
-}
+@keyframes verticalFadeOut
+  0%
+    height: 4ex
+    opacity: 1
 
-.upload-media{
-  border: none;
-  display: flex;
-  float: left;
-}
+  100%
+    height: 0ex
+    opacity: 0
 
-.upload-media-content {
-  width: 128px;
-  height: 128px;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
 
-.upload-delete-button {
-  font-size: 18px;
-  width: 24px;
-  height: 24px;
-  line-height: 18px;
-  position: absolute;
-  top: 8px;
-  left: 4px;
-}
+@keyframes imageGarallyFadeIn
+  0%
+    height: 0px
+    opacity: 1
 
-.upload-media-one {
-  width: 128px;
-  height: 128px;
-  font-size: 15px;
-  line-height: 20px;
-  word-wrap: break-word;
-  font-weight: 400;
-  overflow: hidden;
-  white-space: pre-wrap;
-  position: relative;
-}
+  100%
+    height: 128px
+    opacity: 0
 
-.overlay {
-  box-sizing: content-box;
-  background: rgba(0, 0, 0, 0.5);
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  padding: 2px;
-}
 
-.uploading-modal {
-  display: flex;
-  height: 240px;
-  background-color: rgb(72, 68, 87);
-}
+@keyframes imageGarallyFadeOut
+  0%
+    height: 128px
+    opacity: 1
 
-.uploading-modal-content {
-  /* 左右中央 */
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  color: rgb(215, 215, 215);
-  font-size: 24px;
-  font-weight: 600;
-
-  display: flex;
-}
-
-@keyframes verticalFadeIn {
-  0% {
-    height: 0ex;
-    opacity: 0;
-  }
-  100% {
-    height: 4ex;
-    opacity: 1;
-  }
-}
-
-@keyframes verticalFadeOut {
-  0% {
-    height: 4ex;
-    opacity: 1;
-  }
-  100% {
-    height: 0ex;
-    opacity: 0;
-  }
-}
-
-@keyframes imageGarallyFadeIn {
-  0% {
-    height: 0px;
-    opacity: 1;
-  }
-  100% {
-    height: 128px;
-    opacity: 0;
-  }
-}
-
-@keyframes imageGarallyFadeOut {
-  0% {
-    height: 128px;
-    opacity: 1;
-  }
-  100% {
-    height: 0px;
-    opacity: 0;
-  }
-}
+  100%
+    height: 0px
+    opacity: 0
 </style>

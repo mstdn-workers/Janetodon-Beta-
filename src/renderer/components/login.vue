@@ -44,10 +44,10 @@ export default {
 }
 </script>
 
-<style>
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+<style lang="sass">
+@import '../globals.sass'
+main
+  +flex-center
+  display: flex
+
 </style>

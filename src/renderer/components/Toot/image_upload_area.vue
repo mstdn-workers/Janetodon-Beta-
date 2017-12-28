@@ -5,7 +5,7 @@
         <div class="view-box"></div>
       </b-upload>
       <div class="upload-area">
-        <div class="upload-area-content">
+        <div class="upload-area_content">
           <div class="center">
             ドラッグ&amp;ドロップでアップロード
           </div>
@@ -31,144 +31,92 @@ export default {
 }
 </script>
 
-<style>
-.view-box {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.0);
-  display: flex;
-  z-index: 500;
-  /* visibility: hidden; */
-  position: fixed;
-  top: 0px;
-  left: 0px;
+<style lang="sass">
+  /* :FIXME I hope to reject follow import sentence
+@import '../../globals.sass'
+.view-box
+  width: 100vw
+  height: 100vh
+  background-color: rgba(0, 0, 0, 0)
+  display: flex
+  z-index: 500
+  /* visibility: hidden;
+  position: fixed
+  top: 0px
+  left: 0px
+  display: flex
 
-  display: flex;
-}
+.view-box-active
+  +flex-center
 
-.view-box-active {
-  animation-name: fadeIn;
-  animation-duration: 300ms;
-  animation-timing-function: ease;
+  animation-name: fadeIn
+  animation-duration: 300ms
+  animation-timing-function: ease
+  width: 100vw
+  height: 100vh
+  background-color: rgba(0, 0, 0, 0.67)
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  position: fixed
+  top: 0px
+  left: 0px
+  z-index: 500
 
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.67);
+.view-box-deleted
+  animation-name: fadeOut
+  animation-duration: 200ms
+  animation-timing-function: ease
+  width: 100vw
+  height: 100vh
+  background-color: rgba(0, 0, 0, 0.67)
+  opacity: 0
+  z-index: 500
+  position: fixed
+  top: 0px
+  left: 0px
+  pointer-events: none
 
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 500;
+.upload-area
+  +flex-center
 
-  /* 左右中央 */
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  border-radius: 8px
+  width: 320px
+  height: 160px
+  display: flex
+  box-sizing: border-box
+  position: relative
+  background-color: $modal-back
 
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  &_content
+    +flex-center
 
-  display: flex;
-}
+    flex: 1
+    color: rgb(215, 215, 215)
+    font-size: 20px
+    font-weight: 600
+    border: 2px dotted
+    height: 90%
+    border-radius: 8px
 
-.view-box-deleted {
-  animation-name: fadeOut;
-  animation-duration: 200ms;
-  animation-timing-function: ease;
+.center
+  +flex-center
 
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.67);
-  opacity: 0;
+  height: 100%
+  display: flex
 
-  z-index: 500;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-
-  pointer-events: none;
-}
-
-.upload-area {
-  border-radius: 8px;
-
-  width: 320px;
-  height: 160px;
-
-  display: flex;
-
-  box-sizing: border-box;
-  position: relative;
-
-  background-color: rgb(72, 68, 87);
-
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.upload-area-content {
-  /* 左右中央 */
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  flex: 1;
-  color: rgb(215, 215, 215);
-  font-size: 20px;
-  font-weight: 600;
-
-  border: 2px dotted;
-
-  height: 90%;
-  border-radius: 8px;
-}
-
-.center {
-  height: 100%;
-  display: flex;
-  /* 左右中央 */
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-@@keyframes fadeIn {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-
-@@keyframes fadeOut {
-  0% {
-    opacity: 100%;
-  }
-  100% {
+@keyframes fadeIn
+  0%
     opacity: 0%
-  }
-}
 
+  100%
+    opacity: 100%
+
+
+@keyframes fadeOut
+  0%
+    opacity: 100%
+
+  100%
+    opacity: 0%
 </style>

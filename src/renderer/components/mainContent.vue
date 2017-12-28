@@ -35,8 +35,7 @@ export default {
 }
 </script>
 
-<style>
-.main {
-  display: flex;
-}
+<style lang="sass">
+.main
+  display: flex
 </style>
