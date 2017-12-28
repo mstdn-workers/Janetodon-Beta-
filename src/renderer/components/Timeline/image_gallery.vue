@@ -7,9 +7,9 @@
     </a>
     <div v-if="!sensitive" class="media-gallery" style="height: 110px;">
 
-      <div v-for="one_media in formatedMedia" class="media-gallery-item" :style="one_media.style">
+      <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">
         <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
-          <img class="media-gallery-thumbnail" :src="one_media.media.preview_url" />
+          <img class="media-gallery_thumbnail" :src="one_media.media.preview_url" />
         </a>
       </div>
     </div>
@@ -95,58 +95,58 @@ export default {
 </script>
 
 <style lang="sass">
-  @import '../../globals.sass'
-  .media
-    font-size: 15px
-    line-height: 20px
-    word-wrap: break-word
-    font-weight: 400
-    overflow: hidden
-    white-space: pre-wrap
-    position: relative
+@import '../../globals.sass'
+.media
+  font-size: 15px
+  line-height: 20px
+  word-wrap: break-word
+  font-weight: 400
+  overflow: hidden
+  white-space: pre-wrap
+  position: relative
 
-  .meida-gallery
-    -webkit-box-sizing: border-box
-    box-sizing: border-box
-    position: relative
+.meida-gallery
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+  position: relative
 
-  .media-gallery-item
+  &_item
     border: none
     display: block
     float: left
 
-  .media-gallery-thumbnail
+  &_thumbnail
     width: 100%
     height: 100%
     -o-object-fit: cover
     object-fit: cover
 
-  .media-secret
-    +flex-center
-    width: 100%
-    text-align: center
-    display: flex
-    flex-direction: column
-    cursor: pointer
-    background-color: black
-    color: white
+.media-secret
+  +flex-center
+  width: 100%
+  text-align: center
+  display: flex
+  flex-direction: column
+  cursor: pointer
+  background-color: black
+  color: white
 
-  .media-secret-button
-    font-size: 18px
-    width: 24px
-    height: 24px
-    line-height: 18px
-    position: absolute
-    top: 4px
-    left: 4px
-    &:hover
-      color: rgba(255, 255, 255, 0.7)
-      background-color: rgba(0, 0, 0, 0.9)
-
-  .overlay
-    box-sizing: content-box
-    background: rgba(0, 0, 0, 0.5)
+.media-secret-button
+  font-size: 18px
+  width: 24px
+  height: 24px
+  line-height: 18px
+  position: absolute
+  top: 4px
+  left: 4px
+  &:hover
     color: rgba(255, 255, 255, 0.7)
-    border-radius: 4px
-    padding: 2px
+    background-color: rgba(0, 0, 0, 0.9)
+
+.overlay
+  box-sizing: content-box
+  background: rgba(0, 0, 0, 0.5)
+  color: rgba(255, 255, 255, 0.7)
+  border-radius: 4px
+  padding: 2px
 </style>

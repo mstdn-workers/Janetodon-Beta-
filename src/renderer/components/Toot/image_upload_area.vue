@@ -5,7 +5,7 @@
         <div class="view-box"></div>
       </b-upload>
       <div class="upload-area">
-        <div class="upload-area-content">
+        <div class="upload-area_content">
           <div class="center">
             ドラッグ&amp;ドロップでアップロード
           </div>
@@ -88,16 +88,16 @@ export default {
   position: relative
   background-color: $modal-back
 
-.upload-area-content
-  +flex-center
+  &_content
+    +flex-center
 
-  flex: 1
-  color: rgb(215, 215, 215)
-  font-size: 20px
-  font-weight: 600
-  border: 2px dotted
-  height: 90%
-  border-radius: 8px
+    flex: 1
+    color: rgb(215, 215, 215)
+    font-size: 20px
+    font-weight: 600
+    border: 2px dotted
+    height: 90%
+    border-radius: 8px
 
 .center
   +flex-center
