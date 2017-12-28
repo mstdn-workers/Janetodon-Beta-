@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import OneStatus from '@/components/one_status'
+import OneStatus from '@/components/Timeline/one_status'
 
 export default {
   props: {

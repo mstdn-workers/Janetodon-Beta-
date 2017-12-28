@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Toot from '@/components/toot'
-import Timeline from '@/components/timeline'
+import Toot from '@/components/Toot/toot'
+import Timeline from '@/components/Timeline/timeline'
 
 export default {
   data () {

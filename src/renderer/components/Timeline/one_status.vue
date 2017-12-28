@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import ImageGallery from '@/components/image_gallery'
+import ImageGallery from '@/components/Timeline/image_gallery'
 
 export default {
   props: {

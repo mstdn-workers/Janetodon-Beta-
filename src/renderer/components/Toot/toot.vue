@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import TootVisibility from '@/components/toot_visibility'
-import ImageUploadArea from '@/components/image_upload_area'
+import TootVisibility from '@/components/Toot/toot_visibility'
+import ImageUploadArea from '@/components/Toot/image_upload_area'
 
 export default {
   props: {
