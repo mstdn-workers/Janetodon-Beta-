@@ -68,9 +68,6 @@ export default {
   min-height: 48px
   border-bottom: 1px solid rgb(44, 71, 112)
   cursor: default
-  opacity: 1
-  -webkit-animation: fade .15s linear
-  animation: fade .15s linear
   font-size: 15px
 
 .status-avatar

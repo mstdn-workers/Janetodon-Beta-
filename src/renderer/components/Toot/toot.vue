@@ -287,7 +287,7 @@ export default {
 .uploading-modal
   display: flex
   height: 240px
-  background-color: rgb(72, 68, 87)
+  background-color: $modal-back
 
 .uploading-modal-content
   +flex-center

@@ -86,7 +86,7 @@ export default {
   display: flex
   box-sizing: border-box
   position: relative
-  background-color: rgb(72, 68, 87)
+  background-color: $modal-back
 
 .upload-area-content
   +flex-center
