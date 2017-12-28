@@ -188,181 +188,155 @@ export default {
 }
 </script>
 
-<style>
-.toot {
-  width: 100%;
-  top: 60px;
-  position: fixed;
-  z-index: 300;
-  flex: 1;
-  background-color: white;
-  padding-bottom: 20px;
-}
-.right {
-  margin-left: auto;
-}
+<style lang="sass">
+.toot
+  width: 100%
+  top: 60px
+  position: fixed
+  z-index: 300
+  flex: 1
+  background-color: white
+  padding-bottom: 20px
 
-.red {
-  color: red;
-}
+.right
+  margin-left: auto
 
-.spoiler-text {
-  animation-name: verticalFadeIn;
-  animation-duration: 300ms;
-  animation-timing-function: ease;
-  height: 4ex;
-  opacity: 1;
-}
+.red
+  color: red
 
-.spoiler-text-deleted {
-  animation-name: verticalFadeOut;
-  animation-duration: 300ms;
-  animation-timing-function: ease;
-  height: 0ex;
-  opacity: 0;
-}
+.spoiler-text
+  animation-name: verticalFadeIn
+  animation-duration: 300ms
+  animation-timing-function: ease
+  height: 4ex
+  opacity: 1
 
-.spoiler-button-text{
-  font-weight: bold;
-  font-size: 0.8em;
-  letter-spacing: -0.1em;
-}
+.spoiler-text-deleted
+  animation-name: verticalFadeOut
+  animation-duration: 300ms
+  animation-timing-function: ease
+  height: 0ex
+  opacity: 0
 
-.spoiler-active {
-  color: rgb(41, 208, 183);
-}
+.spoiler-button-text
+  font-weight: bold
+  font-size: 0.8em
+  letter-spacing: -0.1em
 
-.spoiler-active:hover {
-  color: rgb(41, 208, 183);
-}
+.spoiler-active
+  color: rgb(41, 208, 183)
+  &:hover
+    color: rgb(41, 208, 183)
 
-.upload-media-gallery{
-  animation-name: imageGarallyFadeIn;
-  animation-duration: 200ms;
-  animation-timing-function: ease;
-  height: 128px;
-  width: 512px;
-  margin-left: 4px;
-}
+.upload-media-gallery
+  animation-name: imageGarallyFadeIn
+  animation-duration: 200ms
+  animation-timing-function: ease
+  height: 128px
+  width: 512px
+  margin-left: 4px
+
+.upload-media-gallery-delete
+  animation-name: imageGarallyFadeOut
+  animation-duration: 200ms
+  animation-timing-function: ease
+  height: 0px
+  width: 512px
+  margin-left: 4px
+
+.upload-media
+  border: none
+  display: flex
+  float: left
+
+.upload-media-content
+  width: 128px
+  height: 128px
+  -o-object-fit: cover
+  object-fit: cover
+
+.upload-delete-button
+  font-size: 18px
+  width: 24px
+  height: 24px
+  line-height: 18px
+  position: absolute
+  top: 8px
+  left: 4px
+
+.upload-media-one
+  width: 128px
+  height: 128px
+  font-size: 15px
+  line-height: 20px
+  word-wrap: break-word
+  font-weight: 400
+  overflow: hidden
+  white-space: pre-wrap
+  position: relative
+
+.overlay
+  box-sizing: content-box
+  background: rgba(0, 0, 0, 0.5)
+  color: rgba(255, 255, 255, 0.7)
+  border-radius: 4px
+  padding: 2px
+
+.uploading-modal
+  display: flex
+  height: 240px
+  background-color: rgb(72, 68, 87)
+
+.uploading-modal-content
+  /* 左右中央
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  justify-content: center
+  /* 上下中央
+  -webkit-box-align: center
+  -ms-flex-align: center
+  align-items: center
+  color: rgb(215, 215, 215)
+  font-size: 24px
+  font-weight: 600
+  display: flex
+
+@keyframes verticalFadeIn
+  0%
+    height: 0ex
+    opacity: 0
+
+  100%
+    height: 4ex
+    opacity: 1
 
 
-.upload-media-gallery-delete{
-  animation-name: imageGarallyFadeOut;
-  animation-duration: 200ms;
-  animation-timing-function: ease;
-  height: 0px;
-  width: 512px;
-  margin-left: 4px;
-}
+@keyframes verticalFadeOut
+  0%
+    height: 4ex
+    opacity: 1
 
-.upload-media{
-  border: none;
-  display: flex;
-  float: left;
-}
+  100%
+    height: 0ex
+    opacity: 0
 
-.upload-media-content {
-  width: 128px;
-  height: 128px;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
 
-.upload-delete-button {
-  font-size: 18px;
-  width: 24px;
-  height: 24px;
-  line-height: 18px;
-  position: absolute;
-  top: 8px;
-  left: 4px;
-}
+@keyframes imageGarallyFadeIn
+  0%
+    height: 0px
+    opacity: 1
 
-.upload-media-one {
-  width: 128px;
-  height: 128px;
-  font-size: 15px;
-  line-height: 20px;
-  word-wrap: break-word;
-  font-weight: 400;
-  overflow: hidden;
-  white-space: pre-wrap;
-  position: relative;
-}
+  100%
+    height: 128px
+    opacity: 0
 
-.overlay {
-  box-sizing: content-box;
-  background: rgba(0, 0, 0, 0.5);
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  padding: 2px;
-}
 
-.uploading-modal {
-  display: flex;
-  height: 240px;
-  background-color: rgb(72, 68, 87);
-}
+@keyframes imageGarallyFadeOut
+  0%
+    height: 128px
+    opacity: 1
 
-.uploading-modal-content {
-  /* 左右中央 */
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  /* 上下中央 */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  color: rgb(215, 215, 215);
-  font-size: 24px;
-  font-weight: 600;
-
-  display: flex;
-}
-
-@keyframes verticalFadeIn {
-  0% {
-    height: 0ex;
-    opacity: 0;
-  }
-  100% {
-    height: 4ex;
-    opacity: 1;
-  }
-}
-
-@keyframes verticalFadeOut {
-  0% {
-    height: 4ex;
-    opacity: 1;
-  }
-  100% {
-    height: 0ex;
-    opacity: 0;
-  }
-}
-
-@keyframes imageGarallyFadeIn {
-  0% {
-    height: 0px;
-    opacity: 1;
-  }
-  100% {
-    height: 128px;
-    opacity: 0;
-  }
-}
-
-@keyframes imageGarallyFadeOut {
-  0% {
-    height: 128px;
-    opacity: 1;
-  }
-  100% {
-    height: 0px;
-    opacity: 0;
-  }
-}
+  100%
+    height: 0px
+    opacity: 0
 </style>

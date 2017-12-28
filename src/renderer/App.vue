@@ -22,12 +22,11 @@
   }
 </script>
 
-<style>
-.main-nav {
-  width: 100%;
-  height: 60px;
-  position: fixed;
-  background-color: white;
-  z-index: 300;
-}
+<style lang="sass">
+.main-nav
+  width: 100%
+  height: 60px
+  position: fixed
+  background-color: white
+  z-index: 300
 </style>

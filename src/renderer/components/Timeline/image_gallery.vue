@@ -94,62 +94,59 @@ export default {
 }
 </script>
 
-<style>
-.media {
-  font-size: 15px;
-  line-height: 20px;
-  word-wrap: break-word;
-  font-weight: 400;
-  overflow: hidden;
-  white-space: pre-wrap;
-  position: relative;
-}
-.meida-gallery {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  position: relative;
-}
-.media-gallery-item {
-  border: none;
-  display: block;
-  float: left;
-}
-.media-gallery-thumbnail {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-.media-secret {
-  width: 100%;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-}
-.media-secret-button {
-  font-size: 18px;
-  width: 24px;
-  height: 24px;
-  line-height: 18px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-}
+<style lang="sass">
+  .media
+    font-size: 15px
+    line-height: 20px
+    word-wrap: break-word
+    font-weight: 400
+    overflow: hidden
+    white-space: pre-wrap
+    position: relative
 
-.media-secret-button:hover {
-  color:  rgba(255, 255, 255, 0.7);
-  background-color: rgba(0, 0, 0, 0.9);
-}
-.overlay {
-  box-sizing: content-box;
-  background: rgba(0, 0, 0, 0.5);
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  padding: 2px;
-}
+  .meida-gallery
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+    position: relative
+
+  .media-gallery-item
+    border: none
+    display: block
+    float: left
+
+  .media-gallery-thumbnail
+    width: 100%
+    height: 100%
+    -o-object-fit: cover
+    object-fit: cover
+
+  .media-secret
+    width: 100%
+    align-items: center
+    text-align: center
+    display: flex
+    flex-direction: column
+    justify-content: center
+    cursor: pointer
+    background-color: black
+    color: white
+
+  .media-secret-button
+    font-size: 18px
+    width: 24px
+    height: 24px
+    line-height: 18px
+    position: absolute
+    top: 4px
+    left: 4px
+    &:hover
+      color: rgba(255, 255, 255, 0.7)
+      background-color: rgba(0, 0, 0, 0.9)
+
+  .overlay
+    box-sizing: content-box
+    background: rgba(0, 0, 0, 0.5)
+    color: rgba(255, 255, 255, 0.7)
+    border-radius: 4px
+    padding: 2px
 </style>

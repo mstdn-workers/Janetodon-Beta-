@@ -60,10 +60,10 @@ export default {
 }
 </script>
 
-<style>
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+<style lang="sass">
+main
+  display: flex
+  justify-content: center
+  align-items: center
+
 </style>

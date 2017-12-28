@@ -18,7 +18,7 @@ hotClient.subscribe(event => {
    */
   if (event.action === 'compiling') {
     document.body.innerHTML += `
-      <style>
+      <style lang="sass">
         #dev-client {
           background: #4fc08d;
           border-radius: 4px;
