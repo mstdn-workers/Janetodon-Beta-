@@ -42,15 +42,24 @@ export default {
       isVisible: false
     }
   },
+  methods: {
+    convertUrlToLink (str) {
+      return str.replace(/(https?:\/\/.+)/g, function () {
+        return '<a href="' + arguments[0] + '" target="_blank">' + arguments[0].slice(0, 30) + '...' + '</a>'
+      })
+    }
+  },
   computed: {
     avatarStyle: function () {
       return "width): 48px; height: 48px;background-size: 48px 48px; background-image: url('" + this.status.account.avatar + "');"
     },
     spoilerText: function () {
-      return this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '')
+      let displayText = this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '')
+      return this.convertUrlToLink(displayText)
     },
     content: function () {
-      return this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
+      let displayText = this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
+      return this.convertUrlToLink(displayText)
     }
   },
   components: {
