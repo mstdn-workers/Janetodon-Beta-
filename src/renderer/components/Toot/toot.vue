@@ -1,5 +1,6 @@
 <template>
   <div class="toot">
+    <my-icon></my-icon>
     <b-field>
       <b-input class="spoiler-text" placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
       <b-input class="spoiler-text-deleted" v-model="spoilerText" placeholder="警告文" v-else></b-input>
@@ -49,6 +50,7 @@
 import TootVisibility from '@/components/Toot/toot_visibility'
 import ImageUploadArea from '@/components/Toot/image_upload_area'
 import UploadMedia from '@/components/Toot/upload_media'
+import MyIcon from '@/components/Toot/my_icon'
 
 export default {
   props: {
@@ -154,7 +156,8 @@ export default {
   components: {
     TootVisibility,
     ImageUploadArea,
-    UploadMedia
+    UploadMedia,
+    MyIcon
   },
   name: 'toot'
 }
