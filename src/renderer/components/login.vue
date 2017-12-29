@@ -4,7 +4,7 @@
       <h1>ログインしたいインスタンスを入力してください</h1>
       <div class="error" v-if="error !== ''"> URLが間違っています </div>
       <form>
-        <input id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
+        <input class="instance-input" id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
         <button @click="loginAndNext">次へ</button>
       </form>
     </div>
@@ -46,8 +46,16 @@ export default {
 
 <style lang="sass">
 
-main
+.main
   +flex-center
   display: flex
+  position: absolute
+  top: 120px
 
+.instance-input
+  font-size: 24px
+  font-weight: 400
+  padding: 12px
+  border-radius: 8px
+  border: 1px solid
 </style>
