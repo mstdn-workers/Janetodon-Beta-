@@ -1,7 +1,7 @@
 <template>
   <div class="toot-visibility">
     <b-dropdown v-model="visibility"  @change="changeVisibility()">
-      <button class="button" type="button" slot="trigger">
+      <button class="button toot-setting-button" type="button" slot="trigger">
         <template v-if="visibility === 'public'">
           <b-icon icon="globe"></b-icon>
         </template>
@@ -63,4 +63,11 @@ export default {
 <style lang="sass">
 .toot-visibility
   background: $main-background!important
+.dropdown-content
+  background-color: $main-background
+  border-radius: 3px
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1)
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1)
+  padding-bottom: 0.5rem
+  padding-top: 0.5rem
 </style>
