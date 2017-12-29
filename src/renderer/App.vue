@@ -21,7 +21,7 @@
 </script>
 
 <style lang="sass">
-*
+html body
   background-color: $main-background!important
   color: white
 

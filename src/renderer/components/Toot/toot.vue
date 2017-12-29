@@ -169,6 +169,7 @@ export default {
   z-index: 300
   flex: 1
   padding-bottom: 20px
+  background-color: rgb(83, 91, 111)!important
 
 .input
   background-color: white!important
