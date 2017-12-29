@@ -21,12 +21,13 @@
 </script>
 
 <style lang="sass">
-html, body
-  background-color: rgb(40, 44, 55)
+*
+  background-color: $main-background!important
   color: white
 
 a
   color: $a-color!important
+  background-color: $main-background!important
   &:hover
     background-color: rgb(26, 29, 36)!important
     color: $a-color!important
@@ -35,6 +36,6 @@ a
   height: 60px
   position: fixed
   z-index: 300
-  background-color: rgb(40, 44, 55)
+  background-color: $main-background
   color: white
 </style>

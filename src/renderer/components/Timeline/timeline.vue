@@ -68,7 +68,7 @@ export default {
 <style lang="sass">
 .timeline
   position: relative
-  top: 282px
+  top: 306px
   transition: all 300ms 0s ease
   display: flex
   flex-flow: column-reverse

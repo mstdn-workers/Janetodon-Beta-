@@ -17,8 +17,8 @@
 
       <toot-visibility @change="changeVisibility"></toot-visibility>
 
-      <a v-if="isSpoilerActive" class="button spoiler-active" @click="isSpoilerActive=false">
-        <div class="spoiler-button-text">
+      <a v-if="isSpoilerActive" class="button" @click="isSpoilerActive=false">
+        <div class="spoiler-button-text spoiler-active">
           CW
         </div>
       </a>
@@ -161,18 +161,19 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
-
+<style lang="sass">s
 .toot
   width: 100%
   top: 60px
   position: fixed
   z-index: 300
   flex: 1
-  background-color: white
   padding-bottom: 20px
 
+.input
+  background-color: white!important
+.textarea
+  background-color: white!important
 .right
   margin-left: auto
 
@@ -199,9 +200,9 @@ export default {
   letter-spacing: -0.1em
 
 .spoiler-active
-  color: rgb(41, 208, 183)
+  color: rgb(41, 208, 183)!important
   &:hover
-    color: rgb(41, 208, 183)
+    color: rgb(41, 208, 183)!important
 
 
 @keyframes verticalFadeIn

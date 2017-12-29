@@ -1,5 +1,5 @@
 <template>
-  <div class="toot_visibility">
+  <div class="toot-visibility">
     <b-dropdown v-model="visibility"  @change="changeVisibility()">
       <button class="button" type="button" slot="trigger">
         <template v-if="visibility === 'public'">
@@ -61,10 +61,6 @@ export default {
 </script>
 
 <style lang="sass">
-
-
-main
-  +flex-center
-  display: flex
-
+.toot-visibility
+  background: $main-background!important
 </style>
