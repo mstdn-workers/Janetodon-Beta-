@@ -10,6 +10,12 @@
 - ファボとboostが出来る
 - OGP使って表示したい
 
+## 備忘録2
+CSSでbackground-colorを選択するときは!importantを
+
+colorをやるときは*でcolorが選択されてるから注意だぞ☆
+
+
 #### Build Setup
 
 ``` bash
