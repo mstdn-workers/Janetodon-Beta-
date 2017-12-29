@@ -1,11 +1,23 @@
 <template>
   <div>
-    <div class="main">
-      <h1>ログインしたいインスタンスを入力してください</h1>
+    <div class="instance-form">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-128x128">
+            <img src="https://mstdn-workers.com/packs/fluffy-elephant-friend-4d356db8570b891c88588b61a407f3a1.png" />
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content explain-content">
+            <h1 style="color:white">インスタンス検索</h1>
+            ログインしたいインスタンスを入力してください
+          </div>
+        </div>
+      </article>
       <div class="error" v-if="error !== ''"> URLが間違っています </div>
       <form>
-        <input id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
-        <button @click="loginAndNext">次へ</button>
+        <input class="instance-input" id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
+        <button class="instance-decide-button" @click="loginAndNext">次へ</button>
       </form>
     </div>
   </div>
@@ -45,9 +57,36 @@ export default {
 </script>
 
 <style lang="sass">
+.explain-content
+  color: white
+  height: 128px
+  flex-flow: column
+  font-size: 24px
+  font-weight: 600
 
-main
+.instance-form
   +flex-center
   display: flex
+  position: absolute
+  flex-flow: column
+  top: 120px
 
+  width: 100%
+
+.instance-input
+  font-size: 24px
+  font-weight: 400
+  padding: 12px
+  border-radius: 8px
+  border: 1px solid
+
+.instance-decide-button
+  font-size: 24px
+  font-weight: 700
+  padding: 12px 48px
+  border-radius: 8px
+  border: 1px solid
+
+  background-color: rgb(21, 51, 111)
+  color: white
 </style>

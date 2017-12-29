@@ -10,36 +10,35 @@
     <b-field>
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
     </b-field>
-    <b-field>
-      <b-upload v-if="dropMedia.length <= 4" v-model="dropMedia" drag-drop>
-        <b-icon icon="upload"></b-icon>
-      </b-upload>
+    <div class="toot-settings">
+      <b-field class="toot-settings_contents">
+        <b-upload class="toot-setting-button" v-if="dropMedia.length <= 4" v-model="dropMedia" drag-drop>
+          <b-icon  icon="upload"></b-icon>
+        </b-upload>
 
-      <toot-visibility @change="changeVisibility"></toot-visibility>
+        <toot-visibility @change="changeVisibility"></toot-visibility>
 
-      <a v-if="isSpoilerActive" class="button spoiler-active" @click="isSpoilerActive=false">
-        <div class="spoiler-button-text">
-          CW
+        <a v-if="isSpoilerActive" class="button toot-setting-button" @click="isSpoilerActive=false">
+          <div class="spoiler-button-text spoiler-active">
+            CW
+          </div>
+        </a>
+        <a v-else class="button toot-setting-button" @click="isSpoilerActive=true">
+          <div class="spoiler-button-text">
+            CW
+          </div>
+        </a>
+        <a v-if="dropMedia.length !== 0" class="button" @click="sensitive=!sensitive">
+          <b-icon v-if="!sensitive" icon="eye"></b-icon>
+          <b-icon v-else icon="eye-slash"></b-icon>
+        </a>
+        <div class="right">
+          <div :style="{ fontWeight: 600, color: tootLength > 500 ? 'red' : 'rgb(45, 45, 45)'}">
+            {{ 500 - tootLength }} / 500
+          </div>
         </div>
-      </a>
-      <a v-else class="button" @click="isSpoilerActive=true">
-        <div class="spoiler-button-text">
-          CW
-        </div>
-      </a>
-      <a v-if="dropMedia.length !== 0" class="button" @click="sensitive=!sensitive">
-        <b-icon v-if="!sensitive" icon="eye"></b-icon>
-        <b-icon v-else icon="eye-slash"></b-icon>
-      </a>
-      <div class="right">
-        <div class="red" v-if="tootLength > 500">
-          {{ 500 - tootLength }} / 500
-        </div>
-        <div v-else>
-          {{ 500 - tootLength }} / 500
-        </div>
-      </div>
-    </b-field>
+      </b-field>
+    </div>
 
     <upload-media :dropMedia="dropMedia" :isStart="isStart" @delete="deleteMedia"></upload-media>
 
@@ -162,22 +161,24 @@ export default {
 </script>
 
 <style lang="sass">
-
-
+$button-color: rgb(67, 71, 89)
+$button-back: rgb(194, 198, 210)
+$toot-back: rgb(83, 91, 111)
 .toot
   width: 100%
   top: 60px
   position: fixed
   z-index: 300
   flex: 1
-  background-color: white
   padding-bottom: 20px
+  background-color: $toot-back!important
 
+.input
+  background-color: white!important
+.textarea
+  background-color: white!important
 .right
   margin-left: auto
-
-.red
-  color: red
 
 .spoiler-text
   animation-name: verticalFadeIn
@@ -199,10 +200,41 @@ export default {
   letter-spacing: -0.1em
 
 .spoiler-active
-  color: rgb(41, 208, 183)
+  color: rgb(41, 208, 183)!important
   &:hover
-    color: rgb(41, 208, 183)
+    color: rgb(41, 208, 183)!important
 
+.toot-settings
+  +flex-center
+  width: 100%
+  position: absolute
+  &_contents
+    width: 50%
+    left: 5%
+    top: -13px
+    padding: 10px
+    background: $button-back
+    box-shadow: inset 0 5px 5px rgba(0,0,0,.05)
+    border-radius: 0 0 4px 4px
+    display: flex
+    position: absolute
+
+.toot-setting-button
+  border-radius: 0
+  border: 0
+  background-color: $button-back!important
+  color: $button-color!important
+  &:hover
+    color: $button-color!important
+    background-color: rgb(194, 198, 210) - rgb(10, 10, 10)!important
+
+// override
+.upload .upload-draggable
+  display: inline-block
+  cursor: pointer
+  padding: 0.25em
+  border: 0
+  border-radius: 5px
 
 @keyframes verticalFadeIn
   0%

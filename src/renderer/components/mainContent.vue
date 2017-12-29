@@ -1,4 +1,5 @@
 <template>
+  <!-- undefinedに!!をつけるとfalseに他はtrueになる -->
   <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
     <toot :isFileEnter="isFileEnter" @media-change="onMediaChange"></toot>
     <timeline :isExist="isExist"></timeline>
@@ -19,7 +20,7 @@ export default {
   beforeCreate () {
     // undefinedに!をつけるとtrueになる
     if (!this.$client) {
-      this.$router.push({ name: 'index' })
+      this.$router.push({ name: 'login' })
     }
   },
   components: {
