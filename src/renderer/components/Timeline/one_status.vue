@@ -26,12 +26,16 @@
         </b-collapse>
       </div>
     </div>
+
+    <action-bar :status="status"></action-bar>
+
     <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
   </div>
 </template>
 
 <script>
 import ImageGallery from '@/components/Timeline/image_gallery'
+import ActionBar from '@/components/Timeline/action_bar'
 
 export default {
   props: {
@@ -44,7 +48,7 @@ export default {
   },
   methods: {
     convertUrlToLink (str) {
-      return str.replace(/https?:\/\/([\w-]+\.+[\w-]+\/[\w- ./?%&=]*)/g, function () {
+      return str.replace(/https?:\/\/(\S*)/g, function () {
         console.log(arguments[1])
         return '<a href="' + arguments[0] + '" target="_blank">' + arguments[1].slice(0, 30) + '...' + '</a>'
       })
@@ -64,13 +68,15 @@ export default {
     }
   },
   components: {
-    ImageGallery
+    ImageGallery,
+    ActionBar
   },
   name: 'one-status'
 }
 </script>
 
 <style lang="sass">
+$action-active-color: rgb(25, 155, 179)
 .status
   padding: 8px 10px
   padding-left: 68px
