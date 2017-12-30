@@ -23,23 +23,21 @@
     methods: {
       boost () {
         let self = this
-        // this.$client.post('statuses/' + this.status.id + (this.action.boost ? '/unreblog' : '/reblog'), {})
-        //   .then(resp => {
-        //     if (resp.data.length !== 0) {
-        //       self.action.boost = ~self.action.boost
-        //     }
-        //   })
-        self.action.boost = ~self.action.boost
+        this.$client.post('statuses/' + this.status.id + (this.action.boost ? '/unreblog' : '/reblog'), {})
+          .then(resp => {
+            if (resp.data.length !== 0) {
+              self.action.boost = ~self.action.boost
+            }
+          })
       },
       favorite () {
         let self = this
-        // this.$client.post('statuses/' + this.status.id + (this.action.favorite ? '/unfavourite' : '/favourite'), {})
-        //   .then(resp => {
-        //     if (resp.data.length !== 0) {
-        //       self.action.favorite = ~self.action.favorite
-        //     }
-        //   })
-        self.action.favorite = ~self.action.favorite
+        this.$client.post('statuses/' + this.status.id + (this.action.favorite ? '/unfavourite' : '/favourite'), {})
+          .then(resp => {
+            if (resp.data.length !== 0) {
+              self.action.favorite = ~self.action.favorite
+            }
+          })
       },
       boostClass () {
         if (this.isStart) {
@@ -64,17 +62,21 @@
 </script>
 
 <style lang="sass">
+$boost-active: rgb(60, 203, 223)
+$fav-active: rgb(254, 187, 58)
 .action-bar
   display: flex
+  height: 20px
+  width: 100%
   &_boost-active
     animation-name: spinIn
-    animation-duration: 500ms
+    animation-duration: 700ms
     animation-timing-function: ease
-    color: rgb(60, 203, 223)!important
-    transform: rotate(180deg)
+    color: $boost-active!important
+    transform: rotate(360deg)
 
     &:hover
-      color: rgb(60, 203, 223)!important
+      color: $boost-active!important
 
   &_boost-delete
     animation-name: spinOut
@@ -85,10 +87,10 @@
     animation-name: favorite
     animation-duration: 600ms
     animation-timing-function: linear
-    color: rgb(254, 187, 58)!important
+    color: $fav-active!important
 
     &:hover
-      color: rgb(254, 187, 58)!important
+      color: $fav-active!important
 
   &_fav-delete
     animation-name: unfavorite
@@ -102,8 +104,8 @@
 
 @keyframes spinOut
   0%
-    color: rgb(60, 203, 223)
-    transform: rotate(180deg)
+    color: $boost-active
+    transform: rotate(360deg)
 
 @keyframes favorite
   10%
@@ -113,7 +115,7 @@
     transform: scale(0)
   30%
     transform: scale(0.4)
-    color: rgb(254, 187, 58)
+    color: $fav-active
   40%
     transform: scale(1.2)
   50%
@@ -129,6 +131,6 @@
 
 @keyframes unfavorite
   0%
-    color: rgb(254, 187, 58)
+    color: $fav-active
 
 </style>
