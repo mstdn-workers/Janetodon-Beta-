@@ -72,6 +72,9 @@ export default {
   transition: all 300ms 0s ease
   display: flex
   flex-flow: column-reverse
+  // 何故か画面いっぱいに背景色が広がらないため
+  background-color: $main-background
+  width: 100%
 
 .appear
   transform: translateY(148px)
