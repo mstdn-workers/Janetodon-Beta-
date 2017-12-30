@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="instance-form">
+  <div class="login">
+    <div class="instance-select">
       <article class="media">
         <figure class="media-left">
           <p class="image is-128x128">
@@ -10,12 +10,12 @@
         <div class="media-content">
           <div class="content explain-content">
             <h1 style="color:white">インスタンス検索</h1>
-            ログインしたいインスタンスを入力してください
+            <p class="explain-content_detal"> ログインしたいインスタンスを入力してください </p>
           </div>
         </div>
       </article>
       <div class="error" v-if="error !== ''"> URLが間違っています </div>
-      <form>
+      <form class="instance-form">
         <input class="instance-input" id="instance" type="text" placeholder="mstdn-workers.com" v-model="baseUrl"> </input>
         <button class="instance-decide-button" @click="loginAndNext">次へ</button>
       </form>
@@ -57,14 +57,18 @@ export default {
 </script>
 
 <style lang="sass">
+.login
+  height: 100vh
 .explain-content
   color: white
   height: 128px
   flex-flow: column
   font-size: 24px
   font-weight: 600
+  &_detail
+    justify-content: left
 
-.instance-form
+.instance-select
   +flex-center
   display: flex
   position: absolute
@@ -73,12 +77,17 @@ export default {
 
   width: 100%
 
+.instance-form
+  +flex-center
+  width: 80%
+
 .instance-input
   font-size: 24px
-  font-weight: 400
+  font-weight: 500
   padding: 12px
   border-radius: 8px
   border: 1px solid
+  width: 50%
 
 .instance-decide-button
   font-size: 24px
