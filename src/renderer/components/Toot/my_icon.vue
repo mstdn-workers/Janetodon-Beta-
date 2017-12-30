@@ -4,7 +4,7 @@
   <article class="media my-icon">
     <figure class="media-left">
       <p class="image is-48x48">
-        <img :src="iconPath" />
+        <img class="icon-image" :src="iconPath" />
       </p>
     </figure>
     <div class="media-content icon-name">

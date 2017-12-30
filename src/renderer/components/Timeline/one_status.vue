@@ -2,7 +2,7 @@
   <div class="status">
     <div class="status-info">
       <div class="status-avatar">
-        <div class="account-avatar" :style="avatarStyle">
+        <div class="account-avatar icon-image" :style="avatarStyle">
         </div>
       </div>
       <span class="display-name">
@@ -88,7 +88,6 @@ export default {
   top: 10px
 
 .account-avatar
-  border-radius: 4px
   background: transparent no-repeat
   background-position: 50%
   background-clip: padding-box

@@ -38,4 +38,7 @@ export default {
 <style lang="sass">
 .main
   display: flex
+
+.icon-image
+  border-radius: 24px
 </style>
