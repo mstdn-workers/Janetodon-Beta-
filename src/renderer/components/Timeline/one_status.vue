@@ -26,12 +26,16 @@
         </b-collapse>
       </div>
     </div>
+
+    <action-bar :status="status"></action-bar>
+
     <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
   </div>
 </template>
 
 <script>
 import ImageGallery from '@/components/Timeline/image_gallery'
+import ActionBar from '@/components/Timeline/action_bar'
 
 export default {
   props: {
@@ -64,13 +68,15 @@ export default {
     }
   },
   components: {
-    ImageGallery
+    ImageGallery,
+    ActionBar
   },
   name: 'one-status'
 }
 </script>
 
 <style lang="sass">
+$action-active-color: rgb(25, 155, 179)
 .status
   padding: 8px 10px
   padding-left: 68px
