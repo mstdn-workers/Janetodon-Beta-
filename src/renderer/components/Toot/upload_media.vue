@@ -1,5 +1,5 @@
 <template>
-  <div upload-media>
+  <div class="upload-media">
     <div class="upload-media-gallery-active" v-if="dropMedia.length !== 0">
       <div class="upload-media">
         <div class="upload-media_one animated bounceIn" v-for="(one_media, index) in dropMedia">
@@ -48,6 +48,9 @@
   width: 512px
   margin-left: 4px
 
+  position: absolute
+  top: 30px
+
 .upload-media-gallery-delete
   animation-name: imageGarallyFadeOut
   animation-duration: 200ms
@@ -56,10 +59,14 @@
   width: 512px
   margin-left: 4px
 
+  position: absolute
+  top: 30px
+
 .upload-media
   border: none
   display: flex
   float: left
+  position: relative
 
   &_content
     width: 128px
