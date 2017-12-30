@@ -24,6 +24,7 @@
 html body
   background-color: $main-background!important
   color: white
+  height: 100vh
 
 a
   color: $a-color!important
