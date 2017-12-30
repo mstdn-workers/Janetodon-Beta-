@@ -1,10 +1,10 @@
 <template>
   <div class="action-bar">
     <a @click="boost">
-      <b-icon icon="refresh" :custom-class="boostClass()"></b-icon>
+      <b-icon icon="refresh" :custom-class="boostClass"></b-icon>
     </a>
     <a @click="favorite">
-      <b-icon icon="star" :custom-class="favClass()"></b-icon>
+      <b-icon icon="star" :custom-class="favClass"></b-icon>
     </a>
   </div>
 </template>
@@ -17,7 +17,9 @@
     data () {
       return {
         action: { boost: false, favorite: false },
-        isStart: true
+        alreadyCall: { boost: false, favorite: false },
+        boostClass: '',
+        favClass: ''
       }
     },
     methods: {
@@ -27,6 +29,7 @@
           .then(resp => {
             if (resp.data.length !== 0) {
               self.action.boost = ~self.action.boost
+              self.boostClass = self.getBoostClass()
             }
           })
       },
@@ -36,26 +39,35 @@
           .then(resp => {
             if (resp.data.length !== 0) {
               self.action.favorite = ~self.action.favorite
+              self.favClass = self.getFavClass()
             }
           })
       },
-      boostClass () {
+      getBoostClass () {
         if (this.isStart) {
+          this.alreadyCall.boost = true
           return this.action.boost ? 'action-bar_boost-active' : ''
         }
         return this.action.boost ? 'action-bar_boost-active' : 'action-bar_boost-delete'
       },
-      favClass () {
+      getFavClass () {
         if (this.isStart) {
+          this.alreadyCall.favorite = true
           return this.action.favorite ? 'action-bar_fav-active' : ''
         }
         return this.action.favorite ? 'action-bar_fav-active' : 'action-bar_fav-delete'
       }
     },
+    computed: {
+      isStart: function () {
+        return !this.alreadyCall.boost || !this.alreadyCall.favorite
+      }
+    },
     mounted () {
       this.action.boost = this.status.reblogged
       this.action.favorite = this.status.favourited
-      this.isStart = false
+      this.boostClass = this.getBoostClass()
+      this.favClass = this.getFavClass()
     },
     name: 'action_bar'
   }
