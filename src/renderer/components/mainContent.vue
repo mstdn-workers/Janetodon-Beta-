@@ -18,9 +18,8 @@ export default {
     }
   },
   beforeCreate () {
-    // undefinedに!をつけるとtrueになる
     if (!this.$client) {
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: 'index' })
     }
   },
   components: {
