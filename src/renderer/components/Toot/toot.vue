@@ -151,6 +151,9 @@ export default {
       }
 
       this.$emit('media-change', this.dropMedia.length !== 0)
+    },
+    isSpoilerActive: function () {
+      this.$emit('spoiler-change', this.isSpoilerActive)
     }
   },
   components: {

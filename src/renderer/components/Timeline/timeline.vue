@@ -1,5 +1,5 @@
 <template>
-  <div :class="['timeline', isExist ? 'appear' : '']">
+  <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
     <div  v-for="status in reverseStatuses">
       <one-status :status="status"></one-status>
     </div>
@@ -11,7 +11,8 @@ import OneStatus from '@/components/Timeline/one_status'
 
 export default {
   props: {
-    isExist: {}
+    isMediaExist: {},
+    isSpoilerActive: {}
   },
   data () {
     return {
@@ -76,6 +77,8 @@ export default {
   background-color: $main-background
   width: 100%
 
-.appear
-  transform: translateY(148px)
+.media-appear
+  transform: translateY(128px)
+.spoiler-appear
+  transform: translateY(34px)
 </style>

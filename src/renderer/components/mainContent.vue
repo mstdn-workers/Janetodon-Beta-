@@ -1,8 +1,8 @@
 <template>
   <!-- undefinedに!!をつけるとfalseに他はtrueになる -->
   <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
-    <toot :isFileEnter="isFileEnter" @media-change="onMediaChange"></toot>
-    <timeline :isExist="isExist"></timeline>
+    <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
+    <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   data () {
     return {
       isFileEnter: false,
-      isExist: false
+      isMediaExist: false,
+      isSpoilerActive: false
     }
   },
   beforeCreate () {
@@ -27,8 +28,11 @@ export default {
     Timeline
   },
   methods: {
-    onMediaChange (isExist) {
-      this.isExist = isExist
+    onMediaChange (isMediaExist) {
+      this.isMediaExist = isMediaExist
+    },
+    onSpoilerChange (isSpoilerActive) {
+      this.isSpoilerActive = isSpoilerActive
     }
   },
   name: 'main-content'
