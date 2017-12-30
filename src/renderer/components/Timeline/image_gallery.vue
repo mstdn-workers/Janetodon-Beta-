@@ -1,20 +1,22 @@
 <template>
   <div class="media" style="direction: ltr;">
-    <a v-if="!sensitive" class="button media-secret-button overlay" @click="sensitive=true">
-      <span class="icon is-small">
-        <b-icon icon="eye"></b-icon>
-      </span>
-    </a>
-    <div v-if="!sensitive" class="media-gallery" style="height: 110px;">
-
-      <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">
-        <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
-          <img class="media-gallery_thumbnail" :src="one_media.media.preview_url" />
-        </a>
+    <div v-if="isShow" class="image-gallery">
+      <a  class="button media-secret-button overlay" @click="isShow=false">
+        <span class="icon is-small">
+          <b-icon icon="eye"></b-icon>
+        </span>
+      </a>
+      <div class="media-gallery" style="height: 110px;">
+        <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">
+          <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
+            <img class="media-gallery_thumbnail" :src="one_media.media.preview_url" />
+          </a>
+        </div>
       </div>
     </div>
-    <div class="media-secret" v-else @click="sensitive=false" style="height: 110px">
-      閲覧注意
+
+    <div class="media-secret" v-else @click="isShow=true" style="height: 110px">
+      {{ this.sensitive ? '閲覧注意' : '非表示のメディア' }}
       クリックして表示
     </div>
     <div style="z-index: 1000">
@@ -37,7 +39,8 @@ export default {
     return {
       counter: 0,
       isImageModalActive: false,
-      imgSrc: ''
+      imgSrc: '',
+      isShow: true
     }
   },
   methods: {
@@ -89,6 +92,9 @@ export default {
       }
       return retVal
     }
+  },
+  mounted () {
+    this.isShow = !this.sensitive
   },
   name: 'image-gallery'
 }
