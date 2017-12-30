@@ -1,9 +1,9 @@
 <template>
   <div class="action-bar">
-    <a :class="{ 'action-bar_boost-active': action.boost }">
+    <a :class="{ 'action-bar_boost-active': action.boost }" @click="boost">
       <b-icon icon="retweet"></b-icon>
     </a>
-    <a :class="{ 'action-bar_fav-active': action.favorite }">
+    <a :class="{ 'action-bar_fav-active': action.favorite }" @click="favorite">
       <b-icon icon="star"></b-icon>
     </a>
   </div>
@@ -17,6 +17,26 @@
     data () {
       return {
         action: { boost: false, favorite: false }
+      }
+    },
+    methods: {
+      boost () {
+        let self = this
+        this.$client.post('statuses/' + this.status.id + (this.action.boost ? '/unreblog' : '/reblog'), {})
+          .then(resp => {
+            if (resp.data.length !== 0) {
+              self.action.boost = ~self.action.boost
+            }
+          })
+      },
+      favorite () {
+        let self = this
+        this.$client.post('statuses/' + this.status.id + (this.action.favorite ? '/unfavourite' : '/favourite'), {})
+          .then(resp => {
+            if (resp.data.length !== 0) {
+              self.action.favorite = ~self.action.favorite
+            }
+          })
       }
     },
     mounted () {
