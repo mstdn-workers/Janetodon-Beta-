@@ -37,7 +37,6 @@ export default {
       return url.match(/https:\/\/([^.]*)/)[1]
     },
     setAccount (account) {
-      console.log(this.$client)
       this.updateClient(account)
     }
   },
@@ -49,7 +48,6 @@ export default {
         console.log(err)
         return
       }
-      console.log(data)
       self.accounts = data
     })
 
