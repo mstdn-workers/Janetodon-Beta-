@@ -69,10 +69,11 @@ html body
   +flex-center
   width: 64px
   height: 64px
+
   &_active
-    color: rgb(215, 209, 50)!important
+    color: rgb(254, 187, 58)!important
     &:hover
-      color: rgb(215, 209, 50)!important
+      color: rgb(254, 187, 58)!important
   &_button
     background-color: $side-bar-back!important
     &:hover
@@ -91,6 +92,7 @@ html body
     top: 0px
     left: 64px
     transform-origin: -25px 90px
+    padding: 10px
 
     &::-webkit-scrollbar
       display: none
