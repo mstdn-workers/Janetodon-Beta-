@@ -10,19 +10,20 @@
   export default {
     data () {
       return {
-        isSelecting: false
+        isSelecting: false,
+        notifications: []
       }
     },
     mounted () {
       let self = this
+      this.getNotifications()
 
-      this.$db.find({ type: 'account' }).exec(function (err, data) {
-        if (err) {
-          console.log(err)
-          return
+      const listener = this.$client.stream('streaming/user')
+
+      listener.on('message', msg => {
+        if (msg.event === 'notification') {
+          self.notification = self.notifications.concat(msg.data)
         }
-        console.log(data)
-        self.accounts = data
       })
 
       window.addEventListener('click', function (event) {
@@ -32,6 +33,16 @@
           self.isSelecting = false
         }
       })
+    },
+    methods: {
+      getNotifications () {
+        let self = this
+
+        this.$client.get('notifications', {})
+          .then(resp => {
+            self.notifications = self.notifications.concat(resp.data)
+          })
+      }
     },
     name: 'notification'
   }

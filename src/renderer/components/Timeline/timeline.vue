@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted () {
-    this._getTimeline()
+    this.getTimeline()
     this.listener = this.$client.stream('streaming/public/local')
 
     let self = this
@@ -51,9 +51,9 @@ export default {
     })
   },
   methods: {
-    _getTimeline () {
+    getTimeline () {
       let self = this
-      this.$client.get('timelines/public?local=true', function (err, data, res) {
+      this.$client.get('timelines/public?local=true', {}, function (err, data, res) {
         if (err) {
           console.log(err)
           return
