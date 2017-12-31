@@ -29,7 +29,7 @@ export default {
   data () {
     return {
       accounts: [],
-      isSelecting: true
+      isSelecting: false
     }
   },
   methods: {
@@ -37,7 +37,6 @@ export default {
       return url.match(/https:\/\/([^.]*)/)[1]
     },
     setAccount (account) {
-      console.log(this.$client)
       this.updateClient(account)
     }
   },
@@ -49,13 +48,11 @@ export default {
         console.log(err)
         return
       }
-      console.log(data)
       self.accounts = data
     })
 
     window.addEventListener('click', function (event) {
-      // TODO: closest的なものを実装する
-      if (event.target.parentNode.parentNode.className === 'user-select_button') {
+      if (event.target.closest('.user-select_button')) {
         self.isSelecting = !self.isSelecting
       } else {
         self.isSelecting = false

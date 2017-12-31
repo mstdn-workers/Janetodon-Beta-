@@ -3,6 +3,7 @@
   <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
     <div class="side-bar">
       <user-select></user-select>
+      <notifications></notifications>
     </div>
 
     <div class="content">
@@ -16,6 +17,7 @@
 import Toot from '@/components/Toot/toot'
 import Timeline from '@/components/Timeline/timeline'
 import UserSelect from '@/components/SideBar/user_select'
+import Notifications from '@/components/SideBar/notification'
 
 export default {
   data () {
@@ -33,7 +35,8 @@ export default {
   components: {
     Toot,
     Timeline,
-    UserSelect
+    UserSelect,
+    Notifications
   },
   methods: {
     onMediaChange (isMediaExist) {
