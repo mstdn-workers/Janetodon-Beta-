@@ -92,6 +92,7 @@ $action-active-color: rgb(25, 155, 179)
   border-bottom: 1px solid rgb(44, 71, 112)
   cursor: default
   font-size: 15px
+  width: 90%
 
 .status-avatar
   width: 48px

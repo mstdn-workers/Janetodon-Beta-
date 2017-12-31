@@ -107,6 +107,7 @@ export default {
   box-sizing: border-box
   position: relative
   width: 100%
+  max-width: 520px
   overflow: hidden
   margin-top: 8px
   height: 170px
