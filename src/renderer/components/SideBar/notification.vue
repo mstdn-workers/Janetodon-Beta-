@@ -3,7 +3,7 @@
     <a :class="{ 'notifications_button': true, 'notifications_active': isSelecting}">
       <b-icon icon="bell" size="is-large"></b-icon>
     </a>
-    <div :class="['notifications_timeline', isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete']">
+    <div :class="[isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete', 'notifications_timeline']" id="notification">
       <notification-status :notification="notification" v-for="notification in reverseNotifications"></notification-status>
     </div>
   </div>
@@ -32,9 +32,9 @@ export default {
     })
 
     window.addEventListener('click', function (event) {
-      if (event.target.parentNode.parentNode.className === 'notifications_button') {
+      if (event.target.closest('.notifications_button')) {
         self.isSelecting = !self.isSelecting
-      } else {
+      } else if (!event.target.closest('.notifications')) {
         self.isSelecting = false
       }
     })
@@ -82,13 +82,17 @@ html body
     display: flex
     flex-flow: column-reverse
     border: solid 5px white
-    border-radius: 10px
+    border-radius: 40px
     background-color: $main-background
     width: 80vw
     max-height: 80vh
+    overflow: scroll
     top: 0px
     left: 64px
     transform-origin: -25px 90px
+
+    &::-webkit-scrollbar
+      display: none
 
     &:after
       content: ""
@@ -104,6 +108,9 @@ html body
       transform: rotate(-90deg)
 
     &_active
+      animation-name: notification_appear
+      animation-duration: 300ms
+      animation-timing-function: ease-in-out
 
     &_delete
       transform: scale(0)

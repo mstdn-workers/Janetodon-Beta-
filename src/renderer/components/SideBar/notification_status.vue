@@ -1,5 +1,17 @@
 <template>
   <div class="notification-status">
+    <div class="notification-info">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-32x32">
+            <img class="icon-image" :src="notification.account.avatar" />
+          </p>
+        </figure>
+        <div class="notification-message">
+          <strong>{{ displayName(notification.account) }}さんが{{ displayNotification(notification) }}しました</strong>
+        </div>
+      </article>
+    </div>
     <div class="status-info">
       <div class="status-avatar">
         <div class="account-avatar icon-image" :style="avatarStyle">
@@ -59,11 +71,18 @@ export default {
         display = account.username
       }
       return display
+    },
+    displayNotification (notification) {
+      switch (notification.type) {
+        case 'reblog': return 'ブースト'
+        case 'follow': return 'フォロー'
+        case 'favourite': return 'お気に入りに登録'
+        case 'mention' : return '返信'
+      }
     }
   },
   computed: {
     avatarStyle: function () {
-      console.log(this.status)
       return "width): 48px; height: 48px;background-size: 48px 48px; background-image: url('" + this.status.account.avatar + "');"
     },
     spoilerText: function () {
@@ -92,13 +111,11 @@ $action-active-color: rgb(25, 155, 179)
   padding: 8px 10px
   padding-left: 68px
   position: relative
-  min-height: 48px
+  height: auto
   border-bottom: 1px solid rgb(44, 71, 112)
   cursor: default
   font-size: 15px
   border-radius: 8px
-  background-color:
-
 .status-avatar
   width: 48px
   height: 48px
@@ -131,4 +148,13 @@ $action-active-color: rgb(25, 155, 179)
   font-weight: 400
   overflow: hidden
   white-space: pre-wrap
+
+.notification-info
+  height: 40px
+  width: 100%
+
+.notification-message
+  position: absolute
+  left: 34px
+  top: 0px
 </style>

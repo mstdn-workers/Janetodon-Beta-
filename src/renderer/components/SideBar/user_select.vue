@@ -52,8 +52,7 @@ export default {
     })
 
     window.addEventListener('click', function (event) {
-      // TODO: closest的なものを実装する
-      if (event.target.parentNode.parentNode.className === 'user-select_button') {
+      if (event.target.closest('.user-select_button')) {
         self.isSelecting = !self.isSelecting
       } else {
         self.isSelecting = false
