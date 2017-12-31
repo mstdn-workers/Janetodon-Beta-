@@ -29,7 +29,7 @@ export default {
   data () {
     return {
       accounts: [],
-      isSelecting: true
+      isSelecting: false
     }
   },
   methods: {
