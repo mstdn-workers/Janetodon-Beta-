@@ -8,7 +8,8 @@
           </p>
         </figure>
         <div class="notification-message">
-          <strong>{{ displayName(notification.account) }}さんが{{ displayNotification(notification) }}しました</strong>
+          <b-icon :icon="icon(notification.type)" :style="style(notification.type)"></b-icon>
+          <strong>{{ displayName(notification.account) }}さんが{{ displayNotification(notification.type) }}しました</strong>
         </div>
       </article>
     </div>
@@ -72,12 +73,28 @@ export default {
       }
       return display
     },
-    displayNotification (notification) {
-      switch (notification.type) {
+    displayNotification (type) {
+      switch (type) {
         case 'reblog': return 'ブースト'
         case 'follow': return 'フォロー'
         case 'favourite': return 'お気に入りに登録'
         case 'mention' : return '返信'
+      }
+    },
+    icon (type) {
+      switch (type) {
+        case 'reblog': return 'refresh'
+        case 'follow': return 'users'
+        case 'favourite': return 'star'
+        case 'mention' : return 'reply'
+      }
+    },
+    style (type) {
+      switch (type) {
+        case 'reblog': return 'color: rgb(60, 203, 223)'
+        case 'follow': return 'color: rgb(60, 203, 223)'
+        case 'favourite': return 'color: rgb(254, 187, 58)'
+        case 'mention' : return 'color: rgb(60, 203, 223)'
       }
     }
   },

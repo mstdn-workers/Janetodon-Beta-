@@ -45,6 +45,7 @@ export default {
 
       this.$client.get('notifications', {})
         .then(resp => {
+          console.log(resp.data)
           self.notifications = self.notifications.concat(resp.data)
         })
     }
