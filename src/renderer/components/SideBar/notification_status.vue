@@ -6,7 +6,7 @@
         </div>
       </div>
       <span class="display-name">
-        {{ status.account.display_name }}
+        {{ displayName(status.account) }}
         <span class="display-username">{{ '@' + status.account.acct }}</span>
       </span>
     </div>
@@ -52,6 +52,13 @@ export default {
       return str.replace(/https?:\/\/([^\s<>]*)/g, function () {
         return '<a href="' + arguments[0] + '" target="_blank">' + arguments[1].slice(0, 30) + '...' + '</a>'
       })
+    },
+    displayName (account) {
+      let display = account.display_name
+      if (display === '') {
+        display = account.username
+      }
+      return display
     }
   },
   computed: {
