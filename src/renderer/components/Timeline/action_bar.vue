@@ -131,7 +131,7 @@ $fav-active: rgb(254, 187, 58)
   40%
     transform: scale(1.2)
   50%
-    transform: salce(1.4)
+    transform: scale(1.4)
   60%
     transform: scale(0.8)
   70%
