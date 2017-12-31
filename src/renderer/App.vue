@@ -25,6 +25,10 @@ html body
   background-color: $main-background!important
   color: white
   height: 100vh
+  
+  &::-webkit-scrollbar
+    display: none
+
 
 a
   color: $a-color!important
