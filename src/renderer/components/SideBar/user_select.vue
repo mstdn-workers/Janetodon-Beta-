@@ -82,6 +82,9 @@ export default {
 
 
 .user-menu
+  animation-name: selectable_appear
+  animation-duration: 600ms
+  animation-timing-function: ease-in-out
   position: absolute
 
   background-color: rgb(65, 62, 82)
@@ -111,4 +114,18 @@ export default {
     top: 24px
     left: -10px
     transform: rotate(-90deg)
+
+@keyframes selectable_appear
+  0%
+    transform: scale(0)
+  50%
+    transform: scale(1.2)
+  60%
+    transform: scale(0.9)
+  70%
+    transform: scale(1.1)
+  80%
+    transform: scale(0.95)
+  90%
+    transform: scale(1.05)
 </style>
