@@ -31,6 +31,7 @@ export default {
       })
     },
     createApp (baseUrl) {
+      let self = this
       Mastodon.createOAuthApp(baseUrl + '/api/v1/apps', 'Janetodon', 'read write follow')
         .catch(err => {
           console.error(err)
@@ -58,7 +59,7 @@ export default {
           return Mastodon.getAuthorizationUrl(this.clientId, this.clientSecret, baseUrl, 'read write follow', 'urn:ietf:wg:oauth:2.0:oob')
         })
         .then(url => {
-          this.showLogin(url, this.clientId, this.clientSecret, baseUrl)
+          self.showLogin(url, this.clientId, this.clientSecret, baseUrl)
         })
     },
     showLogin (url, clientId, clientSecret, baseUrl) {
@@ -99,8 +100,29 @@ export default {
           })
         })
     },
+    updateClient (account) {
+      console.log(account)
+      this.$client = new Mastodon({
+        access_token: account.access_token,
+        api_url: account.url + '/api/v1/'
+      })
+
+      this.killActiveAccount()
+
+      this.$db.update({ type: 'account', account_id: account.account_id }, { $set: { is_active: true } }, { multi: true }, function (err, numReplaced) {
+        if (err) {
+          console.log(err)
+        }
+        console.log(numReplaced)
+      })
+
+      location.reload()
+    },
     saveUserInfo (baseUrl, data, accessToken) {
       var id = data.id
+      var iconUrl = data.avatar
+      var display = data.display_name
+      var username = data.acct
       let db = this.$db
 
       let self = this
@@ -119,6 +141,9 @@ export default {
             account_id: id,
             access_token: accessToken,
             type: 'account',
+            display: display,
+            username: username,
+            avatar: iconUrl,
             is_active: true
           }
 

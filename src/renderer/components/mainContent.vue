@@ -1,14 +1,21 @@
 <template>
   <!-- undefinedに!!をつけるとfalseに他はtrueになる -->
   <div class="main" @dragenter="isFileEnter=true" @dragover="isFileEnter=true" @dragleave="isFileEnter=false"  @drop="isFileEnter=false">
-    <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
-    <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
+    <div class="side-bar">
+      <user-select></user-select>
+    </div>
+
+    <div class="content">
+      <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
+      <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
+    </div>
   </div>
 </template>
 
 <script>
 import Toot from '@/components/Toot/toot'
 import Timeline from '@/components/Timeline/timeline'
+import UserSelect from '@/components/SideBar/user_select'
 
 export default {
   data () {
@@ -25,7 +32,8 @@ export default {
   },
   components: {
     Toot,
-    Timeline
+    Timeline,
+    UserSelect
   },
   methods: {
     onMediaChange (isMediaExist) {
@@ -42,6 +50,26 @@ export default {
 <style lang="sass">
 .main
   display: flex
+
+.content
+  display: flex
+  position: relative
+  width: 100%
+
+  left: 64px
+
+.side-bar
+  width: 64px
+  height: 100%
+
+  background-color: $side-bar-back
+
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5)
+  z-index: 1000
+
+  position: fixed
+
+  top: 60px
 
 .icon-image
   border-radius: 24px

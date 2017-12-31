@@ -217,10 +217,10 @@ $toot-back: rgb(83, 91, 111)
   &_contents
     width: 50%
     left: 5%
-    top: -13px
+    top: -12px
     padding: 10px
     background: $button-back
-    box-shadow: inset 0 5px 5px rgba(0,0,0,.05)
+    box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.05)
     border-radius: 0 0 4px 4px
     display: flex
     position: absolute
