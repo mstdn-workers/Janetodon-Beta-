@@ -42,6 +42,7 @@ export default {
 <style lang="sass">
 .my-icon
   padding: 4px
+  height: 48px
 .icon-name
   height: 48px
   color: rgb(217, 217, 217)
