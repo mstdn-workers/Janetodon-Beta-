@@ -1,17 +1,15 @@
 <template>
-  <div class="media" style="direction: ltr;">
-    <div v-if="isShow" class="image-gallery">
+  <div class="media">
+    <div v-if="isShow" class="media-gallery">
       <a  class="button media-secret-button overlay" @click="isShow=false">
         <span class="icon is-small">
           <b-icon icon="eye"></b-icon>
         </span>
       </a>
-      <div class="media-gallery" style="height: 110px;">
-        <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">
-          <a @click="isImageModalActive = true;imgSrc = one_media.media.url">
-            <img class="media-gallery_thumbnail" :src="one_media.media.preview_url" />
-          </a>
-        </div>
+      <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">
+        <a  @click="isImageModalActive = true;imgSrc = one_media.media.url">
+          <img class="media-gallery_thumbnail" :src="one_media.media.preview_url" />
+        </a>
       </div>
     </div>
 
@@ -90,6 +88,7 @@ export default {
       for (let i in this.media) {
         retVal.push({ style: this.createMediaStyle(Number(i)), media: this.media[i] })
       }
+      console.log(retVal)
       return retVal
     }
   },
@@ -103,23 +102,21 @@ export default {
 <style lang="sass">
 
 .media
-  font-size: 15px
-  line-height: 20px
-  word-wrap: break-word
-  font-weight: 400
-  overflow: hidden
-  white-space: pre-wrap
-  position: relative
 
-.meida-gallery
-  -webkit-box-sizing: border-box
+.media-gallery
   box-sizing: border-box
   position: relative
+  width: 100%
+  overflow: hidden
+  margin-top: 8px
+  height: 170px
 
   &_item
     border: none
     display: block
     float: left
+    box-sizing: border-box
+    position: relative
 
   &_thumbnail
     width: 100%
