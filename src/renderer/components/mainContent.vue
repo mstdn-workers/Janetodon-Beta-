@@ -62,7 +62,8 @@ export default {
 
   background-color: rgb(24, 28, 42)
 
-  box-shadow: inset 0 10px 10px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5)
+  z-index: 1000
 
   position: fixed
 

@@ -36,7 +36,7 @@ a
   width: 100%
   height: 60px
   position: fixed
-  z-index: 300
+  z-index: 1500
   background-color: $main-background
   color: white
 </style>
