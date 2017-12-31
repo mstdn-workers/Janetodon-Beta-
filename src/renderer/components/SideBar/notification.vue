@@ -1,7 +1,7 @@
 <template>
   <div class="notifications">
     <a :class="{ 'notifications_button': true, 'notifications_active': isSelecting}">
-      <b-icon icon="bell" size="is-large"></b-icon>
+      <b-icon icon="bell" size="is-large" :custom-class="hasNewNotification ? 'notifications_vibe' : ''"></b-icon>
     </a>
     <div :class="[isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete', 'notifications_timeline']" id="notification">
       <notification-status :notification="notification" v-for="notification in reverseNotifications"></notification-status>
@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       isSelecting: false,
-      notifications: []
+      notifications: [],
+      hasNewNotification: false
     }
   },
   mounted () {
@@ -27,13 +28,19 @@ export default {
 
     listener.on('message', msg => {
       if (msg.event === 'notification') {
-        self.notification = self.notifications.concat(msg.data)
+        console.log(msg)
+        self.notifications = [msg.data].concat(self.notifications)
+
+        if (!self.isSelecting) {
+          self.hasNewNotification = true
+        }
       }
     })
 
     window.addEventListener('click', function (event) {
       if (event.target.closest('.notifications_button')) {
         self.isSelecting = !self.isSelecting
+        self.hasNewNotification = false
       } else if (!event.target.closest('.notifications')) {
         self.isSelecting = false
       }
@@ -45,10 +52,14 @@ export default {
 
       this.$client.get('notifications', {})
         .then(resp => {
-          console.log(resp.data)
           self.notifications = self.notifications.concat(resp.data)
         })
     }
+  },
+  updated () {
+    let notificationTimeline = document.getElementsByClassName('notifications_timeline')[0]
+    console.log(notificationTimeline)
+    notificationTimeline.scrollTop = 0
   },
   computed: {
     reverseNotifications: function () {
@@ -78,6 +89,15 @@ html body
     background-color: $side-bar-back!important
     &:hover
       background-color: $side-bar-back!important
+
+  &_vibe
+    transform-origin: 24px 5px
+
+    animation-name: ring
+    animation-duration: 1200ms
+    animation-timing-function: ease
+    animation-iteration-count: infinite
+
   &_timeline
     position: absolute
     transition: all 200ms 0s ease
@@ -117,4 +137,12 @@ html body
 
     &_delete
       transform: scale(0)
+
+@keyframes ring
+  0%, 10%, 20%, 30%
+    transform: rotate(30deg)
+  5%, 15%, 25%, 35%
+    transform: rotate(-30deg)
+  40%
+    transform: rotate(0deg)
 </style>

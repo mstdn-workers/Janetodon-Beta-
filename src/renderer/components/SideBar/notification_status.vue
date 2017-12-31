@@ -67,6 +67,7 @@ export default {
     }
   },
   beforeMount () {
+    console.log(this.notification.status)
     this.status = this.notification.status
   },
   components: {
@@ -77,6 +78,10 @@ export default {
 </script>
 
 <style lang="sass">
+.notification-status
+  position: relative
+
+
 .notification-info
   position: relative
   height: 40px
@@ -85,4 +90,11 @@ export default {
   left: 60px
   top: 15px
 
+
+.notification-message
+  height: 40px
+  width: 70%
+  text-overflow: ellipsis
+  white-space: nowrap
+  overflow: hidden
 </style>
