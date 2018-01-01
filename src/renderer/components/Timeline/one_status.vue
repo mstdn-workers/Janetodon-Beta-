@@ -52,7 +52,6 @@ export default {
   methods: {
     convertUrlToLink (str) {
       return str.replace(/https?:\/\/([^\s<>]*)/g, function () {
-        console.log(arguments[1])
         return '<a href="' + arguments[0] + '" target="_blank">' + arguments[1].slice(0, 30) + '...' + '</a>'
       })
     },

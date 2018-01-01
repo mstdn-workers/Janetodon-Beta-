@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-ogp">
+  <div class="inline-ogp" @click="goToUrl">
     <div class="inline-ogp_left-bar"></div>
 
     <article class="media ogp-info">
@@ -30,6 +30,11 @@ export default {
 
     }
   },
+  methods: {
+    goToUrl () {
+      open(this.ogps.url, '_blank')
+    }
+  },
   name: 'inline-ogp'
 }
 </script>
@@ -38,6 +43,7 @@ export default {
 .inline-ogp
   position: relative
   display: inline
+  cursor: pointer
 
   &_left-bar
     background-color: rgb(129, 139, 161)
