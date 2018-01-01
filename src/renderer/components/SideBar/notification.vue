@@ -50,7 +50,7 @@ export default {
     getNotifications () {
       let self = this
 
-      this.$client.get('notifications', {})
+      this.$client.get('notifications?limit=30', {})
         .then(resp => {
           self.notifications = self.notifications.concat(resp.data)
         })
