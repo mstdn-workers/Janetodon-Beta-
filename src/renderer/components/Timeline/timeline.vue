@@ -1,5 +1,6 @@
 <template>
   <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
+    <a :class="['to-top', isTop ? 'to-top_delete' : 'to-top_active']" @click="moveToTop">最新tootへ戻る</a>
     <div  v-for="status in reverseStatuses">
       <one-status :status="status"></one-status>
     </div>
@@ -17,8 +18,11 @@ export default {
   data () {
     return {
       statuses: [],
-      since_id: 0,
-      listener: null
+      maxId: 0,
+      listener: null,
+      isGettingPast: false,
+      oldScrollTop: 0,
+      isTop: true
     }
   },
   components: {
@@ -31,7 +35,7 @@ export default {
     }
   },
   mounted () {
-    this.getTimeline()
+    this.getTimeline(null)
     this.listener = this.$client.stream('streaming/public/local')
 
     let self = this
@@ -49,17 +53,39 @@ export default {
         })
       }
     })
+
+    document.addEventListener('scroll', function (event) {
+      self.isTop = (document.body.scrollTop === 0)
+
+      if (window.innerHeight + document.body.scrollTop >= document.documentElement.scrollHeight && !self.isGettingPast) {
+        console.log('get')
+        self.isGettingPast = true
+        document.body.scrollTop -= 1
+        self.oldScrollTop = document.body.scrollTop
+        self.getTimeline(self.maxId)
+      }
+    })
+  },
+  updated () {
+    if (this.isGettingPast) {
+      this.isGettingPast = false
+      document.body.scrollTop = this.oldScrollTop
+    }
   },
   methods: {
-    getTimeline () {
+    getTimeline (maxId) {
       let self = this
-      this.$client.get('timelines/public?local=true', {}, function (err, data, res) {
+      this.$client.get('timelines/public?local=true&limit=40' + (maxId ? '&max_id=' + maxId : ''), {}, function (err, data, res) {
         if (err) {
           console.log(err)
           return
         }
         self.statuses = self.statuses.concat(data)
+        self.maxId = data[data.length - 1].id
       })
+    },
+    moveToTop () {
+      document.body.scrollTop = 0
     }
   },
   name: 'timeline'
@@ -81,4 +107,44 @@ export default {
   transform: translateY(128px)
 .spoiler-appear
   transform: translateY(34px)
+
+.to-top
+  position: fixed
+  left: 48%
+  top: 320px
+  background-color: rgb(124, 124, 124)!important
+  color: rgb(50, 50, 50)!important
+
+  font-weight: 600
+  padding: 10px 20px 10px 20px
+
+  border-radius: 20px
+
+  z-index: 200
+  &:hover
+    background-color: rgb(124, 124, 124) - rgb(20, 20, 20)!important
+    color: rgb(50, 50, 50)!important
+
+  &_delete
+    transition: all 100ms 0s ease
+    transform: scale(0)
+
+  &_active
+    transform: scale(1)
+    animation-name: appearTop
+    animation-duration: 400ms
+    animation-timing-function: ease
+
+
+@keyframes appearTop
+  50%
+    transform: scale(1.4)
+  60%
+    transform: scale(0.8)
+  70%
+    transform: scale(1.1)
+  80%
+    transform: scale(0.9)
+  90%
+    transform: scale(1.05)
 </style>
