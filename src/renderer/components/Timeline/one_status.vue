@@ -6,7 +6,7 @@
         </div>
       </div>
       <span class="display-name">
-        {{ status.account.display_name }}
+        {{ displayName(status.account) }}
         <span class="display-username">{{ '@' + status.account.acct }}</span>
       </span>
     </div>
@@ -48,10 +48,17 @@ export default {
   },
   methods: {
     convertUrlToLink (str) {
-      return str.replace(/https?:\/\/(\S*)/g, function () {
+      return str.replace(/https?:\/\/([^\s<>]*)/g, function () {
         console.log(arguments[1])
         return '<a href="' + arguments[0] + '" target="_blank">' + arguments[1].slice(0, 30) + '...' + '</a>'
       })
+    },
+    displayName (account) {
+      let display = account.display_name
+      if (display === '') {
+        display = account.username
+      }
+      return display
     }
   },
   computed: {
@@ -85,6 +92,7 @@ $action-active-color: rgb(25, 155, 179)
   border-bottom: 1px solid rgb(44, 71, 112)
   cursor: default
   font-size: 15px
+  width: 90%
 
 .status-avatar
   width: 48px

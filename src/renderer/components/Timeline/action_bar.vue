@@ -78,8 +78,9 @@ $boost-active: rgb(60, 203, 223)
 $fav-active: rgb(254, 187, 58)
 .action-bar
   display: flex
-  height: 20px
+  height: 24px
   width: 100%
+
   &_boost-active
     animation-name: spinIn
     animation-duration: 700ms
