@@ -43,9 +43,10 @@ export default {
     background-color: rgb(129, 139, 161)
     border-radius: 8px
     position: absolute
-    top: 0
-    bottom: 0
     width: 4px
+    height: 80px
+    top: 10px
+    left: 20px
     z-index: 1
     margin-right: 20px
 
@@ -56,6 +57,10 @@ export default {
 .ogp-content
   display: flex
   flex-flow: column
+  top: 10px
+  position: relative
+
+  width: 60%
 
 .ogp-site
   font-size: 18px
@@ -69,4 +74,5 @@ export default {
   width: 80px
   height: 80px
   overflow: hidden
+  margin: 10px
 </style>

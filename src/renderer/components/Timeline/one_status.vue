@@ -121,7 +121,6 @@ export default {
           return
         }
         self.ogps = self.getOGP(body)
-        console.log(self.content)
       })
     }
 
