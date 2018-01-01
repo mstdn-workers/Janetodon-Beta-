@@ -36,12 +36,14 @@ app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    console.log('close')
     app.quit()
   }
 })
 
 app.on('activate', () => {
   if (mainWindow === null) {
+    console.log('init')
     createWindow()
   }
 })

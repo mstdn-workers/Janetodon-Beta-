@@ -28,6 +28,7 @@
     </div>
 
     <action-bar :status="status"></action-bar>
+    <inline-ogp :ogps="ogps" v-if="ogps"></inline-ogp>
 
     <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
   </div>
@@ -36,6 +37,7 @@
 <script>
 import ImageGallery from '@/components/Timeline/image_gallery'
 import ActionBar from '@/components/Timeline/action_bar'
+import InlineOgp from '@/components/Timeline/inline_ogp'
 
 export default {
   props: {
@@ -43,7 +45,8 @@ export default {
   },
   data () {
     return {
-      isVisible: false
+      isVisible: false,
+      ogps: null
     }
   },
   methods: {
@@ -61,9 +64,9 @@ export default {
       return display
     },
     getOGP (html) {
-      let match = html.match(/<meta.*?\S*?="\S*?".*?\S*?="\S*?".*?>/g)
+      let match = html.match(/<meta\s*\S*?=".*?"\s*\S*?=".*?".*?>/g)
       if (match) {
-        var ogps = []
+        var ogps = {}
         for (let i in match) {
           var key = null
           var value = null
@@ -80,17 +83,14 @@ export default {
                   value = element[2]
                 }
               }
-              console.log(key + ', ' + value)
               if (key) {
-                let ogp = { key: value }
-                console.log(ogp)
-                ogps.push(ogp)
+                ogps[key] = value
               }
             }
           }
         }
       }
-      console.log(ogps)
+      return ogps
     }
   },
   computed: {
@@ -98,33 +98,37 @@ export default {
       return "width): 48px; height: 48px;background-size: 48px 48px; background-image: url('" + this.status.account.avatar + "');"
     },
     spoilerText: function () {
-      let displayText = this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '')
+      let displayText = this.status.spoiler_text.replace(/<(?!(p|br))(.|\s).*?>/g, '')
       return this.convertUrlToLink(displayText)
     },
     content: function () {
-      let displayText = this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
+      let displayText = this.status.content.replace(/<(?!(p|br))(.|\s).*?>/g, '')
       return this.convertUrlToLink(displayText)
     },
     firstUrl: function () {
-      return (this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
+      return (this.status.spoiler_text.replace(/<(?!p)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!p)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
     }
   },
   mounted () {
     let self = this
+    let request = require('request')
+
     if (this.firstUrl) {
-      let url = 'http://allow-any-origin.appspot.com/' + this.firstUrl[0]
-      console.log(url)
-      let xhr = new XMLHttpRequest()
-      xhr.open('GET', url, true)
-      xhr.onload = function (event) {
-        self.getOGP(xhr.responseText)
-      }
-      xhr.send(null)
+      let proxy = request.defaults({ 'proxy': 'http://localhost:8080' })
+
+      proxy.get(this.firstUrl[0], function (err, response, body) {
+        if (err || (response && response.statusCode !== 200)) {
+          return
+        }
+        self.ogps = self.getOGP(body)
+        console.log(self.ogps)
+      })
     }
   },
   components: {
     ImageGallery,
-    ActionBar
+    ActionBar,
+    InlineOgp
   },
   name: 'one-status'
 }
