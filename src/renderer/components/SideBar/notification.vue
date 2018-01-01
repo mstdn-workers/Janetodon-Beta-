@@ -4,7 +4,7 @@
       <b-icon icon="bell" size="is-large" :custom-class="hasNewNotification ? 'notifications_vibe' : ''"></b-icon>
     </a>
     <div :class="[isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete', 'notifications_timeline']" id="notification">
-      <notification-status :notification="notification" v-for="notification in reverseNotifications"></notification-status>
+      <notification-status :notification="notification" v-for="notification in notifications" :key="notification.id"></notification-status>
     </div>
   </div>
 </template>

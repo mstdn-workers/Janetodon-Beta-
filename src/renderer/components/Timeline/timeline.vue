@@ -1,7 +1,7 @@
 <template>
   <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
     <a :class="['to-top', isTop ? 'to-top_delete' : 'to-top_active']" @click="moveToTop">最新tootへ戻る</a>
-    <div  v-for="status in reverseStatuses">
+    <div  v-for="status in statuses" :key=status.id>
       <one-status :status="status"></one-status>
     </div>
   </div>
@@ -98,7 +98,7 @@ export default {
   top: 306px
   transition: all 300ms 0s ease
   display: flex
-  flex-flow: column-reverse
+  flex-flow: column
   // 何故か画面いっぱいに背景色が広がらないため
   background-color: $main-background
   width: 100%
