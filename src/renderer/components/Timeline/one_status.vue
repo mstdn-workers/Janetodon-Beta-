@@ -59,6 +59,38 @@ export default {
         display = account.username
       }
       return display
+    },
+    getOGP (html) {
+      let match = html.match(/<meta.*?\S*?="\S*?".*?\S*?="\S*?".*?>/g)
+      if (match) {
+        var ogps = []
+        for (let i in match) {
+          var key = null
+          var value = null
+
+          let elements = match[i].match(/(\S*?)="(.*?)"/g)
+          if (elements) {
+            for (let j in elements) {
+              let element = elements[j].match(/(\S*?)="(.*?)"/)
+              if (element) {
+                let property = element[2].match(/og:(.*)/)
+                if (property) {
+                  key = property[1]
+                } else {
+                  value = element[2]
+                }
+              }
+              console.log(key + ', ' + value)
+              if (key) {
+                let ogp = { key: value }
+                console.log(ogp)
+                ogps.push(ogp)
+              }
+            }
+          }
+        }
+      }
+      console.log(ogps)
     }
   },
   computed: {
@@ -72,6 +104,22 @@ export default {
     content: function () {
       let displayText = this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')
       return this.convertUrlToLink(displayText)
+    },
+    firstUrl: function () {
+      return (this.status.spoiler_text.replace(/<(?!br)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!br)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
+    }
+  },
+  mounted () {
+    let self = this
+    if (this.firstUrl) {
+      let url = 'http://allow-any-origin.appspot.com/' + this.firstUrl[0]
+      console.log(url)
+      let xhr = new XMLHttpRequest()
+      xhr.open('GET', url, true)
+      xhr.onload = function (event) {
+        self.getOGP(xhr.responseText)
+      }
+      xhr.send(null)
     }
   },
   components: {
