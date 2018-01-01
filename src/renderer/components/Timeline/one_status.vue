@@ -28,7 +28,7 @@
     </div>
 
     <action-bar :status="status"></action-bar>
-    <inline-ogp :ogps="ogps" v-if="ogps"></inline-ogp>
+    <inline-ogp :ogps="ogps" v-if="ogps&&isVisible"></inline-ogp>
 
     <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
   </div>
