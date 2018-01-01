@@ -1,15 +1,19 @@
 <template>
   <div class="inline-ogp">
-    <article class="media">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <img :src="ogps.image" />
-        </p>
-      </figure>
+    <div class="inline-ogp_left-bar"></div>
+
+    <article class="media ogp-info">
+      <div class="ogp-icon">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            <img :src="ogps.image" />
+          </p>
+        </figure>
+      </div>
       <p class="media-content ogp-content">
-        <small>{{ ogps.site_name }}</small>
-        <strong>{{ ogps.title }}</strong>
-        <small> {{ ogps.title }}</small>
+        <span class="ogp-site">{{ ogps.site_name }}</span>
+        <strong class="ogp-title">{{ ogps.title }}</strong>
+        <small> {{ ogps.description }}</small>
       </p>
     </article>
   </div>
@@ -31,7 +35,37 @@ export default {
 </script>
 
 <style lang="sass">
+.inline-ogp
+  position: relative
+  display: inline
+
+  &_left-bar
+    background-color: rgb(129, 139, 161)
+    border-radius: 8px
+    position: absolute
+    top: 0
+    bottom: 0
+    width: 4px
+    z-index: 1
+    margin-right: 20px
+
+.ogp-info
+  position: relative
+  left: 20px
+
 .ogp-content
   display: flex
   flex-flow: column
+
+.ogp-site
+  font-size: 18px
+  font-weight: 800
+
+.ogp-title
+  color: rgb(125, 212, 201)
+
+.ogp-icon
+  +flex-center
+  width: 80px
+  height: 80px
 </style>

@@ -45,7 +45,7 @@ export default {
   },
   data () {
     return {
-      isVisible: false,
+      isVisible: true,
       ogps: null
     }
   },
@@ -64,17 +64,17 @@ export default {
       return display
     },
     getOGP (html) {
-      let match = html.match(/<meta\s*\S*?=".*?"\s*\S*?=".*?".*?>/g)
+      let match = html.match(/<meta\s*\S*?="[\s\S]*?"\s*\S*?="[\s\S]*?".*?>/g)
       if (match) {
         var ogps = {}
         for (let i in match) {
           var key = null
           var value = null
 
-          let elements = match[i].match(/(\S*?)="(.*?)"/g)
+          let elements = match[i].match(/(\S*?)="([\s\S]*?)"/g)
           if (elements) {
             for (let j in elements) {
-              let element = elements[j].match(/(\S*?)="(.*?)"/)
+              let element = elements[j].match(/(\S*?)="([\s\S]*?)"/)
               if (element) {
                 let property = element[2].match(/og:(.*)/)
                 if (property) {
