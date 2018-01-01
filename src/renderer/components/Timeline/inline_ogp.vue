@@ -68,4 +68,5 @@ export default {
   +flex-center
   width: 80px
   height: 80px
+  overflow: hidden
 </style>

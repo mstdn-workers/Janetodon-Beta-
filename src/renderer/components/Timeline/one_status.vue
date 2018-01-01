@@ -45,7 +45,7 @@ export default {
   },
   data () {
     return {
-      isVisible: true,
+      isVisible: false,
       ogps: null
     }
   },
@@ -121,8 +121,12 @@ export default {
           return
         }
         self.ogps = self.getOGP(body)
-        console.log(self.ogps)
+        console.log(self.content)
       })
+    }
+
+    if (!status.spoiler_text) {
+      this.isVisible = true
     }
   },
   components: {
