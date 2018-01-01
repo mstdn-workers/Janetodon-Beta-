@@ -1,5 +1,6 @@
 <template>
   <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
+    <a :class="['to-top', isTop ? 'to-top_delete' : 'to-top_active']" @click="moveToTop">最新tootへ戻る</a>
     <div  v-for="status in reverseStatuses">
       <one-status :status="status"></one-status>
     </div>
@@ -20,7 +21,8 @@ export default {
       maxId: 0,
       listener: null,
       isGettingPast: false,
-      oldScrollTop: 0
+      oldScrollTop: 0,
+      isTop: true
     }
   },
   components: {
@@ -53,7 +55,8 @@ export default {
     })
 
     document.addEventListener('scroll', function (event) {
-      console.log()
+      self.isTop = (document.body.scrollTop === 0)
+
       if (window.innerHeight + document.body.scrollTop >= document.documentElement.scrollHeight && !self.isGettingPast) {
         console.log('get')
         self.isGettingPast = true
@@ -80,6 +83,9 @@ export default {
         self.statuses = self.statuses.concat(data)
         self.maxId = data[data.length - 1].id
       })
+    },
+    moveToTop () {
+      document.body.scrollTop = 0
     }
   },
   name: 'timeline'
@@ -101,4 +107,44 @@ export default {
   transform: translateY(128px)
 .spoiler-appear
   transform: translateY(34px)
+
+.to-top
+  position: fixed
+  left: 48%
+  top: 320px
+  background-color: rgb(124, 124, 124)!important
+  color: rgb(50, 50, 50)!important
+
+  font-weight: 600
+  padding: 10px 20px 10px 20px
+
+  border-radius: 20px
+
+  z-index: 200
+  &:hover
+    background-color: rgb(124, 124, 124) - rgb(20, 20, 20)!important
+    color: rgb(50, 50, 50)!important
+
+  &_delete
+    transition: all 100ms 0s ease
+    transform: scale(0)
+
+  &_active
+    transform: scale(1)
+    animation-name: appearTop
+    animation-duration: 400ms
+    animation-timing-function: ease
+
+
+@keyframes appearTop
+  50%
+    transform: scale(1.4)
+  60%
+    transform: scale(0.8)
+  70%
+    transform: scale(1.1)
+  80%
+    transform: scale(0.9)
+  90%
+    transform: scale(1.05)
 </style>
