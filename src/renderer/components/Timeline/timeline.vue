@@ -17,8 +17,10 @@ export default {
   data () {
     return {
       statuses: [],
-      since_id: 0,
-      listener: null
+      maxId: 0,
+      listener: null,
+      isGettingPast: false,
+      oldScrollTop: 0
     }
   },
   components: {
@@ -31,7 +33,7 @@ export default {
     }
   },
   mounted () {
-    this.getTimeline()
+    this.getTimeline(null)
     this.listener = this.$client.stream('streaming/public/local')
 
     let self = this
@@ -49,16 +51,34 @@ export default {
         })
       }
     })
+
+    document.addEventListener('scroll', function (event) {
+      console.log()
+      if (window.innerHeight + document.body.scrollTop >= document.documentElement.scrollHeight && !self.isGettingPast) {
+        console.log('get')
+        self.isGettingPast = true
+        document.body.scrollTop -= 1
+        self.oldScrollTop = document.body.scrollTop
+        self.getTimeline(self.maxId)
+      }
+    })
+  },
+  updated () {
+    if (this.isGettingPast) {
+      this.isGettingPast = false
+      document.body.scrollTop = this.oldScrollTop
+    }
   },
   methods: {
-    getTimeline () {
+    getTimeline (maxId) {
       let self = this
-      this.$client.get('timelines/public?local=true', {}, function (err, data, res) {
+      this.$client.get('timelines/public?local=true&limit=40' + (maxId ? '&max_id=' + maxId : ''), {}, function (err, data, res) {
         if (err) {
           console.log(err)
           return
         }
         self.statuses = self.statuses.concat(data)
+        self.maxId = data[data.length - 1].id
       })
     }
   },

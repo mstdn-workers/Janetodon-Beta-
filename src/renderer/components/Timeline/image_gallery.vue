@@ -88,7 +88,6 @@ export default {
       for (let i in this.media) {
         retVal.push({ style: this.createMediaStyle(Number(i)), media: this.media[i] })
       }
-      console.log(retVal)
       return retVal
     }
   },

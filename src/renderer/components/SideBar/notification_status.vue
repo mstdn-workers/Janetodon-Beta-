@@ -67,7 +67,6 @@ export default {
     }
   },
   beforeMount () {
-    console.log(this.notification.status)
     this.status = this.notification.status
   },
   components: {
