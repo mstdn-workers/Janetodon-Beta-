@@ -102,7 +102,7 @@ html body
     position: absolute
     transition: all 200ms 0s ease
     display: flex
-    flex-flow: column-reverse
+    flex-flow: column
     border: solid 5px white
     border-radius: 40px
     background-color: $main-background

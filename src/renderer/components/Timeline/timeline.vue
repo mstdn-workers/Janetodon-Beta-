@@ -105,6 +105,8 @@ export default {
 
 .media-appear
   transform: translateY(128px)
+  &.spoiler-appear
+    transform: translateY(128px + 32px)
 .spoiler-appear
   transform: translateY(34px)
 
