@@ -4,7 +4,7 @@
       <b-icon icon="bell" size="is-large" :custom-class="hasNewNotification ? 'notifications_vibe' : ''"></b-icon>
     </a>
     <div :class="[isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete', 'notifications_timeline']" id="notification">
-      <notification-status :notification="notification" v-for="notification in notifications"></notification-status>
+      <notification-status :notification="notification" v-for="notification in reverseNotifications"></notification-status>
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ html body
     position: absolute
     transition: all 200ms 0s ease
     display: flex
-    flex-flow: column
+    flex-flow: column-reverse
     border: solid 5px white
     border-radius: 40px
     background-color: $main-background
