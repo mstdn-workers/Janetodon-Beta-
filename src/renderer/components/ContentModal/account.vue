@@ -96,6 +96,7 @@ export default {
 </script>
 
 <style lang="sass">
+$border-color: rgb(44, 48, 57)
 .account
   +flex-center
   flex-flow: column
@@ -106,6 +107,8 @@ export default {
 .account-info
   +flex-center
   flex-flow: column
+  height: 285px
+
 .account-icon
   border-radius: 48px
 
@@ -113,6 +116,8 @@ export default {
   position: absolute
   left: 0
   top: 0
+
+  height: 285px
 
   overflow: hidden
 
@@ -133,11 +138,17 @@ export default {
 
   flex: 1 1 auto
 
-  top: 5px
+  top: 2px
   line-height: 36px
   justify-content: center
+
+  border-top: solid 2px $border-color
+  border-bottom: solid 2px $border-color
   &_content
-    margin: 5px 36px
+    padding: 0px 36px
+    cursor: pointer
+    border-left: solid 1px $border-color
+    border-right: solid 1px $border-color
 
 .account-timeline
   width: 100%
