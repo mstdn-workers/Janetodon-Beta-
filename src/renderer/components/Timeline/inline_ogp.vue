@@ -6,14 +6,14 @@
       <div class="ogp-icon">
         <figure class="media-left">
           <p class="image is-64x64">
-            <img :src="ogps.image" />
+            <img :src="ogps['og:image'][0]" />
           </p>
         </figure>
       </div>
       <p class="media-content ogp-content">
-        <span class="ogp-site">{{ ogps.site_name }}</span>
-        <strong class="ogp-title">{{ ogps.title }}</strong>
-        <small> {{ ogps.description }}</small>
+        <span class="ogp-site">{{ ogps['og:site_name'][0] }}</span>
+        <strong class="ogp-title">{{ ogps['og:title'][0] }}</strong>
+        <small> {{ ogps['og:description'][0] }}</small>
       </p>
     </article>
   </div>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     goToUrl () {
-      open(this.ogps.url, '_blank')
+      open(this.ogps['og:url'], '_blank')
     }
   },
   name: 'inline-ogp'

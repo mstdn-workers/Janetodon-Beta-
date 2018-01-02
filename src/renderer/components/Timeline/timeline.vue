@@ -116,9 +116,9 @@ export default {
   top: 320px
   background-color: rgb(124, 124, 124)!important
   color: rgb(50, 50, 50)!important
-
-  font-weight: 600
+  font-size: 20px
   padding: 10px 20px 10px 20px
+  transition: all 300ms 0s ease
 
   border-radius: 20px
 

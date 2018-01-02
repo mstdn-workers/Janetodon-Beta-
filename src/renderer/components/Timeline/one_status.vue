@@ -61,35 +61,6 @@ export default {
         display = account.username
       }
       return display
-    },
-    getOGP (html) {
-      let match = html.match(/<meta\s*\S*?="[\s\S]*?"\s*\S*?="[\s\S]*?".*?>/g)
-      if (match) {
-        var ogps = {}
-        for (let i in match) {
-          var key = null
-          var value = null
-
-          let elements = match[i].match(/(\S*?)="([\s\S]*?)"/g)
-          if (elements) {
-            for (let j in elements) {
-              let element = elements[j].match(/(\S*?)="([\s\S]*?)"/)
-              if (element) {
-                let property = element[2].match(/og:(.*)/)
-                if (property) {
-                  key = property[1]
-                } else {
-                  value = element[2]
-                }
-              }
-              if (key) {
-                ogps[key] = value
-              }
-            }
-          }
-        }
-      }
-      return ogps
     }
   },
   computed: {
@@ -110,16 +81,17 @@ export default {
   },
   mounted () {
     let self = this
-    let request = require('request')
 
     if (this.firstUrl) {
-      let proxy = request.defaults({ 'proxy': 'http://localhost:8080' })
+      var parser = require('ogp-parser')
 
-      proxy.get(this.firstUrl[0], function (err, response, body) {
-        if (err || (response && response.statusCode !== 200)) {
-          return
+      parser(this.firstUrl[0], false).then(function (data) {
+        if (Object.keys(data.ogp).length !== 0) {
+          self.ogps = data.ogp
+          console.log(self.ogps)
         }
-        self.ogps = self.getOGP(body)
+      }).catch(function (error) {
+        console.error(error)
       })
     }
 
