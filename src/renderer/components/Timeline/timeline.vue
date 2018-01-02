@@ -1,7 +1,7 @@
 <template>
   <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
     <a :class="['to-top', isTop ? 'to-top_delete' : 'to-top_active']" @click="moveToTop">最新tootへ戻る</a>
-    <div  v-for="status in statuses" :key=status.id>
+    <div  v-for="status in statuses" :key="status.id">
       <one-status :status="status"></one-status>
     </div>
   </div>

@@ -10,6 +10,11 @@
       <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
       <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
     </div>
+    <div class="modal-info">
+      <b-modal :active.sync="isAccountModalActive">
+        <account :accountId="424"></account>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -18,13 +23,16 @@ import Toot from '@/components/Toot/toot'
 import Timeline from '@/components/Timeline/timeline'
 import UserSelect from '@/components/SideBar/user_select'
 import Notifications from '@/components/SideBar/notification'
+import Account from '@/components/ContentModal/account'
 
 export default {
   data () {
     return {
       isFileEnter: false,
       isMediaExist: false,
-      isSpoilerActive: false
+      isSpoilerActive: false,
+      isAccountModalActive: true,
+      isTootModalActive: false
     }
   },
   beforeCreate () {
@@ -36,7 +44,8 @@ export default {
     Toot,
     Timeline,
     UserSelect,
-    Notifications
+    Notifications,
+    Account
   },
   methods: {
     onMediaChange (isMediaExist) {
@@ -76,4 +85,7 @@ export default {
 
 .icon-image
   border-radius: 24px
+
+.modal-info
+  z-index: 9999
 </style>
