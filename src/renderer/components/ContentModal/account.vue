@@ -16,28 +16,38 @@
     </div>
 
     <div class="account-action-bar">
-      <div class="account-action-bar_content">
+      <div class="account-action-bar_content" @click="displayThing='status'">
         <p>
           投稿
         </p>
         <strong style="font-size: 22px">{{ accountInfo.statuses_count }}</strong>
       </div>
-      <div class="account-action-bar_content">
+      <div class="account-action-bar_content" @click="displayThing='following'">
         <p>
           フォロー
         </p>
         <strong style="font-size: 22px">{{ accountInfo.following_count }}</strong>
       </div>
-      <div class="account-action-bar_content">
+      <div class="account-action-bar_content" @click="displayThing='follower'">
         <p>
           フォロワー
         </p>
         <strong style="font-size: 22px">{{ accountInfo.followers_count }}</strong>
       </div>
     </div>
-    <div class="account-timeline">
+    <div class="account-timeline" v-if="displayThing === 'status'">
       <div v-for="status in accountStatuses" :key="status.id">
         <one-status :status="status"></one-status>
+      </div>
+    </div>
+    <div class="follows" v-if="displayThing === 'following'">
+      <div v-for="follower in accountFollowing" :key="follower.id">
+        <follow-account :account="follower"></follow-account>
+      </div>
+    </div>
+    <div class="follows" v-if="displayThing === 'follower'">
+      <div v-for="follower in accountFollowers" :key="follower.id">
+        <follow-account :account="follower"></follow-account>
       </div>
     </div>
   </div>
@@ -45,6 +55,7 @@
 
 <script>
 import OneStatus from '@/components/Timeline/one_status'
+import FollowAccount from '@/components/ContentModal/follow_account'
 
 export default {
   props: {
@@ -53,12 +64,17 @@ export default {
   data () {
     return {
       accuontInfo: {},
-      accountStatuses: []
+      accountStatuses: [],
+      accountFollowers: [],
+      accountFollowing: [],
+      displayThing: 'status'
     }
   },
   mounted () {
     this.getAccount()
     this.getStatuses()
+    this.getFollowers()
+    this.getFollowing()
   },
   computed: {
     displayName: function () {
@@ -82,14 +98,30 @@ export default {
       let self = this
       this.$client.get('accounts/' + this.accountId + '/statuses?limit=40', {})
         .then(resp => {
-          console.log(resp.data)
           self.accountStatuses = resp.data
+          this.$forceUpdate()
+        })
+    },
+    getFollowers () {
+      let self = this
+      this.$client.get('accounts/' + this.accountId + '/followers?limit=80', {})
+        .then(resp => {
+          self.accountFollowers = resp.data
+          this.$forceUpdate()
+        })
+    },
+    getFollowing () {
+      let self = this
+      this.$client.get('accounts/' + this.accountId + '/following?limit=80', {})
+        .then(resp => {
+          self.accountFollowing = resp.data
           this.$forceUpdate()
         })
     }
   },
   components: {
-    OneStatus
+    OneStatus,
+    FollowAccount
   },
   name: 'account'
 }
@@ -151,5 +183,8 @@ $border-color: rgb(44, 48, 57)
     border-right: solid 1px $border-color
 
 .account-timeline
+  width: 100%
+
+.follows
   width: 100%
 </style>
