@@ -1,53 +1,55 @@
 <template>
   <div class="account">
-    <div class="account-info">
-      <figure class="media-left">
-        <p class="image is-96x96">
-          <img class="account-icon" :src="accountInfo.avatar">
-        </p>
-        <p class="image account-header">
-          <img class="account-header_img" :src="accountInfo.header" />
-        </p>
-      </figure>
-      <strong>{{ displayName }}</strong>
-      <small>@{{ accountInfo.acct }}</small>
-      <div class="account-detail" v-html="accountInfo.note">
+    <div class="account-all">
+      <div class="account-info">
+        <figure class="media-left">
+          <p class="image is-96x96">
+            <img class="account-icon" :src="accountInfo.avatar">
+          </p>
+          <p class="image account-header">
+            <img class="account-header_img" :src="accountInfo.header" />
+          </p>
+        </figure>
+        <strong>{{ displayName }}</strong>
+        <small>@{{ accountInfo.acct }}</small>
+        <div class="account-detail" v-html="accountInfo.note">
+        </div>
       </div>
-    </div>
 
-    <div class="account-action-bar">
-      <div class="account-action-bar_content" @click="displayThing='status'">
-        <p>
-          投稿
-        </p>
-        <strong style="font-size: 22px">{{ accountInfo.statuses_count }}</strong>
+      <div class="account-action-bar">
+        <div class="account-action-bar_content" @click="displayThing='status'">
+          <p>
+            投稿
+          </p>
+          <strong style="font-size: 22px">{{ accountInfo.statuses_count }}</strong>
+        </div>
+        <div class="account-action-bar_content" @click="displayThing='following'">
+          <p>
+            フォロー
+          </p>
+          <strong style="font-size: 22px">{{ accountInfo.following_count }}</strong>
+        </div>
+        <div class="account-action-bar_content" @click="displayThing='follower'">
+          <p>
+            フォロワー
+          </p>
+          <strong style="font-size: 22px">{{ accountInfo.followers_count }}</strong>
+        </div>
       </div>
-      <div class="account-action-bar_content" @click="displayThing='following'">
-        <p>
-          フォロー
-        </p>
-        <strong style="font-size: 22px">{{ accountInfo.following_count }}</strong>
+      <div class="account-timeline" v-if="displayThing === 'status'">
+        <div v-for="status in accountStatuses" :key="status.id">
+          <one-status :status="status"></one-status>
+        </div>
       </div>
-      <div class="account-action-bar_content" @click="displayThing='follower'">
-        <p>
-          フォロワー
-        </p>
-        <strong style="font-size: 22px">{{ accountInfo.followers_count }}</strong>
+      <div class="follows" v-if="displayThing === 'following'">
+        <div v-for="follower in accountFollowing" :key="follower.id">
+          <follow-account :account="follower"></follow-account>
+        </div>
       </div>
-    </div>
-    <div class="account-timeline" v-if="displayThing === 'status'">
-      <div v-for="status in accountStatuses" :key="status.id">
-        <one-status :status="status"></one-status>
-      </div>
-    </div>
-    <div class="follows" v-if="displayThing === 'following'">
-      <div v-for="follower in accountFollowing" :key="follower.id">
-        <follow-account :account="follower"></follow-account>
-      </div>
-    </div>
-    <div class="follows" v-if="displayThing === 'follower'">
-      <div v-for="follower in accountFollowers" :key="follower.id">
-        <follow-account :account="follower"></follow-account>
+      <div class="follows" v-if="displayThing === 'follower'">
+        <div v-for="follower in accountFollowers" :key="follower.id">
+          <follow-account :account="follower"></follow-account>
+        </div>
       </div>
     </div>
   </div>
@@ -130,6 +132,9 @@ export default {
 <style lang="sass">
 $border-color: rgb(44, 48, 57)
 .account
+  height: 80vh
+
+.account-all
   +flex-center
   flex-flow: column
 

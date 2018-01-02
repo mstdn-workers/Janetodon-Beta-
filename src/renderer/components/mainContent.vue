@@ -88,8 +88,4 @@ export default {
 
 .modal-info
   z-index: 9999
-
-// override
-.modal-content
-  height: 80vh
 </style>
