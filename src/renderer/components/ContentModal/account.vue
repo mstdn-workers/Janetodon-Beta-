@@ -139,7 +139,7 @@ $border-color: rgb(44, 48, 57)
   flex-flow: column
 
   position: relative
-  background-color: rgb(30, 33, 40)
+  background-color: $main-background
 
 .account-info
   +flex-center
