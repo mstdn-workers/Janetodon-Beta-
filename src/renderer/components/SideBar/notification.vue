@@ -28,7 +28,6 @@ export default {
 
     listener.on('message', msg => {
       if (msg.event === 'notification') {
-        console.log(msg)
         self.notifications = [msg.data].concat(self.notifications)
 
         if (!self.isSelecting) {
@@ -58,7 +57,6 @@ export default {
   },
   updated () {
     let notificationTimeline = document.getElementsByClassName('notifications_timeline')[0]
-    console.log(notificationTimeline)
     notificationTimeline.scrollTop = 0
   },
   computed: {

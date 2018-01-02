@@ -96,7 +96,6 @@ export default {
         if (err) {
           console.log(err)
         }
-        console.log(data)
       })
     },
     changeVisibility (newVisibility) {

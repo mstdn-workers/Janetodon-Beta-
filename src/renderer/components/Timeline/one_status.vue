@@ -88,7 +88,6 @@ export default {
       parser(this.firstUrl[0], false).then(function (data) {
         if (Object.keys(data.ogp).length !== 0) {
           self.ogps = data.ogp
-          console.log(self.ogps)
         }
       }).catch(function (error) {
         console.error(error)
