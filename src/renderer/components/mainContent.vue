@@ -12,7 +12,7 @@
     </div>
     <div class="modal-info">
       <b-modal :active.sync="isAccountModalActive">
-        <account :accountId="424"></account>
+        <account :accountId="accountId"></account>
       </b-modal>
     </div>
   </div>
@@ -31,14 +31,20 @@ export default {
       isFileEnter: false,
       isMediaExist: false,
       isSpoilerActive: false,
-      isAccountModalActive: true,
-      isTootModalActive: false
+      isAccountModalActive: false,
+      isTootModalActive: false,
+      accountId: null
     }
   },
   beforeCreate () {
+    let self = this
     if (!this.$client) {
       this.$router.push({ name: 'index' })
     }
+    this.$eventCaller.$on('want-account', function (id) {
+      self.accountId = id
+      self.isAccountModalActive = true
+    })
   },
   components: {
     Toot,
