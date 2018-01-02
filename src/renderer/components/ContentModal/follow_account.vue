@@ -1,5 +1,5 @@
 <template>
-  <article class="media follow-account">
+  <article class="media follow-account" @click="wantAccount">
     <figure class="media-left">
       <p class="image is-48x48">
         <img class="icon-image" :src="account.avatar" />
@@ -31,6 +31,11 @@ export default {
       return display
     }
   },
+  methods: {
+    wantAccount () {
+      this.$eventCaller.$emit('want-account', this.account.id)
+    }
+  },
   name: 'follow-account'
 }
 </script>
@@ -39,6 +44,8 @@ export default {
 .follow-account
   padding: 10px 10%
   border-bottom: solid 1px rgb(71, 74, 92)
+
+  cursor: pointer
 
 .account-name
   display: flex

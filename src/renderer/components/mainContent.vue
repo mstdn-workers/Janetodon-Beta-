@@ -42,8 +42,18 @@ export default {
       this.$router.push({ name: 'index' })
     }
     this.$eventCaller.$on('want-account', function (id) {
-      self.accountId = id
-      self.isAccountModalActive = true
+      console.log('want account')
+      if (self.isAccountModalActive) {
+        self.accountId = null
+        self.isAccountModalActive = false
+        self.$forceUpdate()
+        setTimeout(function () {
+          self.$eventCaller.$emit('want-account', id)
+        }, 500)
+      } else {
+        self.accountId = id
+        self.isAccountModalActive = true
+      }
     })
   },
   components: {
