@@ -28,3 +28,6 @@ new Vue({
   store,
   template: '<App/>'
 }).$mount('#app')
+
+// イベント用のvueオブジェクトを作る
+Vue.prototype.$eventCaller = new Vue()

@@ -1,6 +1,6 @@
 <template>
   <div class="status">
-    <div class="status-info">
+    <div class="status-info" @click="wantAccount()">
       <div class="status-avatar">
         <div class="account-avatar icon-image" :style="avatarStyle">
         </div>
@@ -61,6 +61,9 @@ export default {
         display = account.username
       }
       return display
+    },
+    wantAccount () {
+      this.$eventCaller.$emit('want-account', this.status.account.id)
     }
   },
   computed: {
@@ -88,7 +91,6 @@ export default {
       parser(this.firstUrl[0], false).then(function (data) {
         if (Object.keys(data.ogp).length !== 0) {
           self.ogps = data.ogp
-          console.log(self.ogps)
         }
       }).catch(function (error) {
         console.error(error)
@@ -119,6 +121,9 @@ $action-active-color: rgb(25, 155, 179)
   cursor: default
   font-size: 15px
   width: 90%
+
+.status-info
+  cursor: pointer
 
 .status-avatar
   width: 48px
