@@ -35,8 +35,10 @@
         <strong style="font-size: 22px">{{ accountInfo.followers_count }}</strong>
       </div>
     </div>
-    <div v-for="status in accountStatuses" :key="status.id">
-      <one-status :status="status"></one-status>
+    <div class="account-timeline">
+      <div v-for="status in accountStatuses" :key="status.id">
+        <one-status :status="status"></one-status>
+      </div>
     </div>
   </div>
 </template>
@@ -98,6 +100,7 @@ export default {
   +flex-center
   flex-flow: column
 
+  position: relative
   background-color: rgb(30, 33, 40)
 
 .account-info
@@ -135,4 +138,7 @@ export default {
   justify-content: center
   &_content
     margin: 5px 36px
+
+.account-timeline
+  width: 100%
 </style>
