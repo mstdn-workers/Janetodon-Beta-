@@ -1,12 +1,14 @@
 <template>
   <div class="status">
-    <div class="status-info" @click="wantAccount()">
+    <div class="status-info" @click="wantAccount()" @mouseenter="isHoverName=true" @mouseleave="isHoverName=false">
       <div class="status-avatar">
         <div class="account-avatar icon-image" :style="avatarStyle">
         </div>
       </div>
       <span class="display-name">
-        {{ displayName(status.account) }}
+        <span :class="{ 'display-name_hover': isHoverName }">
+          {{ displayName(status.account) }}
+        </span>
         <span class="display-username">{{ '@' + status.account.acct }}</span>
       </span>
     </div>
@@ -46,7 +48,8 @@ export default {
   data () {
     return {
       isVisible: false,
-      ogps: null
+      ogps: null,
+      isHoverName: false
     }
   },
   methods: {
@@ -145,6 +148,10 @@ $action-active-color: rgb(25, 155, 179)
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
+
+  &_hover
+    color: white
+    text-decoration: underline
 
 .display-username
   font-size: 14px
