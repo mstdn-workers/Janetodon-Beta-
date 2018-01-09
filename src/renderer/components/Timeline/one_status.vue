@@ -50,7 +50,8 @@ export default {
     return {
       isVisible: false,
       ogps: null,
-      isHoverName: false
+      isHoverName: false,
+      dateDifference: null
     }
   },
   methods: {
@@ -68,6 +69,11 @@ export default {
     },
     wantAccount () {
       this.$eventCaller.$emit('want-account', this.status.account.id)
+    },
+    getDateDifference: function () {
+      var moment = require('moment')
+      let tootDate = moment(this.status.created_at)
+      return tootDate.fromNow()
     }
   },
   computed: {
@@ -84,12 +90,6 @@ export default {
     },
     firstUrl: function () {
       return (this.status.spoiler_text.replace(/<(?!p)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!p)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
-    },
-    dateDifference: function () {
-      var moment = require('moment')
-      moment.locale('ja')
-      let tootDate = moment(this.status.created_at)
-      return tootDate.fromNow()
     }
   },
   mounted () {
@@ -110,6 +110,12 @@ export default {
     if (!status.spoiler_text) {
       this.isVisible = true
     }
+
+    self.dateDifference = self.getDateDifference()
+    setInterval(function () {
+      self.dateDifference = self.getDateDifference()
+      self.$forceUpdate()
+    }, 10 * 1000)
   },
   components: {
     ImageGallery,
