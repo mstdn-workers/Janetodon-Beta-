@@ -6,8 +6,6 @@
       <b-input class="spoiler-text-deleted" v-model="spoilerText" placeholder="警告文" v-else></b-input>
     </b-field>
 
-    <image-upload-area :isFileEnter="isFileEnter" :isUploading="isUploading" :dropMedia="dropMedia"></image-upload-area>
-
     <b-field class="toot-area">
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
     </b-field>
@@ -41,6 +39,7 @@
       </b-field>
     </div>
 
+    <image-upload-area :isFileEnter="isFileEnter" :isUploading="isUploading" :dropMedia="dropMedia"></image-upload-area>
     <upload-media :dropMedia="dropMedia" :isStart="isStart" @delete="deleteMedia"></upload-media>
 
   </div>
