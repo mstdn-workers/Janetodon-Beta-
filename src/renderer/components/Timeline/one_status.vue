@@ -10,6 +10,7 @@
           {{ displayName(status.account) }}
         </span>
         <span class="display-username">{{ '@' + status.account.acct }}</span>
+        <span class="date-diff"> {{ dateDifference }}</span>
       </span>
     </div>
     <div class="status-content">
@@ -83,6 +84,12 @@ export default {
     },
     firstUrl: function () {
       return (this.status.spoiler_text.replace(/<(?!p)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!p)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
+    },
+    dateDifference: function () {
+      var moment = require('moment')
+      moment.locale('ja')
+      let tootDate = moment(this.status.created_at)
+      return tootDate.fromNow()
     }
   },
   mounted () {
@@ -164,4 +171,11 @@ $action-active-color: rgb(25, 155, 179)
   font-weight: 400
   overflow: hidden
   white-space: pre-wrap
+
+.date-diff
+  float: right
+  position: relative
+  right: 15px
+  color: gray
+
 </style>
