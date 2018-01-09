@@ -1,14 +1,14 @@
 <template>
   <div class="toot">
     <my-icon></my-icon>
-    <b-field>
+    <b-field class="toot-area">
       <b-input class="spoiler-text" placeholder="警告文" v-model="spoilerText" v-if="isSpoilerActive" @keyup.native.ctrl.enter="toot"></b-input>
       <b-input class="spoiler-text-deleted" v-model="spoilerText" placeholder="警告文" v-else></b-input>
     </b-field>
 
     <image-upload-area :isFileEnter="isFileEnter" :isUploading="isUploading" :dropMedia="dropMedia"></image-upload-area>
 
-    <b-field>
+    <b-field class="toot-area">
       <b-input type="textarea" placeholder="本文(Ctrl-enterで送信)" v-model="mainText" @keyup.native.ctrl.enter="toot"></b-input>
     </b-field>
     <div class="toot-settings">
@@ -178,6 +178,10 @@ $toot-back: rgb(83, 91, 111)
   padding-bottom: 20px
   background-color: $toot-back!important
 
+.toot-area
+  width: 85%
+  position: relative
+  left: 2%
 .input
   background-color: white!important
 .textarea
