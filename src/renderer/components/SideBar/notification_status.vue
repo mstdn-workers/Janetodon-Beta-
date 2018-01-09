@@ -9,7 +9,12 @@
         </figure>
         <div class="notification-message">
           <b-icon :icon="icon(notification.type)" :style="style(notification.type)"></b-icon>
-          <strong>{{ displayName(notification.account) }}さんが{{ displayNotification(notification.type) }}しました</strong>
+          <div class="notification-display" @click="wantAccount()">
+              {{ displayName(notification.account) }}
+          </div>
+          <p class="notification-action-detail">
+            さんが{{ displayNotification(notification.type) }}しました
+          </p>
         </div>
       </article>
     </div>
@@ -64,6 +69,9 @@ export default {
         case 'favourite': return 'color: rgb(254, 187, 58)'
         case 'mention' : return 'color: rgb(60, 203, 223)'
       }
+    },
+    wantAccount () {
+      this.$eventCaller.$emit('want-account', this.notification.account.id)
     }
   },
   beforeMount () {
@@ -91,8 +99,21 @@ export default {
 
 
 .notification-message
-  height: 40px
+  height: 32px
   width: 70%
+  text-overflow: ellipsis
+  white-space: nowrap
+  overflow: hidden
+  display: flex
+
+.notification-display
+
+  &:hover
+    color: white
+    text-decoration: underline
+    cursor: pointer
+
+.notification-action-detail
   text-overflow: ellipsis
   white-space: nowrap
   overflow: hidden
