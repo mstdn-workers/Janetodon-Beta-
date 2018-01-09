@@ -87,6 +87,7 @@ export default {
 <style lang="sass">
 .notification-status
   position: relative
+  color: rgb(153, 149, 163)
 
 
 .notification-info
