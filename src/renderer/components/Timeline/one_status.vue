@@ -5,11 +5,14 @@
         <div class="account-avatar icon-image" :style="avatarStyle">
         </div>
       </div>
-      <span class="display-name">
-        <span :class="{ 'display-name_hover': isHoverName }">
-          {{ displayName(status.account) }}
+      <span class="display-toot-info">
+        <span class="display-name">
+          <span :class="{ 'display-name_hover': isHoverName }">
+            {{ displayName(status.account) }}
+          </span>
+          <span class="display-username">{{ '@' + status.account.acct }}</span>
         </span>
-        <span class="display-username">{{ '@' + status.account.acct }}</span>
+        <span class="date-diff"> {{ dateDifference }}</span>
       </span>
     </div>
     <div class="status-content">
@@ -49,7 +52,8 @@ export default {
     return {
       isVisible: false,
       ogps: null,
-      isHoverName: false
+      isHoverName: false,
+      dateDifference: null
     }
   },
   methods: {
@@ -67,6 +71,11 @@ export default {
     },
     wantAccount () {
       this.$eventCaller.$emit('want-account', this.status.account.id)
+    },
+    getDateDifference: function () {
+      var moment = require('moment')
+      let tootDate = moment(this.status.created_at)
+      return tootDate.fromNow()
     }
   },
   computed: {
@@ -103,6 +112,12 @@ export default {
     if (!status.spoiler_text) {
       this.isVisible = true
     }
+
+    self.dateDifference = self.getDateDifference()
+    setInterval(function () {
+      self.dateDifference = self.getDateDifference()
+      self.$forceUpdate()
+    }, 10 * 1000)
   },
   components: {
     ImageGallery,
@@ -142,16 +157,24 @@ $action-active-color: rgb(25, 155, 179)
   position: relative
   cursor: pointer
 
-.display-name
+.display-toot-info
   display: block
   max-width: 100%
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
 
+
+.display-name
+  display: inline-block
+  max-width: 75%
+  overflow: hidden
+  text-overflow: ellipsis
+
   &_hover
     color: white
     text-decoration: underline
+
 
 .display-username
   font-size: 14px
@@ -164,4 +187,11 @@ $action-active-color: rgb(25, 155, 179)
   font-weight: 400
   overflow: hidden
   white-space: pre-wrap
+
+.date-diff
+  float: right
+  position: relative
+  right: 15px
+  color: gray
+
 </style>

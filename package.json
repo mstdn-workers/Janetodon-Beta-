@@ -60,6 +60,7 @@
     "buefy": "^0.6.2",
     "html-to-json": "^0.6.0",
     "mastodon-api": "^1.3.0",
+    "moment": "^2.20.1",
     "nedb": "^1.8.0",
     "ogp-parser": "^0.4.0",
     "tunnel": "0.0.5",
