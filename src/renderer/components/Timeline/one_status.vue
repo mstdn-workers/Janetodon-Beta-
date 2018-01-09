@@ -5,11 +5,13 @@
         <div class="account-avatar icon-image" :style="avatarStyle">
         </div>
       </div>
-      <span class="display-name">
-        <span :class="{ 'display-name_hover': isHoverName }">
-          {{ displayName(status.account) }}
+      <span class="display-toot-info">
+        <span class="display-name">
+          <span :class="{ 'display-name_hover': isHoverName }">
+            {{ displayName(status.account) }}
+          </span>
+          <span class="display-username">{{ '@' + status.account.acct }}</span>
         </span>
-        <span class="display-username">{{ '@' + status.account.acct }}</span>
         <span class="date-diff"> {{ dateDifference }}</span>
       </span>
     </div>
@@ -155,16 +157,24 @@ $action-active-color: rgb(25, 155, 179)
   position: relative
   cursor: pointer
 
-.display-name
+.display-toot-info
   display: block
   max-width: 100%
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
 
+
+.display-name
+  display: inline-block
+  max-width: 75%
+  overflow: hidden
+  text-overflow: ellipsis
+
   &_hover
     color: white
     text-decoration: underline
+
 
 .display-username
   font-size: 14px
