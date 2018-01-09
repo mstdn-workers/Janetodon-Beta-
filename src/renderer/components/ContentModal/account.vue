@@ -17,39 +17,18 @@
       </div>
 
       <div class="account-action-bar">
-        <div class="account-action-bar_content" @click="displayThing='status'">
-          <p>
-            投稿
-          </p>
-          <strong style="font-size: 22px">{{ accountInfo.statuses_count }}</strong>
-        </div>
-        <div class="account-action-bar_content" @click="displayThing='following'">
-          <p>
-            フォロー
-          </p>
-          <strong style="font-size: 22px">{{ accountInfo.following_count }}</strong>
-        </div>
-        <div class="account-action-bar_content" @click="displayThing='follower'">
-          <p>
-            フォロワー
-          </p>
-          <strong style="font-size: 22px">{{ accountInfo.followers_count }}</strong>
-        </div>
+        <action-bar-content :display="'ツイート'" :choice="'status'" :count="accountInfo.statuses_count" @click="choiceDisplayThing"></action-bar-content>
+        <action-bar-content :display="'フォロー'" :choice="'following'" :count="accountInfo.following_count" @click="choiceDisplayThing"></action-bar-content>
+        <action-bar-content :display="'フォロワー'" :choice="'follower'" :count="accountInfo.followers_count" @click="choiceDisplayThing"></action-bar-content>
       </div>
       <div class="account-timeline" v-if="displayThing === 'status'">
-        <div v-for="status in accountStatuses" :key="status.id">
-          <one-status :status="status"></one-status>
-        </div>
+        <one-status v-for="status in accountStatuses" :key="status.id" :status="status"></one-status>
       </div>
       <div class="follows" v-if="displayThing === 'following'">
-        <div v-for="follower in accountFollowing" :key="follower.id">
-          <follow-account :account="follower"></follow-account>
-        </div>
+        <follow-account v-for="follower in accountFollowing" :key="follower.id" :account="follower"></follow-account>
       </div>
       <div class="follows" v-if="displayThing === 'follower'">
-        <div v-for="follower in accountFollowers" :key="follower.id">
-          <follow-account :account="follower"></follow-account>
-        </div>
+        <follow-account :account="follower" v-for="follower in accountFollowers" :key="follower.id"></follow-account>
       </div>
     </div>
   </div>
@@ -58,6 +37,7 @@
 <script>
 import OneStatus from '@/components/Timeline/one_status'
 import FollowAccount from '@/components/ContentModal/follow_account'
+import ActionBarContent from '@/components/ContentModal/account_action_bar_content.vue'
 
 export default {
   props: {
@@ -65,7 +45,7 @@ export default {
   },
   data () {
     return {
-      accuontInfo: {},
+      accountInfo: {},
       accountStatuses: [],
       accountFollowers: [],
       accountFollowing: [],
@@ -119,11 +99,15 @@ export default {
           self.accountFollowing = resp.data
           this.$forceUpdate()
         })
+    },
+    choiceDisplayThing (choice) {
+      this.displayThing = choice
     }
   },
   components: {
     OneStatus,
-    FollowAccount
+    FollowAccount,
+    ActionBarContent
   },
   name: 'account'
 }
@@ -181,11 +165,6 @@ $border-color: rgb(44, 48, 57)
 
   border-top: solid 2px $border-color
   border-bottom: solid 2px $border-color
-  &_content
-    padding: 0px 36px
-    cursor: pointer
-    border-left: solid 1px $border-color
-    border-right: solid 1px $border-color
 
 .account-timeline
   width: 100%

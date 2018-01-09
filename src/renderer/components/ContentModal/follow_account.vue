@@ -43,7 +43,7 @@ export default {
 <style lang="sass">
 .follow-account
   padding: 10px 10%
-  border-bottom: solid 1px rgb(71, 74, 92)
+  // border-bottom: solid 1px rgb(71, 74, 92)
 
   cursor: pointer
 

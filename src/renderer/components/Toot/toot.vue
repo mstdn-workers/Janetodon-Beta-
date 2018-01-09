@@ -17,13 +17,8 @@
 
         <toot-visibility @change="changeVisibility"></toot-visibility>
 
-        <a v-if="isSpoilerActive" class="button toot-setting-button" @click="isSpoilerActive=false">
-          <div class="spoiler-button-text spoiler-active">
-            CW
-          </div>
-        </a>
-        <a v-else class="button toot-setting-button" @click="isSpoilerActive=true">
-          <div class="spoiler-button-text">
+        <a class="button toot-setting-button" @click="isSpoilerActive=!isSpoilerActive">
+          <div :class="['spoiler-button-text', {'spoiler-active': isSpoilerActive}]">
             CW
           </div>
         </a>
