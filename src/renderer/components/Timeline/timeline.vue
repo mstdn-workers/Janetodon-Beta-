@@ -132,7 +132,7 @@ export default {
   flex-flow: column
   // 何故か画面いっぱいに背景色が広がらないため
   background-color: $main-background
-  width: 100%
+  width: 95%
 
 .media-appear
   transform: translateY(128px)
