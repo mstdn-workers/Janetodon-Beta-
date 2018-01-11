@@ -22,7 +22,7 @@
       <div v-else>
         <span v-html="spoilerText"></span>
         <b-collapse :open="false">
-          <button class="button is-small" slot="trigger" @click="isVisible = ~isVisible">
+          <button class="button is-small" slot="trigger" @click="onVisibleChange">
             {{ isVisible ? "隠す" : " 続きを見る" }}
           </button>
           <div>
@@ -51,6 +51,7 @@ export default {
   data () {
     return {
       isVisible: false,
+      isChangingVisiblity: false,
       ogps: null,
       isHoverName: false,
       dateDifference: null
@@ -78,7 +79,15 @@ export default {
       return tootDate.fromNow()
     },
     onStatusClick () {
+      if (this.isChangingVisiblity) {
+        this.isChangingVisiblity = false
+        return
+      }
       this.$eventCaller.$emit('want-toot', this.status.id)
+    },
+    onVisibleChange () {
+      this.isVisible = ~this.isVisible
+      this.isChangingVisiblity = true
     }
   },
   computed: {
