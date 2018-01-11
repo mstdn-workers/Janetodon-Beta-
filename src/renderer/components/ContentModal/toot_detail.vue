@@ -22,6 +22,10 @@ export default {
       descendants: []
     }
   },
+  mounted () {
+    this.getStatus()
+    this.getContext()
+  },
   methods: {
     getStatus () {
       let self = this
@@ -49,4 +53,6 @@ export default {
 </script>
 
 <style lang="sass">
+.toot-detail
+  background-color: $main-background
 </style>

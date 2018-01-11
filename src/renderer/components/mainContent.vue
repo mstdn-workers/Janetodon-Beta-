@@ -11,11 +11,9 @@
       <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
     </div>
     <div class="modal-info">
-      <b-modal :active.sync="isAccountModalActive">
-        <account :id="accountId"></account>
-      </b-modal>
-      <b-modal :active.sync="isTootModalActive">
-        <toot-detail :id="tootId"></toot-detail>
+      <b-modal :active.sync="isModalActive" @close="isTootActive = false;isAccountActive = false;">
+        <toot-detail :id="tootId" v-if="isTootActive"></toot-detail>
+        <account :id="accountId" v-else></account>
       </b-modal>
     </div>
   </div>
@@ -35,8 +33,9 @@ export default {
       isFileEnter: false,
       isMediaExist: false,
       isSpoilerActive: false,
-      isAccountModalActive: false,
-      isTootModalActive: false,
+      isModalActive: false,
+      isAccountActive: false,
+      isTootActive: false,
       accountId: null,
       tootId: null
     }
@@ -48,32 +47,22 @@ export default {
     }
 
     this.$eventCaller.$on('want-account', function (id) {
-      if (self.isAccountModalActive) {
-        self.accountId = null
-        self.isAccountModalActive = false
-        self.$forceUpdate()
-        setTimeout(function () {
-          self.$eventCaller.$emit('want-account', id)
-        }, 500)
+      if (self.isModalActive) {
+        self.resetModal('want-account', id)
       } else {
         self.accountId = id
-        self.isTootModalActive = false
-        self.isAccountModalActive = true
+        self.isAccountActive = true
+        self.isModalActive = true
       }
     })
 
     this.$eventCaller.$on('want-toot', function (id) {
-      if (self.isAccountModalActive) {
-        self.accountId = null
-        self.isTootModalActive = false
-        self.$forceUpdate()
-        setTimeout(function () {
-          self.$eventCaller.$emit('want-toot', id)
-        }, 500)
+      if (self.isModalActive) {
+        self.resetModal('want-toot', id)
       } else {
         self.tootId = id
-        self.isTootModalActive = true
-        self.isAccountModalActive = false
+        self.isTootActive = true
+        self.isModalActive = true
       }
     })
   },
@@ -91,6 +80,18 @@ export default {
     },
     onSpoilerChange (isSpoilerActive) {
       this.isSpoilerActive = isSpoilerActive
+    },
+    resetModal (call, id) {
+      this.accountId = null
+      this.isTootActive = false
+      this.isAccountActive = false
+      this.isModalActive = false
+      this.$forceUpdate()
+
+      let self = this
+      setTimeout(function () {
+        self.$eventCaller.$emit(call, id)
+      }, 500)
     }
   },
   name: 'main-content'
