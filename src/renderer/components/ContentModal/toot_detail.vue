@@ -1,15 +1,14 @@
 <template>
   <div class="toot-detail">
     <one-status class="ancestor" v-for="status in ancestors" :key="status.id" :status="status"></one-status>
-    <div class="main-status" id="main-status">
-
-    </div>
+    <toot-detail-main :status="status" v-if="status"></toot-detail-main>
     <one-status class="decendant" v-for="status in descendants" :key="status.id" :status="status"></one-status>
   </div>
 </template>
 
 <script>
 import OneStatus from '@/components/Timeline/one_status'
+import TootDetailMain from '@/components/ContentModal/toot_detail_main'
 
 export default {
   props: {
@@ -17,7 +16,7 @@ export default {
   },
   data () {
     return {
-      status: {},
+      status: null,
       ancestors: [],
       descendants: []
     }
@@ -32,7 +31,7 @@ export default {
       this.$client.get('statuses/' + this.id, {})
         .then(resp => {
           self.status = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getContext () {
@@ -41,12 +40,13 @@ export default {
         .then(resp => {
           self.ancestors = resp.data.ancestors
           self.descendants = resp.data.descendants
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     }
   },
   components: {
-    OneStatus
+    OneStatus,
+    TootDetailMain
   },
   name: 'toot-detail'
 }

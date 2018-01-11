@@ -73,7 +73,7 @@ export default {
       this.$client.get('accounts/' + this.id, {})
         .then(resp => {
           self.accountInfo = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getStatuses () {
@@ -81,7 +81,7 @@ export default {
       this.$client.get('accounts/' + this.id + '/statuses?limit=40', {})
         .then(resp => {
           self.accountStatuses = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getFollowers () {
@@ -89,7 +89,7 @@ export default {
       this.$client.get('accounts/' + this.id + '/followers?limit=80', {})
         .then(resp => {
           self.accountFollowers = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getFollowing () {
@@ -97,7 +97,7 @@ export default {
       this.$client.get('accounts/' + this.id + '/following?limit=80', {})
         .then(resp => {
           self.accountFollowing = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     choiceDisplayThing (choice) {
