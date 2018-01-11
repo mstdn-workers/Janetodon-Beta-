@@ -1,10 +1,10 @@
 <template>
-  <div class="action-bar">
-    <a @click="boost">
-      <b-icon icon="refresh" :custom-class="boostClass"></b-icon>
+  <div class="action-bar" :class="mainClass">
+    <a @click="boost" :class="iconClass">
+      <b-icon icon="refresh" :size="size" :custom-class="boostClass"></b-icon>
     </a>
-    <a @click="favorite">
-      <b-icon icon="star" :custom-class="favClass"></b-icon>
+    <a @click="favorite" :class="iconClass">
+      <b-icon icon="star" :size="size" :custom-class="favClass"></b-icon>
     </a>
   </div>
 </template>
@@ -12,7 +12,10 @@
 <script>
   export default {
     props: {
-      status: {}
+      status: {},
+      mainClass: {},
+      iconClass: {},
+      size: {}
     },
     data () {
       return {

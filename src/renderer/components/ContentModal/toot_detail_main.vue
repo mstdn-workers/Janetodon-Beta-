@@ -12,7 +12,7 @@
       </p>
       <p class="display-username">{{ '@' + status.account.acct }}</p>
     </div>
-    <div class="status-content" @click="onStatusClick">
+    <div class="status-content-main" @click="onStatusClick">
       <div v-if="!status.spoiler_text">
         <span v-html="content"></span>
       </div>
@@ -29,13 +29,42 @@
       </div>
     </div>
 
-    <action-bar :status="status"></action-bar>
+    <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
     <inline-ogp :ogps="ogps" v-if="ogps&&isVisible"></inline-ogp>
+
+    <p class="toot-detail-main-info" style="color: gray;">
+      <span>{{ localyDate }}</span>
+      |
+      <span>
+        <a class="main-atag":href="status.application.website" target="_blank" v-if="status.application">
+          {{ status.application.name }}
+        </a>
+        <span v-else>
+          本家。
+        </span>
+      </span>
+      |
+      <span>
+        <b-icon icon="refresh"></b-icon>
+        {{ status.reblogs_count }}
+      </span>
+      |
+      <span>
+        <b-icon icon="star"></b-icon>
+        {{ status.favourites_count }}
+      </span>
+    </p>
+
+    <hr style="background-color: gray;margin: 3px"/>
+
+    <action-bar :status="status" :mainClass="'main-action-bar'" :iconClass="'main-action-bar_icon'" :size="'is-medium'"></action-bar>
   </div>
 </template>
 
 <script>
 import InlineOgp from '@/components/Timeline/inline_ogp'
+import ActionBar from '@/components/Timeline/action_bar'
+import ImageGallery from '@/components/Timeline/image_gallery'
 
 export default {
   props: {
@@ -88,6 +117,12 @@ export default {
     },
     firstUrl: function () {
       return (this.status.spoiler_text.replace(/<(?!p)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!p)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
+    },
+    localyDate: function () {
+      var moment = require('moment')
+      let tootDate = moment(this.status.created_at)
+
+      return tootDate.format('YYYY年MM月DD日 mm:ss')
     }
   },
   mounted () {
@@ -108,10 +143,10 @@ export default {
     if (!status.spoiler_text) {
       this.isVisible = true
     }
-
-    console.log(this.status)
   },
   components: {
+    ImageGallery,
+    ActionBar,
     InlineOgp
   },
   name: 'toot-detail-main'
@@ -119,6 +154,8 @@ export default {
 </script>
 
 <style lang="sass">
+// ここにあるクラスはほとんどOneStatusと一緒のクラスです
+$main-status-back: $main-background + rgb(10, 10, 10)
 .toot-detail-main
   padding: 8px 10px
   padding-left: 68px
@@ -129,5 +166,41 @@ export default {
   font-size: 15px
   width: 100%
 
-  background-color: $main-background + rgb(10, 10, 10)
+  background-color: $main-status-back
+
+.status-content-main
+  line-height: 24px
+  word-wrap: break-word
+  font-weight: 400
+  overflow: hidden
+  white-space: pre-wrap
+  cursor: pointer
+
+  font-size: 20px
+
+=updateAtag()
+  background-color: $main-status-back!important
+  color: gray!important
+
+  &:hover
+    background-color: $main-status-back!important
+    color: gray + rgb(15, 15, 15)!important
+
+.main-atag
+  +updateAtag
+
+.main-action-bar
+  width: 100%
+  height: 32px
+  display: flex
+  flex-direction: row
+  margin: 10px
+
+  &_icon
+    flex: 1 1 auto
+    text-align: center
+
+    +updateAtag
+
+
 </style>
