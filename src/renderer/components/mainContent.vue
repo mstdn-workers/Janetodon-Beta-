@@ -12,7 +12,10 @@
     </div>
     <div class="modal-info">
       <b-modal :active.sync="isAccountModalActive">
-        <account :accountId="accountId"></account>
+        <account :id="accountId"></account>
+      </b-modal>
+      <b-modal :active.sync="isTootModalActive">
+        <toot-detail :id="tootId"></toot-detail>
       </b-modal>
     </div>
   </div>
@@ -24,6 +27,7 @@ import Timeline from '@/components/Timeline/timeline'
 import UserSelect from '@/components/SideBar/user_select'
 import Notifications from '@/components/SideBar/notification'
 import Account from '@/components/ContentModal/account'
+import TootDetail from '@/components/ContentModal/toot_detail'
 
 export default {
   data () {
@@ -33,7 +37,8 @@ export default {
       isSpoilerActive: false,
       isAccountModalActive: false,
       isTootModalActive: false,
-      accountId: null
+      accountId: null,
+      tootId: null
     }
   },
   beforeCreate () {
@@ -41,8 +46,8 @@ export default {
     if (!this.$client) {
       this.$router.push({ name: 'index' })
     }
+
     this.$eventCaller.$on('want-account', function (id) {
-      console.log('want account')
       if (self.isAccountModalActive) {
         self.accountId = null
         self.isAccountModalActive = false
@@ -52,7 +57,23 @@ export default {
         }, 500)
       } else {
         self.accountId = id
+        self.isTootModalActive = false
         self.isAccountModalActive = true
+      }
+    })
+
+    this.$eventCaller.$on('want-toot', function (id) {
+      if (self.isAccountModalActive) {
+        self.accountId = null
+        self.isTootModalActive = false
+        self.$forceUpdate()
+        setTimeout(function () {
+          self.$eventCaller.$emit('want-toot', id)
+        }, 500)
+      } else {
+        self.tootId = id
+        self.isTootModalActive = true
+        self.isAccountModalActive = false
       }
     })
   },
@@ -61,7 +82,8 @@ export default {
     Timeline,
     UserSelect,
     Notifications,
-    Account
+    Account,
+    TootDetail
   },
   methods: {
     onMediaChange (isMediaExist) {

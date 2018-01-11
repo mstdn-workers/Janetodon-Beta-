@@ -15,7 +15,7 @@
         <span class="date-diff"> {{ dateDifference }}</span>
       </span>
     </div>
-    <div class="status-content">
+    <div class="status-content" @click="onStatusClick">
       <div v-if="!status.spoiler_text">
         <span v-html="content"></span>
       </div>
@@ -72,10 +72,13 @@ export default {
     wantAccount () {
       this.$eventCaller.$emit('want-account', this.status.account.id)
     },
-    getDateDifference: function () {
+    getDateDifference () {
       var moment = require('moment')
       let tootDate = moment(this.status.created_at)
       return tootDate.fromNow()
+    },
+    onStatusClick () {
+      this.$eventCaller.$emit('want-toot', this.status.id)
     }
   },
   computed: {
@@ -187,6 +190,7 @@ $action-active-color: rgb(25, 155, 179)
   font-weight: 400
   overflow: hidden
   white-space: pre-wrap
+  cursor: pointer
 
 .date-diff
   float: right
