@@ -41,7 +41,7 @@ import ActionBarContent from '@/components/ContentModal/account_action_bar_conte
 
 export default {
   props: {
-    accountId: {}
+    id: {}
   },
   data () {
     return {
@@ -70,34 +70,34 @@ export default {
   methods: {
     getAccount () {
       let self = this
-      this.$client.get('accounts/' + this.accountId, {})
+      this.$client.get('accounts/' + this.id, {})
         .then(resp => {
           self.accountInfo = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getStatuses () {
       let self = this
-      this.$client.get('accounts/' + this.accountId + '/statuses?limit=40', {})
+      this.$client.get('accounts/' + this.id + '/statuses?limit=40', {})
         .then(resp => {
           self.accountStatuses = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getFollowers () {
       let self = this
-      this.$client.get('accounts/' + this.accountId + '/followers?limit=80', {})
+      this.$client.get('accounts/' + this.id + '/followers?limit=80', {})
         .then(resp => {
           self.accountFollowers = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     getFollowing () {
       let self = this
-      this.$client.get('accounts/' + this.accountId + '/following?limit=80', {})
+      this.$client.get('accounts/' + this.id + '/following?limit=80', {})
         .then(resp => {
           self.accountFollowing = resp.data
-          this.$forceUpdate()
+          self.$forceUpdate()
         })
     },
     choiceDisplayThing (choice) {

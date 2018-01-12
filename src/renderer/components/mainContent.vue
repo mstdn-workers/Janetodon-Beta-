@@ -11,8 +11,9 @@
       <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
     </div>
     <div class="modal-info">
-      <b-modal :active.sync="isAccountModalActive">
-        <account :accountId="accountId"></account>
+      <b-modal :active.sync="isModalActive" @close="isTootActive = false;isAccountActive = false;">
+        <toot-detail :id="tootId" v-if="isTootActive"></toot-detail>
+        <account :id="accountId" v-else></account>
       </b-modal>
     </div>
   </div>
@@ -24,6 +25,7 @@ import Timeline from '@/components/Timeline/timeline'
 import UserSelect from '@/components/SideBar/user_select'
 import Notifications from '@/components/SideBar/notification'
 import Account from '@/components/ContentModal/account'
+import TootDetail from '@/components/ContentModal/toot_detail'
 
 export default {
   data () {
@@ -31,9 +33,11 @@ export default {
       isFileEnter: false,
       isMediaExist: false,
       isSpoilerActive: false,
-      isAccountModalActive: false,
-      isTootModalActive: false,
-      accountId: null
+      isModalActive: false,
+      isAccountActive: false,
+      isTootActive: false,
+      accountId: null,
+      tootId: null
     }
   },
   beforeCreate () {
@@ -41,18 +45,24 @@ export default {
     if (!this.$client) {
       this.$router.push({ name: 'index' })
     }
+
     this.$eventCaller.$on('want-account', function (id) {
-      console.log('want account')
-      if (self.isAccountModalActive) {
-        self.accountId = null
-        self.isAccountModalActive = false
-        self.$forceUpdate()
-        setTimeout(function () {
-          self.$eventCaller.$emit('want-account', id)
-        }, 500)
+      if (self.isModalActive) {
+        self.resetModal('want-account', id)
       } else {
         self.accountId = id
-        self.isAccountModalActive = true
+        self.isAccountActive = true
+        self.isModalActive = true
+      }
+    })
+
+    this.$eventCaller.$on('want-toot', function (id) {
+      if (self.isModalActive) {
+        self.resetModal('want-toot', id)
+      } else {
+        self.tootId = id
+        self.isTootActive = true
+        self.isModalActive = true
       }
     })
   },
@@ -61,7 +71,8 @@ export default {
     Timeline,
     UserSelect,
     Notifications,
-    Account
+    Account,
+    TootDetail
   },
   methods: {
     onMediaChange (isMediaExist) {
@@ -69,6 +80,18 @@ export default {
     },
     onSpoilerChange (isSpoilerActive) {
       this.isSpoilerActive = isSpoilerActive
+    },
+    resetModal (call, id) {
+      this.accountId = null
+      this.isTootActive = false
+      this.isAccountActive = false
+      this.isModalActive = false
+      this.$forceUpdate()
+
+      let self = this
+      setTimeout(function () {
+        self.$eventCaller.$emit(call, id)
+      }, 500)
     }
   },
   name: 'main-content'

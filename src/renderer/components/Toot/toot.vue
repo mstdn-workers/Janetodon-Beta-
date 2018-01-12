@@ -34,6 +34,10 @@
       </b-field>
     </div>
 
+    <div class="reply-status" :class="[this.isTargetExist ? 'reply-status_active' : 'reply-status_delete']" v-if="replyTargetStatus">
+      <status-content :status="replyTargetStatus"></status-content>
+    </div>
+
     <image-upload-area :isFileEnter="isFileEnter" :isUploading="isUploading" :dropMedia="dropMedia"></image-upload-area>
     <upload-media :dropMedia="dropMedia" :isStart="isStart" @delete="deleteMedia"></upload-media>
 
@@ -45,6 +49,7 @@ import TootVisibility from '@/components/Toot/toot_visibility'
 import ImageUploadArea from '@/components/Toot/image_upload_area'
 import UploadMedia from '@/components/Toot/upload_media'
 import MyIcon from '@/components/Toot/my_icon'
+import StatusContent from '@/components/Timeline/status_content'
 
 export default {
   props: {
@@ -61,7 +66,11 @@ export default {
       isUploading: false,
       preMediaNum: 0,
       sensitive: false,
-      isStart: true
+      isStart: true,
+      inReplyToId: null,
+      replyTargetName: null,
+      replyTargetStatus: null,
+      isTargetExist: false
     }
   },
   methods: {
@@ -70,12 +79,23 @@ export default {
       if (this.isUploading) {
         return
       }
+
       let element = {
         status: this.mainText,
         spoiler_text: this.spoilerText,
         visibility: this.visibility,
         media_ids: this.mediaIds,
         sensitive: this.sensitive
+      }
+
+      if (this.inReplyToId) {
+        element.in_reply_to_id = this.inReplyToId
+      }
+
+      let matchUser = new RegExp('@' + this.replyTargetName)
+
+      if (this.replyTargetName && this.mainText.match(matchUser)) {
+        this.inReplyToId = null
       }
 
       this.mainText = ''
@@ -85,6 +105,7 @@ export default {
       this.preMedianum = 0
       this.visibility = 'public'
       this.isSpoilerActive = false
+      this.inReplyToId = null
 
       this.$client.post('statuses', element, function (err, data, res) {
         if (err) {
@@ -110,7 +131,7 @@ export default {
 
       this.$client.post('media', { file: fs.createReadStream(this.dropMedia[index].path) }).then(resp => {
         self.uploadedMedia.push(resp.data)
-        self.mainText = resp.data.text_url + ' ' + self.mainText
+        self.mainText = self.mainText + ' ' + resp.data.text_url
 
         if (self.dropMedia.length <= index + 1) {
           self.isUploading = false
@@ -122,6 +143,19 @@ export default {
   },
   mounted () {
     this.isStart = false
+
+    let self = this
+    this.$eventCaller.$on('reply', function (status) {
+      self.mainText = self.mainText.replace(/@\S+\n/g, '')
+      self.mainText = self.mainText.replace(/@\S+/g, '')
+
+      self.inReplyToId = status.id
+      self.replyTargetName = status.account.username
+      self.replyTargetStatus = status
+      self.isTargetExist = true
+
+      self.mainText = '@' + self.replyTargetName + '\n' + self.mainText
+    })
   },
   computed: {
     tootLength: function () {
@@ -147,13 +181,23 @@ export default {
     },
     isSpoilerActive: function () {
       this.$emit('spoiler-change', this.isSpoilerActive)
+    },
+    mainText: function () {
+      let matchUser = new RegExp('@' + this.replyTargetName)
+
+      if (this.replyTargetName && !this.mainText.match(matchUser)) {
+        this.inReplyToId = null
+        this.replyTargetName = null
+        this.isTargetExist = false
+      }
     }
   },
   components: {
     TootVisibility,
     ImageUploadArea,
     UploadMedia,
-    MyIcon
+    MyIcon,
+    StatusContent
   },
   name: 'toot'
 }
@@ -231,6 +275,32 @@ $toot-back: rgb(83, 91, 111)
     color: $button-color!important
     background-color: rgb(194, 198, 210) - rgb(10, 10, 10)!important
 
+.reply-status
+  padding: 8px 10px
+  padding-left: 68px
+  position: absolute
+  min-height: 48px
+  cursor: default
+  font-size: 15px
+  width: 90%
+  background-color:  rgba(40, 44, 55, 0.86)
+  top: 0px
+  width: 75%
+  max-height: 90px
+  overflow: auto
+
+  &_active
+    animation-name: replyStatusIn
+    animation-duration: 300ms
+    animation-timing-function: ease
+    left: 15%
+
+  &_delete
+    animation-name: replyStatusOut
+    animation-duration: 300ms
+    animation-timing-function: ease
+    left: 100%
+
 // override
 .upload .upload-draggable
   display: inline-block
@@ -277,4 +347,12 @@ $toot-back: rgb(83, 91, 111)
   100%
     height: 0px
     opacity: 0
+
+@keyframes replyStatusIn
+  0%
+    left: 100%
+
+@keyframes replyStatusOut
+  0%
+    left: 15%
 </style>

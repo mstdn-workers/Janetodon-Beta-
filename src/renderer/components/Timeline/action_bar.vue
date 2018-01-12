@@ -1,10 +1,13 @@
 <template>
-  <div class="action-bar">
-    <a @click="boost">
-      <b-icon icon="refresh" :custom-class="boostClass"></b-icon>
+  <div class="action-bar" :class="mainClass">
+    <a @click="reply" :class="iconClass">
+      <b-icon icon="reply" :size="size"></b-icon>
     </a>
-    <a @click="favorite">
-      <b-icon icon="star" :custom-class="favClass"></b-icon>
+    <a @click="boost" :class="iconClass">
+      <b-icon icon="refresh" :size="size" :custom-class="boostClass"></b-icon>
+    </a>
+    <a @click="favorite" :class="iconClass">
+      <b-icon icon="star" :size="size" :custom-class="favClass"></b-icon>
     </a>
   </div>
 </template>
@@ -12,7 +15,10 @@
 <script>
   export default {
     props: {
-      status: {}
+      status: {},
+      mainClass: {},
+      iconClass: {},
+      size: {}
     },
     data () {
       return {
@@ -23,6 +29,9 @@
       }
     },
     methods: {
+      reply () {
+        this.$eventCaller.$emit('reply', this.status)
+      },
       boost () {
         let self = this
         this.$client.post('statuses/' + this.status.id + (this.action.boost ? '/unreblog' : '/reblog'), {})
