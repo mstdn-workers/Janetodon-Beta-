@@ -1,5 +1,8 @@
 <template>
   <div class="action-bar" :class="mainClass">
+    <a @click="reply" :class="iconClass">
+      <b-icon icon="reply" :size="size"></b-icon>
+    </a>
     <a @click="boost" :class="iconClass">
       <b-icon icon="refresh" :size="size" :custom-class="boostClass"></b-icon>
     </a>
@@ -26,6 +29,9 @@
       }
     },
     methods: {
+      reply () {
+        this.$eventCaller.$emit('reply', this.status)
+      },
       boost () {
         let self = this
         this.$client.post('statuses/' + this.status.id + (this.action.boost ? '/unreblog' : '/reblog'), {})

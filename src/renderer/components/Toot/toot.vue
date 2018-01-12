@@ -61,7 +61,9 @@ export default {
       isUploading: false,
       preMediaNum: 0,
       sensitive: false,
-      isStart: true
+      isStart: true,
+      inReplyToId: null,
+      replyTargetName: null
     }
   },
   methods: {
@@ -70,12 +72,23 @@ export default {
       if (this.isUploading) {
         return
       }
+
+      let matchUser = new RegExp('@' + this.replyTargetName)
+
       let element = {
         status: this.mainText,
         spoiler_text: this.spoilerText,
         visibility: this.visibility,
         media_ids: this.mediaIds,
         sensitive: this.sensitive
+      }
+
+      if (this.inReplyToId) {
+        element.in_reply_to_id = this.inReplyToId
+      }
+
+      if (this.replyTargetName && this.mainText.match(matchUser)) {
+        this.inReplyToId = null
       }
 
       this.mainText = ''
@@ -85,6 +98,8 @@ export default {
       this.preMedianum = 0
       this.visibility = 'public'
       this.isSpoilerActive = false
+      this.inReplyToId = null
+      this.replyTargetName = null
 
       this.$client.post('statuses', element, function (err, data, res) {
         if (err) {
@@ -122,6 +137,17 @@ export default {
   },
   mounted () {
     this.isStart = false
+
+    let self = this
+    this.$eventCaller.$on('reply', function (status) {
+      self.mainText = self.mainText.replace(/@\S+\n/g, '')
+      self.mainText = self.mainText.replace(/@\S+/g, '')
+
+      self.inReplyToId = status.id
+      self.replyTargetName = status.account.username
+
+      self.mainText = '@' + self.replyTargetName + '\n' + self.mainText
+    })
   },
   computed: {
     tootLength: function () {
