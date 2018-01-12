@@ -1,18 +1,10 @@
 # janetodon
-
 > An electron-vue project
 
+名前パクリはまずいと思うのでなんか替えるべきかもしれない
+
 ## 備忘録
-目先にやることリスト
-- tootをクリックすると、詳細に飛ぶ
-- mentionが続いてたら詳細の下に並べる
-- 詳細画面から戻れる
-- OGPを取得する際のproxy鯖を起動時に建てたい
-
-## 備忘録2
-CSSでbackground-colorを選択するときは!importantを
-
-colorをやるときは*でcolorが選択されてるから注意だぞ☆
+CSSでaのcolor、background-colorはimportantで設定されてる
 
 
 #### Build Setup
