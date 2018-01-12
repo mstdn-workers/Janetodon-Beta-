@@ -131,7 +131,7 @@ export default {
 
       this.$client.post('media', { file: fs.createReadStream(this.dropMedia[index].path) }).then(resp => {
         self.uploadedMedia.push(resp.data)
-        self.mainText = resp.data.text_url + ' ' + self.mainText
+        self.mainText = self.mainText + ' ' + resp.data.text_url
 
         if (self.dropMedia.length <= index + 1) {
           self.isUploading = false
