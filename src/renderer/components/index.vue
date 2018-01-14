@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <div class="main">
-      <h1>Hello electron-vue. My name is {{ name }}</h1>
-      <router-link to="login">ログイン</router-link>
-    </div>
+  <div class="main">
+    <router-link to="login">ログイン</router-link>
   </div>
 </template>
 
@@ -31,6 +28,8 @@ export default {
         })
         console.log(self.$client)
         self.$router.push({ name: 'main-content' })
+      } else {
+        self.$router.push({ name: 'login' })
       }
     })
   },
@@ -39,8 +38,5 @@ export default {
 </script>
 
 <style lang="sass">
-main
-  display: flex
-  justify-content: center
-  align-items: center
+
 </style>
