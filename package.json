@@ -1,6 +1,6 @@
 {
   "name": "janetodon",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "author": "sa2taka <sa2taka@gmail.com>",
   "description": "An electron-vue project",
   "license": null,
@@ -65,6 +65,7 @@
     "ogp-parser": "^0.4.0",
     "tunnel": "0.0.5",
     "vue": "^2.3.3",
+    "vue-awesome": "^2.3.4",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1"
