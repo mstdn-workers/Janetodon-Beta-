@@ -3,7 +3,7 @@
     <status-content :status="status"></status-content>
 
     <action-bar :status="status"></action-bar>
-    <inline-ogp :ogps="ogps" v-if="ogps&&isVisible"></inline-ogp>
+    <inline-ogp :ogps="ogps" v-if="ogps"></inline-ogp>
 
     <image-gallery v-if="status.media_attachments.length !== 0" :media="status.media_attachments" :sensitive="status.sensitive"></image-gallery>
   </div>
@@ -27,6 +27,9 @@ export default {
   methods: {
   },
   computed: {
+    firstUrl: function () {
+      return (this.status.spoiler_text.replace(/<(?!p)(.|\s).*?>/g, '') + this.status.content.replace(/<(?!p)(.|\s).*?>/g, '')).match(/https?:\/\/[^\s<>]*/)
+    }
   },
   mounted () {
     let self = this
@@ -41,6 +44,11 @@ export default {
       }).catch(function (error) {
         console.error(error)
       })
+    }
+  },
+  watch: {
+    ogps: function () {
+      console.log('ogps change')
     }
   },
   components: {
