@@ -4,7 +4,7 @@
       <div class="navbar-menu">
         <div class="navbar-end">
           <router-link class="navbar-item" :to="{ name: 'login'}">
-            <b-icon icon="sign-in" size="is-small"></b-icon> ログイン
+            <icon name="sign-in" scale="1"></icon> ログイン
           </router-link>
         </div>
       </div>
@@ -43,4 +43,15 @@ a
   z-index: 1000
   background-color: $main-background
   color: white
+
+.fa-icon
+  width: auto
+  height: 1em
+
+  /* You would have to include the following two lines to make this work in Safari */
+  max-width: 100%
+  max-height: 100%
+
+  margin: 2px
+
 </style>

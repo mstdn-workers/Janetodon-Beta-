@@ -22,7 +22,7 @@
             CW
           </div>
         </a>
-        <a v-if="dropMedia.length !== 0" class="button" @click="sensitive=!sensitive">
+        <a v-if="dropMedia.length !== 0" class="button toot-setting-button" @click="sensitive=!sensitive">
           <icon v-if="!sensitive" name="eye"></icon>
           <icon v-else name="eye-slash"></icon>
         </a>

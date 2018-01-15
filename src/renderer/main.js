@@ -8,13 +8,18 @@ import store from './store'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 
-// import './proxy.js'
+import 'vue-awesome/icons'
 
 import db from './datastore'
+
+import Icon from 'vue-awesome/components/Icon'
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
 })
+
+// globally (in your main .js file)
+Vue.component('icon', Icon)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
