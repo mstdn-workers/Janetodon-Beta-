@@ -12,7 +12,7 @@
     <div class="toot-settings">
       <b-field class="toot-settings_contents">
         <b-upload class="toot-setting-button" v-if="dropMedia.length <= 4" v-model="dropMedia" drag-drop>
-          <b-icon  icon="upload"></b-icon>
+          <icon name="upload"></icon>
         </b-upload>
 
         <toot-visibility @change="changeVisibility"></toot-visibility>
@@ -23,8 +23,8 @@
           </div>
         </a>
         <a v-if="dropMedia.length !== 0" class="button" @click="sensitive=!sensitive">
-          <b-icon v-if="!sensitive" icon="eye"></b-icon>
-          <b-icon v-else icon="eye-slash"></b-icon>
+          <icon v-if="!sensitive" name="eye"></icon>
+          <icon v-else name="eye-slash"></icon>
         </a>
         <div class="right">
           <div :style="{ fontWeight: 600, color: tootLength > 500 ? 'red' : 'rgb(45, 45, 45)'}">

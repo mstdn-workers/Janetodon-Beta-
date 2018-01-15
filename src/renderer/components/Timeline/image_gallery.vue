@@ -3,7 +3,7 @@
     <div v-if="isShow" class="media-gallery">
       <a  class="button media-secret-button overlay" @click="isShow=false">
         <span class="icon is-small">
-          <b-icon icon="eye"></b-icon>
+          <icon name="eye"></icon>
         </span>
       </a>
       <div v-for="one_media in formatedMedia" class="media-gallery_item" :style="one_media.style">

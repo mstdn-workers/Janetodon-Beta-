@@ -45,19 +45,19 @@
       </span>
       |
       <span>
-        <b-icon icon="refresh"></b-icon>
+        <icon name="refresh"></icon>
         {{ status.reblogs_count }}
       </span>
       |
       <span>
-        <b-icon icon="star"></b-icon>
+        <icon name="star"></icon>
         {{ status.favourites_count }}
       </span>
     </p>
 
     <hr style="background-color: gray;margin: 3px"/>
 
-    <action-bar :status="status" :mainClass="'main-action-bar'" :iconClass="'main-action-bar_icon'" :size="'is-medium'"></action-bar>
+    <action-bar :status="status" :mainClass="'main-action-bar'" :iconClass="'main-action-bar_icon'" :scale="'2'"></action-bar>
   </div>
 </template>
 

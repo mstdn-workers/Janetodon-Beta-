@@ -1,7 +1,7 @@
 <template>
   <div class="user-select">
     <a :class="{ 'user-select_button': true, 'user-select_active': isSelecting}">
-      <b-icon icon="user-circle" size="is-large"></b-icon>
+      <icon name="user-circle" scale="3"></icon>
     </a>
     <div class="user-menu" v-if="isSelecting">
       <div class="user-menu_content" v-for="account in accounts" @click="setAccount(account)">

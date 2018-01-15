@@ -1,13 +1,13 @@
 <template>
   <div class="action-bar" :class="mainClass">
     <a @click="reply" :class="iconClass">
-      <b-icon icon="reply" :size="size"></b-icon>
+      <icon name="reply" :scale="scale"></icon>
     </a>
     <a @click="boost" :class="iconClass">
-      <b-icon icon="refresh" :size="size" :custom-class="boostClass"></b-icon>
+      <icon name="refresh" :scale="scale" :class="boostClass"></icon>
     </a>
     <a @click="favorite" :class="iconClass">
-      <b-icon icon="star" :size="size" :custom-class="favClass"></b-icon>
+      <icon name="star" :scale="scale" :class="favClass"></icon>
     </a>
   </div>
 </template>
@@ -18,7 +18,7 @@
       status: {},
       mainClass: {},
       iconClass: {},
-      size: {}
+      scale: {}
     },
     data () {
       return {

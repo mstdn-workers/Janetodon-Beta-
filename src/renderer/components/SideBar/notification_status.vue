@@ -8,7 +8,7 @@
           </p>
         </figure>
         <div class="notification-message">
-          <b-icon :icon="icon(notification.type)" :style="style(notification.type)"></b-icon>
+          <icon :name="icon(notification.type)" :style="style(notification.type)" scale="1"></icon>
           <div class="notification-display" @click="wantAccount()">
               {{ displayName(notification.account) }}
           </div>

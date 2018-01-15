@@ -18,7 +18,7 @@
     <b-modal :active.sync="isUploading" style="z-index:1000;">
       <div class="card uploading-modal">
         <div class="media-content uploading-modal_content">
-          <b-icon icon="spinner" custom-class="fa-spin"> </b-icon> &nbsp; Uploading
+          <icon name="spinner" spin> </icon> &nbsp; Uploading
         </div>
       </div>
     </b-modal>

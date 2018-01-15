@@ -5,7 +5,7 @@
         <div class="upload-media_one animated bounceIn" v-for="(one_media, index) in dropMedia">
           <a class="button upload-media_delete-button overlay" @click="deleteMedia(index)">
             <span class="icon is-small">
-              <b-icon icon="times"></b-icon>
+              <icon icon="times"></icon>
             </span>
           </a>
           <figure class="media-left">
