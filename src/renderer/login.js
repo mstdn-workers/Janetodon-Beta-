@@ -35,18 +35,18 @@ export default {
       Mastodon.createOAuthApp(baseUrl + '/api/v1/apps', 'Janetodon', 'read write follow')
         .catch(err => {
           console.error(err)
-          this.error = err.message
+          self.error = err.message
         })
         .then((res) => {
-          this.clientId = res.client_id
-          this.clientSecret = res.client_secret
+          self.clientId = res.client_id
+          self.clientSecret = res.client_secret
           const doc = {
             url: baseUrl,
-            clientId: this.clientId,
-            clientSecret: this.clientSecret,
+            clientId: self.clientId,
+            clientSecret: self.clientSecret,
             type: 'instance'
           }
-          let db = this.$db
+          let db = self.$db
           db.insert(doc, function (err) {
             if (err) {
               console.log(err.stack)
@@ -56,10 +56,10 @@ export default {
             })
           })
 
-          return Mastodon.getAuthorizationUrl(this.clientId, this.clientSecret, baseUrl, 'read write follow', 'urn:ietf:wg:oauth:2.0:oob')
+          return Mastodon.getAuthorizationUrl(self.clientId, self.clientSecret, baseUrl, 'read write follow', 'urn:ietf:wg:oauth:2.0:oob')
         })
         .then(url => {
-          self.showLogin(url, this.clientId, this.clientSecret, baseUrl)
+          self.showLogin(url, self.clientId, self.clientSecret, baseUrl)
         })
     },
     showLogin (url, clientId, clientSecret, baseUrl) {

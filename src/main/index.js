@@ -21,6 +21,7 @@ function createWindow () {
    * Initial window options
    */
   var infoPath = path.join(app.getPath('userData'), 'bounds-info.json')
+  var dbPath = path.join(app.getPath('userData'), '/data.db')
   var fs = require('fs')
 
   var boundsInfo
@@ -28,6 +29,12 @@ function createWindow () {
     boundsInfo = JSON.parse(fs.readFileSync(infoPath, 'utf8'))
   } catch (e) {
     boundsInfo = { width: 600, height: 800 }
+  }
+
+  try {
+    fs.statSync(dbPath)
+  } catch (e) {
+    fs.writeFile(dbPath, '')
   }
 
   mainWindow = new BrowserWindow({
