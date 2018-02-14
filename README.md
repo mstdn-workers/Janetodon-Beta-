@@ -6,6 +6,8 @@
 ## 備忘録
 CSSでaのcolor、background-colorはimportantで設定されてる
 
+## 既知のバグ(issueに書け)
+- ログイン時、二回「次へ」を押さないとページが遷移しない
 
 #### Build Setup
 
