@@ -1,7 +1,7 @@
 <template>
   <div class="notifications">
     <a :class="{ 'notifications_button': true, 'notifications_active': isSelecting}">
-      <icon name="bell" scale="3" :custom-class="hasNewNotification ? 'notifications_vibe' : ''"></icon>
+      <icon name="bell" scale="3" :class="hasNewNotification ? 'notifications_vibe' : ''"></icon>
     </a>
     <div :class="[isSelecting ? 'notifications_timeline_active' : 'notifications_timeline_delete', 'notifications_timeline']" id="notification">
       <notification-status :notification="notification" v-for="notification in notifications" :key="notification.id"></notification-status>
