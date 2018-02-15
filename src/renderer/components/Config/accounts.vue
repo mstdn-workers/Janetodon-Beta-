@@ -13,6 +13,9 @@
         </p>
       </article>
     </div>
+    <div class="account-add" @click="openLogin()">
+      <b-icon icon="plus-circle" size="is-large"></b-icon>
+    </div>
   </div>
 </template>
 
@@ -37,6 +40,9 @@ export default {
   methods: {
     getInstanceName (url) {
       return url.match(/https:\/\/([^.]*)/)[1]
+    },
+    openLogin () {
+      this.$router.push({ name: 'login' })
     }
   },
   name: 'config-accounts'
@@ -45,10 +51,15 @@ export default {
 
 <style lang="sass">
 .config-accounts
-  +flex-center
-  width: 90%
+  display: flex
+  width: 80%
   overflow: auto
+  flex-flow: column
+
 .accounts-content
   z-index: 5000
   height: auto
+
+.account-add
+  +flex-center
 </style>

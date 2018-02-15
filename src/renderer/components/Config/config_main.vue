@@ -1,6 +1,6 @@
 <template>
   <div class="config-main">
-    <b-tabs size="is-medium" v-model="activeTab">
+    <b-tabs size="is-medium" v-model="activeTab" style="width: 100%;">
       <b-tab-item label="Accounts" icon="user-circle">
         <account-config></account-config>
       </b-tab-item>
@@ -27,7 +27,6 @@ export default {
 .config-main
   position: absolute
   display: flex
-  flex-flow: column
   border: solid 5px white
   border-radius: 40px
   background-color: $main-background
