@@ -1,6 +1,18 @@
 <template>
   <div class="config-accounts">
-    Hello, Config
+    <div class="accounts-content" v-for="account in accounts">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-48x48">
+            <img class="icon-image" :src="account.avatar" />
+          </p>
+        </figure>
+        <p class="media-content selectable-content">
+          <strong>{{ account.display }}</strong>
+          <small>@{{ account.username }}@{{ getInstanceName(account.url) }}</small>
+        </p>
+      </article>
+    </div>
   </div>
 </template>
 
@@ -8,6 +20,23 @@
 export default {
   data () {
     return {
+      accounts: []
+    }
+  },
+  mounted () {
+    let self = this
+
+    this.$db.find({ type: 'account' }).exec(function (err, data) {
+      if (err) {
+        console.log(err)
+        return
+      }
+      self.accounts = data
+    })
+  },
+  methods: {
+    getInstanceName (url) {
+      return url.match(/https:\/\/([^.]*)/)[1]
     }
   },
   name: 'config-accounts'
@@ -15,5 +44,11 @@ export default {
 </script>
 
 <style lang="sass">
-
+.config-accounts
+  +flex-center
+  width: 90%
+  overflow: auto
+.accounts-content
+  z-index: 5000
+  height: auto
 </style>

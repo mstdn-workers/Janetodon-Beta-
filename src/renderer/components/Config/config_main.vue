@@ -32,7 +32,8 @@ export default {
   border-radius: 40px
   background-color: $main-background
   width: 80vw
-  height: 80vw
+  height: 720px
+  min-width: 500px
   top: 100px
   left: 64px
   padding: 10px
