@@ -23,6 +23,21 @@ export default {
       if (this.addedWord === '') {
         return
       }
+
+      let doc = {
+        word: this.addedWord,
+        type: 'exclude_word'
+      }
+
+      let self = this
+      this.$db.insert(doc, function (err) {
+        if (err) {
+          console.log(err.stack)
+        }
+        self.$db.find({type: 'exclude_word'}, (_, docs) => {
+          console.dir(docs)
+        })
+      })
     }
   },
   name: 'exclude-words'
