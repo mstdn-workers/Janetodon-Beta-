@@ -3,9 +3,6 @@
     <nav class="navbar main-nav" role="navigation" aria-label="main navigation">
       <div class="navbar-menu">
         <div class="navbar-end">
-          <router-link class="navbar-item" :to="{ name: 'login'}">
-            <icon name="sign-in" scale="1"></icon> ログイン
-          </router-link>
         </div>
       </div>
     </nav>
