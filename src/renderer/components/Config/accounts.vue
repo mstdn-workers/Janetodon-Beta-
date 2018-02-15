@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getInstanceName (url) {
-      return url.match(/https:\/\/([^.]*)/)[1]
+      return url.match(/https:\/\/(.*)/)[1]
     },
     openLogin () {
       this.$router.push({ name: 'login' })
