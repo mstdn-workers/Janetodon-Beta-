@@ -1,7 +1,7 @@
 <template>
   <div class="config-main">
     <b-tabs size="is-medium" v-model="activeTab">
-      <b-tab-item label="accounts" icon="user-circle">
+      <b-tab-item label="Accounts" icon="user-circle">
         <account-config></account-config>
       </b-tab-item>
     </b-tabs>
@@ -26,7 +26,6 @@ export default {
 <style lang="sass">
 .config-main
   position: absolute
-  transition: all 200ms 0s ease
   display: flex
   flex-flow: column
   border: solid 5px white
@@ -34,8 +33,20 @@ export default {
   background-color: $main-background
   width: 80vw
   height: 80vw
-  top: 128px
+  top: 100px
   left: 64px
-  transform-origin: -25px 90px
   padding: 10px
+
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 0
+    height: 0
+    border-style: solid
+    border-width: 0 10px 20px
+    border-color: transparent transparent rgb(102, 96, 135)
+    top: 48px
+    left: -25px
+    transform: rotate(-90deg)
 </style>

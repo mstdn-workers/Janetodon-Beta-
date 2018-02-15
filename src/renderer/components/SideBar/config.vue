@@ -3,7 +3,7 @@
     <a :class="{ 'config-menu_button': true, 'config-menu_active': isSelecting}">
       <icon name="cog" scale="3"></icon>
     </a>
-    <config-main v-if="isSelecting"></config-main>
+    <config-main :class="{ 'config-window': true, 'config-window_delete': !isSelecting}"></config-main>
   </div>
 </template>
 
@@ -48,4 +48,12 @@ export default {
     background-color: $side-bar-back!important
     &:hover
       background-color: $side-bar-back!important
+
+.config-window
+  transition: all 200ms 0s ease
+  transform-origin: -32px 50px
+
+  &_delete
+    transform: scale(0)
+
 </style>
