@@ -4,6 +4,7 @@
     <div class="side-bar">
       <user-select></user-select>
       <notifications></notifications>
+      <config></config>
     </div>
 
     <div class="content">
@@ -26,6 +27,7 @@ import UserSelect from '@/components/SideBar/user_select'
 import Notifications from '@/components/SideBar/notification'
 import Account from '@/components/ContentModal/account'
 import TootDetail from '@/components/ContentModal/toot_detail'
+import Config from '@/components/SideBar/config'
 
 export default {
   data () {
@@ -72,7 +74,8 @@ export default {
     UserSelect,
     Notifications,
     Account,
-    TootDetail
+    TootDetail,
+    Config
   },
   methods: {
     onMediaChange (isMediaExist) {
