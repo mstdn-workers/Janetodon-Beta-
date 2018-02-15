@@ -1,6 +1,6 @@
 <template>
   <div class="config-accounts">
-    <div class="accounts-content" v-for="account in accounts">
+    <div class="accounts-content" v-for="account in accounts" @click="setAccount(account)">
       <article class="media">
         <figure class="media-left">
           <p class="image is-48x48">
@@ -20,7 +20,10 @@
 </template>
 
 <script>
+import login from '@/login'
+
 export default {
+  mixins: [login],
   data () {
     return {
       accounts: []
@@ -43,6 +46,9 @@ export default {
     },
     openLogin () {
       this.$router.push({ name: 'login' })
+    },
+    setAccount (account) {
+      this.updateClient(account)
     }
   },
   name: 'config-accounts'
