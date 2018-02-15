@@ -3,10 +3,13 @@
     <a :class="{ 'config-menu_button': true, 'config-menu_active': isSelecting}">
       <icon name="cog" scale="3"></icon>
     </a>
+    <config-main v-if="isSelecting"></config-main>
   </div>
 </template>
 
 <script>
+import ConfigMain from '@/components/Config/config_main'
+
 export default {
   data () {
     return {
@@ -18,10 +21,13 @@ export default {
     window.addEventListener('click', function (event) {
       if (event.target.closest('.config-menu_button')) {
         self.isSelecting = !self.isSelecting
-      } else {
+      } else if (!event.target.closest('.config-main')) {
         self.isSelecting = false
       }
     })
+  },
+  components: {
+    ConfigMain
   },
   name: 'config'
 }
