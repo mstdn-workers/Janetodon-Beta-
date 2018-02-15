@@ -65,7 +65,9 @@ export default {
 .accounts-content
   z-index: 5000
   height: auto
+  cursor: pointer
 
 .account-add
   +flex-center
+  cursor: pointer
 </style>

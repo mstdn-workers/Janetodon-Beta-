@@ -98,6 +98,7 @@ export default {
   &_content
     z-index: 5000
     height: auto
+    cursor: pointer
 
   &:after
     content: ""
