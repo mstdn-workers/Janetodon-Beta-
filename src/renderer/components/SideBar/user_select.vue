@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getInstanceName (url) {
-      return url.match(/https:\/\/([^.]*)/)[1]
+      return url.match(/https:\/\/(.*)/)[1]
     },
     setAccount (account) {
       this.updateClient(account)
@@ -98,6 +98,7 @@ export default {
   &_content
     z-index: 5000
     height: auto
+    cursor: pointer
 
   &:after
     content: ""
