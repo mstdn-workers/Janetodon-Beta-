@@ -57,35 +57,31 @@ export default {
         if (err) {
           console.log(err.stack)
         }
-        self.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (_, docs) {
-          self.excludeWords = docs
-          self.$eventCaller.$emit('change-exclude', self.excludeWords)
-        })
+        self.updateWords()
       })
+
+      this.addedWord = ''
     },
     deleteCheckedWords () {
       let self = this
 
       this.checkedRows.forEach(function (val, index, excludeWords) {
         self.$db.remove({ _id: val['_id'] }, { }, function (_) {
-          self.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (_, docs) {
-            self.excludeWords = docs
-            self.$eventCaller.$emit('change-exclude', self.excludeWords)
-            console.log(self.excludeWords)
-          })
+          self.updateWords()
         })
+      })
+    },
+    updateWords () {
+      let self = this
+      this.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (_, docs) {
+        self.excludeWords = docs
+        self.$eventCaller.$emit('change-exclude', self.excludeWords)
+        console.log(self.excludeWords)
       })
     }
   },
   mounted () {
-    let self = this
-    this.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (err, docs) {
-      if (err) {
-        console.log(err)
-        return
-      }
-      self.excludeWords = docs
-    })
+    this.updateWords()
   },
   name: 'exclude-words'
 }
