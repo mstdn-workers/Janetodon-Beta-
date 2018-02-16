@@ -45,29 +45,26 @@ export default {
         type: 'exclude_word'
       }
 
-      this.excludeWords.push({ 'word': this.addedWord })
-
-      this.$eventCaller.$emit('change-exclude', this.excludeWords)
-
       let self = this
       this.$db.insert(doc, function (err) {
         if (err) {
           console.log(err.stack)
         }
-        self.$db.find({type: 'exclude_word'}, (_, docs) => {
-          console.dir(docs)
+        self.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (_, docs) {
+          self.excludeWords = docs
+          self.$eventCaller.$emit('change-exclude', self.excludeWords)
         })
       })
     }
   },
   mounted () {
     let self = this
-    this.$db.find({ type: 'exclude_word' }).exec(function (err, data) {
+    this.$db.find({type: 'exclude_word'}).sort({ word: 1 }).exec(function (err, docs) {
       if (err) {
         console.log(err)
         return
       }
-      self.excludeWords = data
+      self.excludeWords = docs
     })
   },
   name: 'exclude-words'
