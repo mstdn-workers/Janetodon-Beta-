@@ -9,7 +9,7 @@
 
     <div class="content">
       <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
-      <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
+      <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive" :excludeWords="excludeWords"></timeline>
     </div>
     <div class="modal-info">
       <b-modal :active.sync="isModalActive" @close="isTootActive = false;isAccountActive = false;">

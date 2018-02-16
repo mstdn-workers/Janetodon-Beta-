@@ -1,7 +1,7 @@
 <template>
   <div :class="{ timeline: true, 'media-appear': isMediaExist, 'spoiler-appear': isSpoilerActive}">
     <a :class="['to-top', isTop ? 'to-top_delete' : 'to-top_active']" @click="moveToTop">最新tootへ戻る</a>
-    <div  v-for="status in statuses" :key="status.id">
+    <div  v-for="status in statuses" :key="status.id" v-if="!isExcludeStatus(status)">
       <one-status :status="status"></one-status>
     </div>
   </div>
@@ -13,7 +13,8 @@ import OneStatus from '@/components/Timeline/one_status'
 export default {
   props: {
     isMediaExist: {},
-    isSpoilerActive: {}
+    isSpoilerActive: {},
+    excludeWords: []
   },
   data () {
     return {
@@ -117,6 +118,18 @@ export default {
     },
     moveToTop () {
       document.body.scrollTop = 0
+    },
+    isExcludeStatus (status) {
+      let result = false
+      this.excludeWords.some(function (value) {
+        let regexp = new RegExp(value['word'])
+
+        if (status.content.match(regexp) || status.spoiler_text.match(regexp)) {
+          result = true
+          return true
+        }
+      })
+      return result
     }
   },
   name: 'timeline'
