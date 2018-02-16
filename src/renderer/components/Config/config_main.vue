@@ -4,12 +4,17 @@
       <b-tab-item label="Accounts" icon="user-circle">
         <account-config></account-config>
       </b-tab-item>
+      <b-tab-item label="Exclude Words" icon="filter">
+        <exclude-words></exclude-words>
+      </b-tab-item>
     </b-tabs>
   </div>
 </template>
 
 <script>
 import AccountConfig from '@/components/Config/accounts'
+import ExcludeWords from '@/components/Config/exclude_words'
+
 export default {
   data () {
     return {
@@ -17,7 +22,8 @@ export default {
     }
   },
   components: {
-    AccountConfig
+    AccountConfig,
+    ExcludeWords
   },
   name: 'config-main'
 }

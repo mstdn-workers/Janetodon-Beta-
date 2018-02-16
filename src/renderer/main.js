@@ -36,3 +36,6 @@ new Vue({
 
 // イベント用のvueオブジェクトを作る
 Vue.prototype.$eventCaller = new Vue()
+
+// LTLから除去する単語をグローバルで宣言する
+Vue.prototype.$excludeWords = []

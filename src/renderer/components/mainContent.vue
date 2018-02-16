@@ -9,7 +9,7 @@
 
     <div class="content">
       <toot :isFileEnter="isFileEnter" @media-change="onMediaChange" @spoiler-change="onSpoilerChange"></toot>
-      <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive"></timeline>
+      <timeline :isMediaExist="isMediaExist" :isSpoilerActive="isSpoilerActive" :excludeWords="excludeWords"></timeline>
     </div>
     <div class="modal-info">
       <b-modal :active.sync="isModalActive" @close="isTootActive = false;isAccountActive = false;">
@@ -39,7 +39,8 @@ export default {
       isAccountActive: false,
       isTootActive: false,
       accountId: null,
-      tootId: null
+      tootId: null,
+      excludeWords: []
     }
   },
   beforeCreate () {
@@ -66,6 +67,18 @@ export default {
         self.isTootActive = true
         self.isModalActive = true
       }
+    })
+
+    this.$eventCaller.$on('change-exclude', function (words) {
+      self.excludeWords = words
+    })
+
+    this.$db.find({ type: 'exclude_word' }).exec(function (err, data) {
+      if (err) {
+        console.log(err)
+        return
+      }
+      self.excludeWords = data
     })
   },
   components: {
